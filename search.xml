@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title></title>
-    <url>/2022/03/02/SSM%E6%A1%86%E6%9E%B6(Spring+SpringMVC+MyBatis)%E6%95%B4%E5%90%88%E6%90%AD%E5%BB%BA%E6%AD%A5%E9%AA%A4/</url>
-    <content><![CDATA[<h2 id="SSM框架-Spring-SpringMVC-MyBatis-整合搭建步骤"><a href="#SSM框架-Spring-SpringMVC-MyBatis-整合搭建步骤" class="headerlink" title="SSM框架(Spring+SpringMVC+MyBatis)整合搭建步骤"></a>SSM框架(Spring+SpringMVC+MyBatis)整合搭建步骤</h2><h3 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h3><p>​        因为 Spring MVC 是 Spring 框架中的一个子模块，所以 Spring 与 SpringMVC 之间不存在整合的问题。实际上，SSM框架的整合只涉及 Spring 与 MyBatis 的整合以及 Spring MVC 与 MyBatis 的整合。</p>
+    <title>SSM框架(Spring+SpringMVC+MyBatis)整合搭建步骤</title>
+    <url>/2020/09/01/SSM%E6%A1%86%E6%9E%B6(Spring+SpringMVC+MyBatis)%E6%95%B4%E5%90%88%E6%90%AD%E5%BB%BA%E6%AD%A5%E9%AA%A4/</url>
+    <content><![CDATA[<h3 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h3><p>​        因为 Spring MVC 是 Spring 框架中的一个子模块，所以 Spring 与 SpringMVC 之间不存在整合的问题。实际上，SSM框架的整合只涉及 Spring 与 MyBatis 的整合以及 Spring MVC 与 MyBatis 的整合。</p>
 <h3 id="一、基本环境搭建"><a href="#一、基本环境搭建" class="headerlink" title="一、基本环境搭建"></a>一、基本环境搭建</h3><ol>
 <li><p>新建一个Maven项目</p>
 </li>
@@ -56,5 +56,8 @@
 </ol>
 <p><strong>至此SSM框架就整合完成！</strong></p>
 ]]></content>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
   </entry>
 </search>
