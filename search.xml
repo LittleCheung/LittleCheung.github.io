@@ -93,4 +93,63 @@
         <tag>学习笔记</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Java中的对象术语(PO/POJO/VO/BO/DAO/DTO)总结</title>
+    <url>/2020/02/12/Java%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E6%9C%AF%E8%AF%AD%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>刚开始学习Java Web时接触到DAO和POJO还经常搞混，后来上网查才发现好家伙还不知这两种对象，于是试着结合网上的资料和一些个人的理解对Java中常用的一些对象进行总结。</p>
+<span id="more"></span>
+
+<h2 id="1-PO-persistant-object-持久化对象"><a href="#1-PO-persistant-object-持久化对象" class="headerlink" title="1. PO(persistant object) : 持久化对象"></a><strong>1. PO(persistant object) : 持久化对象</strong></h2><ol>
+<li><p>可理解为DAO层中接收和返回的Java Bean，与数据库的数据结构形成一一对应的映射关系。</p>
+</li>
+<li><p>是数据库表中的记录在Java对象中的显示状态，一个PO对应一张数据库表，数据库表中的每个字段就对应PO的一个属性。</p>
+</li>
+</ol>
+<h2 id="2-VO-value-object-值对象-view-object表现层对象"><a href="#2-VO-value-object-值对象-view-object表现层对象" class="headerlink" title="2. VO(value object) : 值对象 / view object表现层对象"></a><strong>2. VO(value object) : 值对象 / view object表现层对象</strong></h2><ol>
+<li><p>可理解为View层中用于显示的Java Bean</p>
+</li>
+<li><p>主要对应页面显示（web页面(jsp…)/swt、swing界面）的数据对象，所以它可以和表对应，也可以不和表对应（大部分情况是表所有字段集合的子集）。</p>
+</li>
+<li><p>与DTO的区别是：DTO用于无界面的Web Service传输中，而VO用于界面的展示，也可以把DTO转化为VO提供给前台。</p>
+</li>
+</ol>
+<h2 id="3-BO-business-object-业务对象"><a href="#3-BO-business-object-业务对象" class="headerlink" title="3. BO(business object) : 业务对象"></a><strong>3. BO(business object) : 业务对象</strong></h2><ol>
+<li><p>可理解为Service层中接收和返回的Java Bean。</p>
+</li>
+<li><p>从业务模型的角度看，是封装业务逻辑的java对象，通过调用DAO方法，结合PO,VO进行业务操作。</p>
+</li>
+<li><p>根据业务逻辑，将封装业务逻辑为一个对象，可以包括多个PO，通常需要将BO转化成PO，才能进行数据的持久化，反之，从数据库中得到的PO，需要转化成BO才能在业务层使用。</p>
+</li>
+</ol>
+<h2 id="4-POJO-plain-ordinary-java-object-简单无规则java对象"><a href="#4-POJO-plain-ordinary-java-object-简单无规则java对象" class="headerlink" title="4. POJO(plain ordinary java object) : 简单无规则java对象"></a><strong>4. POJO(plain ordinary java object) : 简单无规则java对象</strong></h2><ol>
+<li><p>理解为各个层中接收和返回的Java Bean统称，实际上就是普通的Java Bean，POJO类中有属性和getter、setter方法，但是没有业务逻辑，可以作为支持业务逻辑的协助类。</p>
+</li>
+<li><p>是一个抽象的统一概念，可以当作简单的Java对象，也可以如下转化为PO、DTO、VO（或者说PO、DTO、VO是POJO的不同的具体阶段的名字）。</p>
+</li>
+<li><p>POJO持久化之后==〉PO</p>
+</li>
+<li><p>POJO传输过程中==〉DTO</p>
+</li>
+<li><p>POJO用作表示层==〉VO</p>
+</li>
+</ol>
+<h2 id="5-DAO-data-access-object-数据访问对象"><a href="#5-DAO-data-access-object-数据访问对象" class="headerlink" title="5. DAO(data access object) : 数据访问对象"></a><strong>5. DAO(data access object) : 数据访问对象</strong></h2><ol>
+<li><p>DAO负责将PO持久化到数据库，也负责将数据库查询的结果集映射为PO。</p>
+</li>
+<li><p>为业务层提供接口，此对象用于访问数据库（CRUD操作），通常和PO结合使用；DAO中包含了各种数据库的操作方法，通过它的方法，结合PO对数据库进行相关的操作，夹在业务逻辑与数据库资源中间，配合VO,，提供数据库的CRUD操作。</p>
+</li>
+</ol>
+<h2 id="6-DTO-Data-Transfer-Object-数据传输对象"><a href="#6-DTO-Data-Transfer-Object-数据传输对象" class="headerlink" title="6. DTO (Data Transfer Object) : 数据传输对象"></a><strong>6. DTO (Data Transfer Object) : 数据传输对象</strong></h2><ol>
+<li>可理解为Controller层中接收和返回的Java Bean</li>
+<li>用于在需要跨进程或远程传输时，它不应该包含业务逻辑。</li>
+<li>举一个例子：比如一张表有100个字段，那么对应的PO就有100个属性，但View层只需显示10个字段，没有必要把整个PO对象传递到client，这时我们就可以用只有这10个属性的DTO来传输数据到client，这样也不会暴露server端表结构。到达客户端以后，如果用这个对象来对应界面进行显示，那此时它的身份就转为VO。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
 </search>
