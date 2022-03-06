@@ -20,30 +20,33 @@
     var CONFIG = {"hostname":"littlecheung.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="坂道偶像宅 | 后端打工人 | 小镇青年">
-<meta property="og:type" content="website">
-<meta property="og:title" content="小张的个人博客">
-<meta property="og:url" content="https://littlecheung.github.io/index.html">
+  <meta name="description" content="前言1. Java集合概述1.1 集合与数组的比较一、数组在存储多个数据方面的特点：  一旦初始化以后，其长度就确定了； 数组一旦定义好，其元素的类型也就确定了，我们也就只能操作指定类型的数据了；  二、数组在存储多个数据方面的缺点：  一旦初始化以后，其长度就不可修改了； 数组中提供的方法有限，不便于添加、删除、插入数据等操作。同时效率不高； 数组没有现成的属性或方法获取数组中实际元素的个数；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java集合学习笔记">
+<meta property="og:url" content="https://littlecheung.github.io/2020/03/12/Java%E9%9B%86%E5%90%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="小张的个人博客">
-<meta property="og:description" content="坂道偶像宅 | 后端打工人 | 小镇青年">
+<meta property="og:description" content="前言1. Java集合概述1.1 集合与数组的比较一、数组在存储多个数据方面的特点：  一旦初始化以后，其长度就确定了； 数组一旦定义好，其元素的类型也就确定了，我们也就只能操作指定类型的数据了；  二、数组在存储多个数据方面的缺点：  一旦初始化以后，其长度就不可修改了； 数组中提供的方法有限，不便于添加、删除、插入数据等操作。同时效率不高； 数组没有现成的属性或方法获取数组中实际元素的个数；">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-12T08:21:35.000Z">
+<meta property="article:modified_time" content="2022-03-06T10:13:22.881Z">
 <meta property="article:author" content="Lucas Cheung">
+<meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://littlecheung.github.io/">
+<link rel="canonical" href="https://littlecheung.github.io/2020/03/12/Java%E9%9B%86%E5%90%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>小张的个人博客</title>
+  <title>Java集合学习笔记 | 小张的个人博客</title>
   
 
 
@@ -182,390 +185,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://littlecheung.github.io/2021/10/03/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E4%B8%89%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%E6%AF%94%E8%BE%83/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Littlecheung.jpg">
-      <meta itemprop="name" content="Lucas Cheung">
-      <meta itemprop="description" content="坂道偶像宅 | 后端打工人 | 小镇青年">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小张的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/10/03/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E4%B8%89%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%E6%AF%94%E8%BE%83/" class="post-title-link" itemprop="url">单点登录三种实现方式比较</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-10-03 18:21:35" itemprop="dateCreated datePublished" datetime="2021-10-03T18:21:35+08:00">2021-10-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-03 23:41:42" itemprop="dateModified" datetime="2022-03-03T23:41:42+08:00">2022-03-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>878</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
 
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​            单点登录（Single Sign On, 简称SSO）是指在同一帐号平台下的多个应用系统中，用户只需登录一次，即可访问所有相互信任的应用系统。以百度为例，如果用户在百度贴吧登录过之后，当他访问百度知道时就无需再次登录即可使用服务，而百度贴吧和百度知道是百度公司旗下的两个不同的应用系统，那么就说明百度贴吧和百度知道之间实现了单点登录。</p>
-<p>​            单点登录的实现方式有多种，下面来总结三种在学习过程中遇到过的实现方法：</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/10/03/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E4%B8%89%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%E6%AF%94%E8%BE%83/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://littlecheung.github.io/2021/03/06/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8CJUC%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Littlecheung.jpg">
-      <meta itemprop="name" content="Lucas Cheung">
-      <meta itemprop="description" content="坂道偶像宅 | 后端打工人 | 小镇青年">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小张的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/06/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8CJUC%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">多线程和JUC并发编程学习笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-03-06 16:21:35" itemprop="dateCreated datePublished" datetime="2021-03-06T16:21:35+08:00">2021-03-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-06 16:51:28" itemprop="dateModified" datetime="2022-03-06T16:51:28+08:00">2022-03-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>21k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>19 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这个是个人在学习多线程和并发编程时记录的笔记，仅涉及并发编程的基础知识</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/03/06/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8CJUC%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://littlecheung.github.io/2020/09/03/Java%20web%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E5%B1%82%E5%8F%8A%E5%90%84%E8%87%AA%E4%BD%9C%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Littlecheung.jpg">
-      <meta itemprop="name" content="Lucas Cheung">
-      <meta itemprop="description" content="坂道偶像宅 | 后端打工人 | 小镇青年">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小张的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/03/Java%20web%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E5%B1%82%E5%8F%8A%E5%90%84%E8%87%AA%E4%BD%9C%E7%94%A8/" class="post-title-link" itemprop="url">Java web开发中的各种层作用理解</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-09-03 18:20:34" itemprop="dateCreated datePublished" datetime="2020-09-03T18:20:34+08:00">2020-09-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-02 22:36:11" itemprop="dateModified" datetime="2022-03-02T22:36:11+08:00">2022-03-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>一般的项目模块中都有Dao层、Entity层、Service层、Controller层和View层，今天来分享一下个人对各层作用的理解；</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/03/Java%20web%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E5%B1%82%E5%8F%8A%E5%90%84%E8%87%AA%E4%BD%9C%E7%94%A8/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://littlecheung.github.io/2020/09/01/SSM%E6%A1%86%E6%9E%B6(Spring+SpringMVC+MyBatis)%E6%95%B4%E5%90%88%E6%90%AD%E5%BB%BA%E6%AD%A5%E9%AA%A4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Littlecheung.jpg">
-      <meta itemprop="name" content="Lucas Cheung">
-      <meta itemprop="description" content="坂道偶像宅 | 后端打工人 | 小镇青年">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小张的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/01/SSM%E6%A1%86%E6%9E%B6(Spring+SpringMVC+MyBatis)%E6%95%B4%E5%90%88%E6%90%AD%E5%BB%BA%E6%AD%A5%E9%AA%A4/" class="post-title-link" itemprop="url">SSM框架(Spring+SpringMVC+MyBatis)整合搭建步骤</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-09-01 15:38:24" itemprop="dateCreated datePublished" datetime="2020-09-01T15:38:24+08:00">2020-09-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-02 22:37:42" itemprop="dateModified" datetime="2022-03-02T22:37:42+08:00">2022-03-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>14k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>13 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><p>因为 Spring MVC 是 Spring 框架中的一个子模块，所以 Spring 与 SpringMVC 之间不存在整合的问题，本质上SSM框架的整合只涉及 Spring 与 MyBatis 的整合，以及 Spring MVC 与 MyBatis 的整合。而各自整合的步骤如下：</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/01/SSM%E6%A1%86%E6%9E%B6(Spring+SpringMVC+MyBatis)%E6%95%B4%E5%90%88%E6%90%AD%E5%BB%BA%E6%AD%A5%E9%AA%A4/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -581,10 +204,9 @@
       <meta itemprop="name" content="小张的个人博客">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/12/Java%E9%9B%86%E5%90%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">Java集合学习笔记</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Java集合学习笔记
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -637,7 +259,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h2 id="1-Java集合概述"><a href="#1-Java集合概述" class="headerlink" title="1. Java集合概述"></a>1. Java集合概述</h2><h3 id="1-1-集合与数组的比较"><a href="#1-1-集合与数组的比较" class="headerlink" title="1.1 集合与数组的比较"></a>1.1 集合与数组的比较</h3><p><strong>一、数组在存储多个数据方面的特点：</strong></p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h2 id="1-Java集合概述"><a href="#1-Java集合概述" class="headerlink" title="1. Java集合概述"></a>1. Java集合概述</h2><h3 id="1-1-集合与数组的比较"><a href="#1-1-集合与数组的比较" class="headerlink" title="1.1 集合与数组的比较"></a>1.1 集合与数组的比较</h3><p><strong>一、数组在存储多个数据方面的特点：</strong></p>
 <ul>
 <li>一旦初始化以后，其长度就确定了；</li>
 <li>数组一旦定义好，其元素的类型也就确定了，我们也就只能操作指定类型的数据了；</li>
@@ -847,211 +469,36 @@
 </li>
 </ol>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"># 学习笔记</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://littlecheung.github.io/2020/02/12/Java%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E6%9C%AF%E8%AF%AD%E6%80%BB%E7%BB%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Littlecheung.jpg">
-      <meta itemprop="name" content="Lucas Cheung">
-      <meta itemprop="description" content="坂道偶像宅 | 后端打工人 | 小镇青年">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小张的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/12/Java%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E6%9C%AF%E8%AF%AD%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">Java中的对象术语(PO/POJO/VO/BO/DAO/DTO)总结</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-12 17:20:34" itemprop="dateCreated datePublished" datetime="2020-02-12T17:20:34+08:00">2020-02-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-03 21:10:16" itemprop="dateModified" datetime="2022-03-03T21:10:16+08:00">2022-03-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>刚开始学习Java Web时接触到DAO和POJO还经常搞混，后来上网查才发现还不只有这两种对象，每一层的Java Bean有不同的称呼，于是试着结合网上的资料和一些个人的理解对Java中常用的一些对象进行总结。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/12/Java%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E6%9C%AF%E8%AF%AD%E6%80%BB%E7%BB%93/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://littlecheung.github.io/2020/02/03/MySQL%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Littlecheung.jpg">
-      <meta itemprop="name" content="Lucas Cheung">
-      <meta itemprop="description" content="坂道偶像宅 | 后端打工人 | 小镇青年">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小张的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/03/MySQL%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">MySQL入门学习笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-03 17:20:34" itemprop="dateCreated datePublished" datetime="2020-02-03T17:20:34+08:00">2020-02-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-04 13:28:42" itemprop="dateModified" datetime="2022-03-04T13:28:42+08:00">2022-03-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>37k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>34 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这是个人刚开始学习MySQL数据库时所记录的一些笔记，总结成十几章内容，包括基本增删改查操作语句，创建数据库，创建修改数据表，约束，视图，存储过程和函数，变量，流程控制和触发器等内容，适合刚开始接触数据库学习的小伙伴o(<em>￣▽￣</em>)ブ</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/03/MySQL%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/12/Java%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E6%9C%AF%E8%AF%AD%E6%80%BB%E7%BB%93/" rel="prev" title="Java中的对象术语(PO/POJO/VO/BO/DAO/DTO)总结">
+      <i class="fa fa-chevron-left"></i> Java中的对象术语(PO/POJO/VO/BO/DAO/DTO)总结
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/09/01/SSM%E6%A1%86%E6%9E%B6(Spring+SpringMVC+MyBatis)%E6%95%B4%E5%90%88%E6%90%AD%E5%BB%BA%E6%AD%A5%E9%AA%A4/" rel="next" title="SSM框架(Spring+SpringMVC+MyBatis)整合搭建步骤">
+      SSM框架(Spring+SpringMVC+MyBatis)整合搭建步骤 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
@@ -1104,6 +551,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Java%E9%9B%86%E5%90%88%E6%A6%82%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">1. Java集合概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E9%9B%86%E5%90%88%E4%B8%8E%E6%95%B0%E7%BB%84%E7%9A%84%E6%AF%94%E8%BE%83"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 集合与数组的比较</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Collection%E6%8E%A5%E5%8F%A3%EF%BC%88%E9%87%8D%E7%82%B9%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">2. Collection接口（重点）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 常用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Iterator%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%8E%A5%E5%8F%A3"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 Iterator迭代器接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-Iterator%E6%8E%A5%E5%8F%A3%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">3.2.1.</span> <span class="nav-text">2.2.1 Iterator接口使用方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-%E9%81%8D%E5%8E%86%E9%9B%86%E5%90%88%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.2.2 遍历集合的几种方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F%E4%B8%80%EF%BC%9A%E4%BD%BF%E7%94%A8iterator%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">1. 遍历方式一：使用iterator迭代器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%9A%E4%BD%BF%E7%94%A8foreach%E5%BE%AA%E7%8E%AF"><span class="nav-number">3.2.2.2.</span> <span class="nav-text">2. 遍历方式二：使用foreach循环</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F%E4%B8%89%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%99%AE%E9%80%9A%E5%BE%AA%E7%8E%AF"><span class="nav-number">3.2.2.3.</span> <span class="nav-text">3. 遍历方式三：使用普通循环</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-List%E6%8E%A5%E5%8F%A3"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 List接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1-ArrayList%EF%BC%88%E5%B8%B8%E7%94%A8%EF%BC%89"><span class="nav-number">3.3.1.</span> <span class="nav-text">2.3.1 ArrayList（常用）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2-LinkedList%EF%BC%88%E5%B8%B8%E7%94%A8%EF%BC%89"><span class="nav-number">3.3.2.</span> <span class="nav-text">2.3.2 LinkedList（常用）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-3-Vector%EF%BC%88%E5%B7%B2%E8%BF%87%E6%97%B6%EF%BC%89"><span class="nav-number">3.3.3.</span> <span class="nav-text">2.3.3 Vector（已过时）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-4-%E4%B8%89%E8%80%85%E7%9A%84%E5%BC%82%E5%90%8C%E7%82%B9"><span class="nav-number">3.3.4.</span> <span class="nav-text">2.3.4 三者的异同点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-5-List%E6%8E%A5%E5%8F%A3%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%E6%8E%A8%E8%8D%90"><span class="nav-number">3.3.5.</span> <span class="nav-text">2.3.5 List接口使用场景推荐</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-Set%E6%8E%A5%E5%8F%A3"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 Set接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-1-HashSet%EF%BC%88%E5%B8%B8%E7%94%A8%EF%BC%89"><span class="nav-number">3.4.1.</span> <span class="nav-text">2.4.1 HashSet（常用）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-2-LinkedHashSet"><span class="nav-number">3.4.2.</span> <span class="nav-text">2.4.2 LinkedHashSet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-3-TreeSet"><span class="nav-number">3.4.3.</span> <span class="nav-text">2.4.3 TreeSet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-4-%E4%B8%89%E8%80%85%E7%9A%84%E5%BC%82%E5%90%8C%E7%82%B9"><span class="nav-number">3.4.4.</span> <span class="nav-text">2.4.4 三者的异同点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Map%E6%8E%A5%E5%8F%A3%EF%BC%88%E9%87%8D%E7%82%B9%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">3. Map接口（重点）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-Map%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 Map的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-HashMap%EF%BC%88%E5%B8%B8%E7%94%A8%EF%BC%89"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 HashMap（常用）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-HashMap%E6%A6%82%E8%BF%B0"><span class="nav-number">4.2.1.</span> <span class="nav-text">1. HashMap概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-HashMap%E5%9C%A8JDK7-0%E4%B8%8EJDK-8-0%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%AF%B9%E6%AF%94"><span class="nav-number">4.2.2.</span> <span class="nav-text">2. HashMap在JDK7.0与JDK 8.0底层实现原理对比</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-LinkedHashMap"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 LinkedHashMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-TreeMap"><span class="nav-number">4.4.</span> <span class="nav-text">3.4 TreeMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-HashTable%EF%BC%88%E5%B7%B2%E8%BF%87%E6%97%B6%EF%BC%89"><span class="nav-number">4.5.</span> <span class="nav-text">3.5 HashTable（已过时）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-Properties"><span class="nav-number">4.6.</span> <span class="nav-text">3.6 Properties</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-%E4%BA%94%E8%80%85%E7%9A%84%E5%BC%82%E5%90%8C%E7%82%B9"><span class="nav-number">4.7.</span> <span class="nav-text">3.7 五者的异同点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Collections%E5%B7%A5%E5%85%B7%E7%B1%BB"><span class="nav-number">5.</span> <span class="nav-text">4. Collections工具类</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
