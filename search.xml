@@ -3041,4 +3041,300 @@
         <tag>软件使用</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Redis学习笔记</title>
+    <url>/2020/10/05/Redis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Redis个人总结的学习笔记，后续继续补充知识点</p>
+<span id="more"></span>
+
+<h2 id="1-Redis概述"><a href="#1-Redis概述" class="headerlink" title="1.Redis概述"></a>1.Redis概述</h2><p><strong>Redis实现机制：</strong>单线程+多路IO复用（具有原子性的原因）</p>
+<h3 id="1-1-Redis基础命令"><a href="#1-1-Redis基础命令" class="headerlink" title="1.1 Redis基础命令"></a>1.1 Redis基础命令</h3><h4 id="1-1-1-Redis手动启动方式"><a href="#1-1-1-Redis手动启动方式" class="headerlink" title="1.1.1 Redis手动启动方式"></a>1.1.1 <strong>Redis手动启动方式</strong></h4><p>Redis服务器启动命令：redis-server</p>
+<h4 id="1-1-2-Redis后台自启动方式"><a href="#1-1-2-Redis后台自启动方式" class="headerlink" title="1.1.2 Redis后台自启动方式"></a>1.1.2 <strong>Redis后台自启动方式</strong></h4><ol>
+<li>复制redis.conf到任意新目录（自定义redis.conf）</li>
+<li>修改redis.conf中的daemonize no改为yes，让服务自启动</li>
+<li>redis-server  /新目录/redis.conf：启动服务</li>
+<li>redis-cli：连接客户端</li>
+</ol>
+<h4 id="1-1-3-Redis关闭方式："><a href="#1-1-3-Redis关闭方式：" class="headerlink" title="1.1.3 Redis关闭方式："></a>1.1.3 <strong>Redis关闭方式：</strong></h4><ul>
+<li>单实例关闭：redis-cli shutdown</li>
+<li>多实例关闭：<ol>
+<li>ps -ef |grep redis</li>
+<li> redis-cli -p 指定端口号 shutdown</li>
+</ol>
+</li>
+</ul>
+<h4 id="1-1-4-Redis键相关命令："><a href="#1-1-4-Redis键相关命令：" class="headerlink" title="1.1.4 Redis键相关命令："></a>1.1.4 <strong>Redis键相关命令：</strong></h4><ul>
+<li><p>查看当前库所有key：**key ***</p>
+</li>
+<li><p>设置键值对：<strong>set key value</strong></p>
+</li>
+<li><p>查找key对应value：<strong>get key</strong></p>
+</li>
+<li><p><strong>只有在key不存在时设置key的值，成功添加返回1：setnx key value</strong></p>
+</li>
+<li><p>判断key是否存在：<strong>exist key</strong></p>
+</li>
+<li><p>查看key的数据类型：<strong>type key</strong></p>
+</li>
+<li><p>删除指定的key：<strong>del key</strong></p>
+</li>
+<li><p>根据value选择非阻塞删除：<strong>unlink key</strong>（仅将key从keyspace元数据中删除，真正的删除会在后续异步操作）</p>
+</li>
+<li><p>将给定的value追加到原值的末尾：<strong>append key value</strong></p>
+</li>
+<li><p>获取值的长度：<strong>strlen key</strong></p>
+</li>
+<li><p>将key中存储的数字值增加1：<strong>incr key</strong></p>
+</li>
+<li><p>将key中存储的数字值减少1：<strong>decr key</strong></p>
+</li>
+<li><p>将key中存储的数字值增减自定义值：<strong>incrby/decrby key 步长</strong></p>
+</li>
+<li><p><strong>为给定的key设置过期时间：expire key 指定时间</strong></p>
+</li>
+<li><p>查看key还有多久过期：<strong>ttl key</strong>（-1表示永不过期，-2表示已经过期）</p>
+</li>
+</ul>
+<h4 id="1-1-5-操作数据库相关命令"><a href="#1-1-5-操作数据库相关命令" class="headerlink" title="1.1.5 操作数据库相关命令"></a>1.1.5 操作数据库相关命令</h4><ul>
+<li>切换数据库：<strong>select 数字</strong></li>
+<li>查看当前数据库的key的数量：<strong>dbsize</strong></li>
+<li>清空所有库：<strong>flushdb</strong></li>
+</ul>
+<h2 id="2-常用数据类型"><a href="#2-常用数据类型" class="headerlink" title="2. 常用数据类型"></a>2. 常用数据类型</h2><h3 id="2-1-String字符串"><a href="#2-1-String字符串" class="headerlink" title="2.1 String字符串"></a>2.1 String字符串</h3><p><strong>注意</strong>：String的数据结构为简单动态字符串，是可以修改的字符串没类似于Java的ArrayList，采用预分配冗余空间的方式来减少内存的频繁分配</p>
+<p><strong>常用命令：</strong></p>
+<ul>
+<li><p>同时设置一个或多个key-value对：<strong>mset key1 value1 key2 value2</strong></p>
+</li>
+<li><p>同时获取一个或多个value：<strong>mget key1 key2 key3</strong></p>
+</li>
+<li><p>当且仅当所有给定的key都不存在时，同时设置一个或多个key-value对：<strong>msetnx key1 value1 key2 value2  (具有原子性，有一个失败则都会失败)</strong></p>
+</li>
+<li><p>获取范围内的值：<strong>getrange key 起始位置 结束位置</strong></p>
+</li>
+<li><p>用value覆写key所存储的字符串值中的字符，从起始位置开始：<strong>setrange key 起始位置 value</strong></p>
+</li>
+<li><p><strong>设置键值的同时设置过期时间：setex key 过期时间 value</strong></p>
+</li>
+<li><p>获取key对应旧值的同时设置为新值value：<strong>getset key value</strong></p>
+</li>
+</ul>
+<h3 id="2-2-List列表"><a href="#2-2-List列表" class="headerlink" title="2.2 List列表"></a>2.2 List列表</h3><p><strong>注意：</strong>List是单键多值的，底层是双向链表，可以添加元素到列表头部或者尾部<br>（Redis将链表和ziplist结合起来组成了quicklist，即将多个ziplist使用双向指针串起来使用）<br><strong>常用命令：</strong></p>
+<ul>
+<li><p>从左边/右边插入一个或多个值：<strong>lpush/rpush key value1 value2</strong></p>
+</li>
+<li><p>从左边/右边弹出一个值（值在键在）：<strong>lpop/rpop key</strong></p>
+</li>
+<li><p>从key1列表右边弹出值插到key2列表左边：<strong>rpoplpush key1 key2</strong></p>
+</li>
+<li><p>按照索引下标获取范围内的元素：<strong>lrange key start stop</strong>（0左边第一个，-1右边第一个，0 -1表示获取所有）</p>
+</li>
+<li><p>按照索引下标获取指定位置的元素：<strong>lindex key index</strong></p>
+</li>
+<li><p>获取列表长度：<strong>llen key</strong></p>
+</li>
+<li><p>在value的前面/后面插入值：<strong>linsert key before/after value newValue</strong></p>
+</li>
+<li><p>从左边开始删除n个相同的value：<strong>lrem key n value</strong></p>
+</li>
+<li><p>将列表key下标为index的值替换成value：<strong>lset key index value</strong></p>
+</li>
+</ul>
+<h3 id="2-3-Set无序集合"><a href="#2-3-Set无序集合" class="headerlink" title="2.3 Set无序集合"></a>2.3 Set无序集合</h3><p><strong>注意：</strong>Set是String类型的无序集合，底层是一个value为null的哈希表，添加、删除、查找的复杂度都为O(1)<br><strong>常用命令：</strong></p>
+<ul>
+<li><p>将一个或多个member元素加入到集合key中，已经存在的member元素将被忽略：<strong>sadd key value1 value2</strong></p>
+</li>
+<li><p>取出该集合中的所有值：<strong>smembers key</strong></p>
+</li>
+<li><p>判断集合key是否含有对应的value：<strong>sismember key value</strong>（有则为1，没有为0）</p>
+</li>
+<li><p>返回该集合的元素个数：<strong>scard key</strong></p>
+</li>
+<li><p>删除集合中的某个元素：<strong>srem key value1 value2</strong></p>
+</li>
+<li><p>随机从集合中弹出一个值：<strong>spop key</strong></p>
+</li>
+<li><p>随机从集合中取出n个值，不会从集合中删除：<strong>srandmember key n</strong></p>
+</li>
+<li><p>把集合中一个值从集合1移动到集合2：<strong>smove 集合1 集合2 value</strong></p>
+</li>
+<li><p>返回两个集合的交集元素：<strong>sinter key1 key2</strong></p>
+</li>
+<li><p>返回两个集合的并集元素：<strong>sunion key1 key2</strong></p>
+</li>
+<li><p>返回两个集合的差集元素（key1中有的而key2没有的）：<strong>sdiff key1 key2</strong></p>
+</li>
+</ul>
+<h3 id="2-4-Hash哈希表"><a href="#2-4-Hash哈希表" class="headerlink" title="2.4 Hash哈希表"></a>2.4 Hash哈希表</h3><p><strong>注意：</strong>Redis的Hash是一个String类型的key-(field: value)的映射表（键值对集合），而Hash类型对应的数据结构有两种，当field:value长度较短且个数较少时使用ziplist，否则使用hashtable</p>
+<p><strong>常用命令：</strong><br>给key集合中的field键赋值为value：<strong>hset key field value</strong></p>
+<p>从key集合的field中取出对应的value：<strong>hget key field</strong></p>
+<p>批量设置hash值：<strong>hmset key field1 value1 field2 value2</strong></p>
+<p>查看key中给定的field是否存在：<strong>hexists key field</strong></p>
+<p>列出该key集合中所有的field：<strong>hkeys key</strong></p>
+<p>列出该key结合中所有的value：<strong>hvals key</strong></p>
+<p>为key中的域field的值加上指定增量：<strong>hincrby key field 指定增量</strong></p>
+<p>将哈希表key中的域field的值设置为value，当且仅当域field不存在：<strong>hsetnx key field value</strong></p>
+<h3 id="2-5-Zset有序集合"><a href="#2-5-Zset有序集合" class="headerlink" title="2.5 Zset有序集合"></a>2.5 Zset有序集合</h3><p><strong>注意：没有重复元素的字符串集合</strong>（有序集合的每个成员都关联了一个score，score被用来按照从最低到最高的方式排序集合中的成员，<strong>集合中的成员是唯一的，但是score可以重复</strong>），其底层结构是Hash+跳跃表</p>
+<p><strong>常用命令：</strong><br>将一个或多个member元素及其score值加入到有序集key中：<strong>zadd key score1 value1 score2 value2</strong></p>
+<p>返回有序集合key中下标在start和stop之间的元素，并让分数一起和值返回到结果集：<strong>zrange key start stop withscores</strong></p>
+<p>返回有序集合key中所有score值介于min和max之间的成员，有序集合成员按score</p>
+<p>递增排列：<strong>zrangebyscore key min max</strong></p>
+<p>递减排序：<strong>zrevrangebyscore key max min</strong></p>
+<p>为元素的score加上增量：<strong>zincrby key 增量 value</strong></p>
+<p>删除有序集合key中指定值的元素：<strong>zrem key value</strong></p>
+<p>统计集合指定区间内的元素个数：<strong>zcount key min max</strong></p>
+<p>返回该值在集合中的排名，从0开始：<strong>zrank key value</strong></p>
+<h2 id="3-Redis-6新数据类型"><a href="#3-Redis-6新数据类型" class="headerlink" title="3. Redis 6新数据类型"></a>3. Redis 6新数据类型</h2><h3 id="3-1-Bitmaps字符串"><a href="#3-1-Bitmaps字符串" class="headerlink" title="3.1 Bitmaps字符串"></a>3.1 Bitmaps字符串</h3><p><strong>注意：</strong>Bitmaps字符串本身不是一种数据类型，只是对字符串进行位操作（以位为单位的数组，数组的每个单元只能存储0和1，数组的下标在Bitmaps中叫做偏移量）</p>
+<p><strong>常用命令：</strong><br>设置Bitmaps中某个偏移量的值(0或1)：<strong>setbit key offset value</strong></p>
+<p>获取Bitmaps中某个偏移量的值：<strong>getbit key offset</strong></p>
+<p>统计字符串从start到end之间比特值为1的数量（0为左边第一个，-1为右边第一个）：<strong>bitcount key start end</strong></p>
+<p>做多个Bitmaps的与或非操作并将结果保存在destkey中：<strong>bitop and(or/not/xor) destkey key1 key2…</strong></p>
+<h3 id="3-2-HyperLogLog去重"><a href="#3-2-HyperLogLog去重" class="headerlink" title="3.2 HyperLogLog去重"></a>3.2 HyperLogLog去重</h3><p><strong>注意：</strong>HyperLogLog去重是用来做基数统计，即统计不重复元素的算法；（计算基数所需的空间总是固定的并且很小）</p>
+<p><strong>常用命令：</strong></p>
+<p>添加指定元素到HyperLogLog中：<strong>pfadd key element</strong> （执行命令后如果近似基数发生变化则返回1，否则返回0）</p>
+<p>计算HyperLogLog的近似基数：<strong>pfcount key…</strong></p>
+<p>将一个或多个HyperLogLog合并后的结果存储在另一个HyperLogLog中：<strong>pfmerge destkey sourcekey…</strong></p>
+<h3 id="3-3-Geospatial经纬度"><a href="#3-3-Geospatial经纬度" class="headerlink" title="3.3 Geospatial经纬度"></a>3.3 Geospatial经纬度</h3><p><strong>注意：</strong>Geospatial经纬度用于经纬度设置查询、范围查询、距离查询、经纬度Hash等操作</p>
+<p><strong>常用命令：</strong></p>
+<p>添加地理位置(经度、维度、名称)：<strong>geoadd key longitude latitude member</strong></p>
+<p>获取指定地区的坐标值：<strong>geopos key member</strong></p>
+<p>获取两个位置之间的直线距离：<strong>geodist key member1 member2</strong></p>
+<p>以给定的经纬度为中心找出某一半径内的元素：<strong>georadius key longitude latitude radius</strong></p>
+<h2 id="4-Redis的发布和订阅"><a href="#4-Redis的发布和订阅" class="headerlink" title="4. Redis的发布和订阅"></a>4. Redis的发布和订阅</h2><p><strong>概念：Redis发布订阅（pub/sub）是一种消息通信模式</strong>，发送者发送消息，订阅者接收信息，Redis客户端可以订阅任意数量的频道，当频道发布消息后消息就会推送给订阅者；</p>
+<p><strong>发布订阅实现：</strong></p>
+<ul>
+<li><p>订阅频道：<strong>subscribe channel名</strong></p>
+</li>
+<li><p>推送内容：<strong>publish channel名 ’推送内容‘</strong></p>
+</li>
+</ul>
+<h2 id="5-Jedis操作Redis-6"><a href="#5-Jedis操作Redis-6" class="headerlink" title="5. Jedis操作Redis 6"></a>5. Jedis操作Redis 6</h2><p><strong>Jedis使用步骤：</strong></p>
+<ol>
+<li><p>先在pom/xml引入jedis相关依赖！</p>
+</li>
+<li><p>创建Jedis对象：<strong>Jedis jedis = new Jedis(“访问redis所在主机ip地址”，端口号)</strong><br>（注意：必须要先修改redis.conf允许远程访问，以及linux防火墙放行端口号）</p>
+</li>
+<li><p>创建成功后即可使用redis-api的相关方法</p>
+</li>
+</ol>
+<p><strong>模拟验证码发送步骤与要求：</strong></p>
+<ol>
+<li>输入手机号点击发送后随机生成6位数字码，<pre><code>**random.nextInt(10)循环生成6位随机数字符串**
+</code></pre>
+</li>
+<li>验证码2分钟有效，<pre><code>**把验证码放到redis中，expire设置过期时间为120秒**
+</code></pre>
+</li>
+<li>输入验证码点击验证判断是否一致，<pre><code>**从redis获取验证码和输入的验证码进行比较**
+</code></pre>
+</li>
+<li>每个手机号每天只能输入3次；<pre><code>**第一次发送setnx设置发送次数是1，incr每次发送后+1，当大于3时提交不能发送**
+</code></pre>
+</li>
+</ol>
+<h2 id="6-Redis与Spring-Boot整合"><a href="#6-Redis与Spring-Boot整合" class="headerlink" title="6. Redis与Spring Boot整合"></a>6. Redis与Spring Boot整合</h2><p>整合步骤：</p>
+<ol>
+<li><p>先引入依赖spring-boot-starter-data-redis和commons-pool2</p>
+</li>
+<li><p>在application.properties中配置redis配置</p>
+<ul>
+<li>spring.redis.host：redis服务器地址</li>
+<li>spring.redis.port：redis服务器连接端口</li>
+<li>spring.redis.database：redis数据库索引</li>
+<li>spring.redis.timeout：连接超时时间</li>
+<li>spring.redis.lettuce.pool.max-active：连接池最大连接数</li>
+<li>spring.redis.lettuce.pool.max-wait：最大诸塞等待时间</li>
+<li>spring.redis.lettuce.pool.max-idle：连接池中最大空闲连接数</li>
+<li>spring.redis.lettuce.pool.min-idle：连接池中最小空闲连接数</li>
+</ul>
+</li>
+<li><p>创建Redis配置类RedisConfig</p>
+</li>
+</ol>
+<h2 id="7-Redis的事务操作和锁"><a href="#7-Redis的事务操作和锁" class="headerlink" title="7. Redis的事务操作和锁"></a>7. Redis的事务操作和锁</h2><p><strong>事务定义：</strong>Redis是一个单独的隔离操作，事务中的所有命令都会序列化并按顺序执行，事务在执行的过程中不会被其他客户端发送来的命令请求所打断（<strong>串联执行多个命令并防止别的命令插队</strong>）</p>
+<h3 id="7-1-执行命令"><a href="#7-1-执行命令" class="headerlink" title="7.1 执行命令"></a>7.1 执行命令</h3><ul>
+<li><p>输入<strong>Multi命令</strong>：输入的命令依次进入命令队列中但不会执行；（组队阶段，组队过程可通过<strong>discard命令</strong>放弃组队）</p>
+</li>
+<li><p>输入<strong>Exec命令</strong>：之前命令队列中的命令依次执行；（执行阶段）</p>
+</li>
+</ul>
+<h3 id="7-2-事务错误处理"><a href="#7-2-事务错误处理" class="headerlink" title="7.2 事务错误处理"></a>7.2 事务错误处理</h3><p>一、<strong>组队阶段出现错误：</strong><br>组队阶段有任意某个命令出现错误，则所有组队的命令都不会被执行，进行回滚；</p>
+<p>二、<strong>执行阶段出现错误：</strong><br>执行阶段任意某个命令出现错误，则只有错误的命令不会被执行，而其他命令会继续执行，不会进行回滚；</p>
+<h3 id="7-3-Redis事务特性"><a href="#7-3-Redis事务特性" class="headerlink" title="7.3 Redis事务特性"></a>7.3 Redis事务特性</h3><ol>
+<li><p><strong>单独的隔离操作</strong>：事务执行过程中不会被其他客户端发送来的命令请求所打断；</p>
+</li>
+<li><p><strong>没有隔离级别概念</strong>：事务提交前任何指令都不会被实际执行；</p>
+</li>
+<li><p><strong>不保证原子性</strong>：事务中有一条命令执行失败其他命令仍然会被执行，没有回滚；</p>
+</li>
+</ol>
+<h3 id="7-4-乐观锁解决事务冲突问题"><a href="#7-4-乐观锁解决事务冲突问题" class="headerlink" title="7.4 乐观锁解决事务冲突问题"></a>7.4 乐观锁解决事务冲突问题</h3><p><strong>Watch key1, key2…</strong>：在执行Multi命令前，先执行watch key命令监视一个或多个key，<strong>如果在事务执行之前这些key先被其他命令所改动，那么事务将被打断</strong>；</p>
+<p><strong>Unwatch</strong>：取消Watch命令对所有key的监视；</p>
+<h2 id="8-日志持久化AOF与RDB"><a href="#8-日志持久化AOF与RDB" class="headerlink" title="8. 日志持久化AOF与RDB"></a>8. 日志持久化AOF与RDB</h2><h3 id="RDB（Redis-DataBase）"><a href="#RDB（Redis-DataBase）" class="headerlink" title="RDB（Redis DataBase）"></a>RDB（Redis DataBase）</h3><p>含义：<strong>在指定的时间间隔内将内存中的数据集快照写入磁盘；</strong></p>
+<p><strong>持久化流程：</strong><br>Redis单独创建一个子进程来进行持久化，会<strong>先将数据写入到一个临时文件中</strong>，待持久化过程都结束后再用这个<strong>临时文件替换上次持久化好的文件</strong>；（写时复制技术）</p>
+<p>注意：<strong>RDB最后一次持久化后的数据可能会丢失</strong></p>
+<h3 id="AOF（Append-Only-File）"><a href="#AOF（Append-Only-File）" class="headerlink" title="AOF（Append Only File）"></a>AOF（Append Only File）</h3><p>含义：<strong>以日志形式来记录每个写操作（增量保存）</strong>，将Redis执行过的所有写指令记录下来，不记录读操作，<strong>只许追加文件但不可以改写文件，Redis启动后就会重新覆盖新文件，追加保存每次写操作到文件末尾</strong>；</p>
+<p><strong>持久化流程：</strong></p>
+<ol>
+<li>客户端的请求写命令会被append追加到AOF缓冲区内，</li>
+<li>AOF缓冲区根据AOF持久化策略操作sync同步到磁盘的AOF文件中，</li>
+<li><strong>当AOF文件大小超过重写策略或手动重写时，会对AOF文件rewrite重写，压缩AOF文件容量</strong></li>
+<li>Redis服务重启时，会重新load加载AOF文件中的写操作达到数据恢复的目的；</li>
+</ol>
+<p><strong>注意：</strong>AOF默认不开启，可以在redis.conf中配置文件名称，默认为appendonly.aof，AOF文件保存路径和RDB的路径一致（<strong>当AOF和RDB同时开启时，系统默认读取AOF的数据，因为AOF的数据不会存在对视</strong>）</p>
+<h2 id="9-主从复制"><a href="#9-主从复制" class="headerlink" title="9. 主从复制"></a>9. 主从复制</h2><h3 id="主从模型"><a href="#主从模型" class="headerlink" title="主从模型"></a>主从模型</h3><p><strong>主从复制原理：</strong></p>
+<ol>
+<li><p>当从服务器连接上主服务器之后，从服务器向主服务器发送进行数据同步消息；</p>
+</li>
+<li><p>主服务器接到从服务器发送过来的同步消息后，把主服务器数据进行持久化生成rdb文件，把rdb文件发送给从服务器，从服务器拿到rdb文件后进行读取完成复制；</p>
+</li>
+<li><p>每次主服务器进行写操作后主动发起，会和从服务器进行数据同步；</p>
+</li>
+</ol>
+<p><strong>主从复制步骤：</strong></p>
+<ol>
+<li><p>配置好多个从服务器redis,conf文件，分别<strong>redis -server redis.conf</strong>启动服务器</p>
+</li>
+<li><p>在从服务器客户端操作命令：<strong>slaveof 主服务器ip 主服务器端口</strong>，操作命令后即可形成一主多从结构</p>
+</li>
+<li><p>在主服务器输入命令：info replication即可查看连接的从服务器的具体数量；</p>
+</li>
+</ol>
+<h3 id="哨兵模式"><a href="#哨兵模式" class="headerlink" title="哨兵模式"></a>哨兵模式</h3><p>概念：<strong>能够后台监控主机是否故障，如果故障了根据投票数自动将从库转换为主库（原来的主机就算后来恢复正常也是作为原来从机的从库）</strong>；</p>
+<p><strong>哨兵模式使用步骤：</strong></p>
+<ol>
+<li><p>新建sentinel.conf配置文件，在文件中输入内容：<strong>sentinel monitor 监控服务器名称 服务器端口号 1</strong>，1为至少有多少个哨兵同意才进行迁移的数量</p>
+</li>
+<li><p><strong>redis.sentinel /目录/sentinel.conf</strong>：启动哨兵</p>
+</li>
+</ol>
+<h2 id="10-Redis集群"><a href="#10-Redis集群" class="headerlink" title="10. Redis集群"></a>10. Redis集群</h2><p>集群概念：Redis集群实现了对Redis的水平扩容，即启动N个Reids节点将整个数据库分布存储在这M个节点中，每个节点存储总数据的1/N；</p>
+<h2 id="11-Redis应用问题解决"><a href="#11-Redis应用问题解决" class="headerlink" title="11. Redis应用问题解决"></a>11. Redis应用问题解决</h2><h3 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h3><p><strong>出现现象：</strong></p>
+<ol>
+<li>redis命中率降低，导致一直查询数据库，应用服务器压力变大</li>
+</ol>
+<p><strong>出现原因：</strong></p>
+<ol>
+<li>redis中查询不到，一直访问数据库</li>
+<li>出现大量非正常url访问</li>
+</ol>
+<p><strong>解决方法：</strong><br>（1）对空值缓存<br>（2）设置可访问的白名单（bitmaps定义可访问名单）<br>（3）采用布隆过滤器<br>（4）进行实时监控（设置黑名单）</p>
+<h3 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h3><p><strong>产生原因：</strong>redis中的某个key过期了，瞬时大量访问使用这个key</p>
+<p><strong>解决方法：</strong><br>（1）预先设置热门数据到redis中，加大热门数据key的时长<br>（2）实时调整key的过期时长<br>（3）使用锁</p>
+<h3 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h3><p><strong>产生原因：</strong>在极少时间段内，出现大量查询key的集中过期情况</p>
+<p><strong>解决方法：</strong><br>（1）<strong>构建多级缓存架构：nginx缓存+redis缓存+其他缓存(ehcache等)</strong><br>（2）使用锁或队列（可以使用加锁或者队列的方式来保证不会有大量的线程对数据库一次性进行读写，但是不适用高并发情况）<br>（3）设置过期标志更新缓存（设置提前量，如果快过期就触发通知另外的线程在后台去更新实际key的缓存）<br>（4）把缓存失效时间分散开，随机数生成过期时间</p>
+<h3 id="实现分布式锁"><a href="#实现分布式锁" class="headerlink" title="实现分布式锁"></a>实现分布式锁</h3><p>Redis实现分布式锁的步骤：</p>
+<ol>
+<li><p>使用setnx key value上锁，通过del key释放锁</p>
+</li>
+<li><p>锁如果一直没有释放则设置key过期时间<br><strong>上锁同时设置过期时间实现原子操作：set key value nx ex 过期时间</strong></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
 </search>
