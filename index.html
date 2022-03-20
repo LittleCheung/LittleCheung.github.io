@@ -664,6 +664,173 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://littlecheung.github.io/2020/09/05/Nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Littlecheung.jpg">
+      <meta itemprop="name" content="Lucas Cheung">
+      <meta itemprop="description" content="坂道偶像宅 | 后端打工人 | 小镇青年">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小张的个人博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/05/Nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">Nginx学习笔记</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-05 19:23:35" itemprop="dateCreated datePublished" datetime="2020-09-05T19:23:35+08:00">2020-09-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-03-20 12:11:26" itemprop="dateModified" datetime="2022-03-20T12:11:26+08:00">2022-03-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这个是个人学习Nginx基本使用所总结的笔记，仅供参考</p>
+<h2 id="1-Nginx基本概念"><a href="#1-Nginx基本概念" class="headerlink" title="1. Nginx基本概念"></a>1. Nginx基本概念</h2><h3 id="1-1-Nginx概念"><a href="#1-1-Nginx概念" class="headerlink" title="1.1 Nginx概念"></a>1.1 Nginx概念</h3><p>一个高性能的HTTP和反向代理web服务器，专为性能优化而开发，能承受高并发连接</p>
+<h3 id="1-2-正向代理与反向代理"><a href="#1-2-正向代理与反向代理" class="headerlink" title="1.2 正向代理与反向代理"></a>1.2 正向代理与反向代理</h3><p><strong>正向代理</strong>：在客户端配置代理服务器，必须要通过代理服务器才能访问互联网；</p>
+<p><strong>反向代理</strong>：只需要将请求发送到反向代理服务器，由反向代理服务器去选择目标服务器获取数据后，再返回给客户端（<strong>此时对外暴露的是代理服务器的地址，隐藏了真实服务器的IP地址</strong>）</p>
+<h3 id="1-3-负载均衡"><a href="#1-3-负载均衡" class="headerlink" title="1.3 负载均衡"></a>1.3 负载均衡</h3><p><strong>负载均衡</strong>：通过增加服务器数量，然后将请求分发到各个服务器上，将原先请求集中到单个服务器上改为分发到多个服务器上，即<strong>将负载分发到不同的服务器上</strong>；</p>
+<h3 id="1-4-动静分离"><a href="#1-4-动静分离" class="headerlink" title="1.4 动静分离"></a>1.4 动静分离</h3><p><strong>动静分离</strong>：<strong>将动态页面和静态页面由不同的服务器来解析（先把请求发送到Nginx，Nginx根据请求进行转发，服务器Tomcat部署动态资源，专门服务器部署静态资源）</strong>，加快解析速度和降低原来单个服务器的压力；</p>
+<h2 id="2-Nginx常用命令"><a href="#2-Nginx常用命令" class="headerlink" title="2. Nginx常用命令"></a>2. Nginx常用命令</h2><p><strong>注意：</strong>使用Nginx操作命令必须要先进入Nginx的目录**/user/local/nginx/sbin**</p>
+<ol>
+<li><p>查看Nginx版本号：**./nginx -v**</p>
+</li>
+<li><p>启动Nginx：**./nginx**</p>
+</li>
+<li><p>关闭Nginx：**./nginx -s stop**</p>
+</li>
+<li><p>重新加载Nginx（<strong>热部署</strong>）：**./nginx -s reload**</p>
+</li>
+</ol>
+<h2 id="3-Nginx配置文件"><a href="#3-Nginx配置文件" class="headerlink" title="3. Nginx配置文件"></a>3. Nginx配置文件</h2><h3 id="3-1-Nginx配置文件组成"><a href="#3-1-Nginx配置文件组成" class="headerlink" title="3.1 Nginx配置文件组成"></a>3.1 Nginx配置文件组成</h3><p>Nginx配置文件由三部分组成：</p>
+<ul>
+<li><p>第一部分：全局块<br>主要配置一些影响Nginx服务器整体运行的配置指令；</p>
+</li>
+<li><p>第二部分：events块<br>主要影响Nginx服务器与用户的网络连接，影响Nginx的性能；</p>
+</li>
+<li><p>第三部分：http块（http块包括http全局块和server块，server块又包含全局server块和location块）</p>
+<p>主要配置如代理、缓存和日志定义等绝大多数功能和第三方模块的配置</p>
+</li>
+</ul>
+<h2 id="4-Nginx配置实例"><a href="#4-Nginx配置实例" class="headerlink" title="4. Nginx配置实例"></a>4. Nginx配置实例</h2><h3 id="4-1-实例1：反向代理"><a href="#4-1-实例1：反向代理" class="headerlink" title="4.1 实例1：反向代理"></a>4.1 实例1：反向代理</h3><p>使用Nginx反向代理，可以根据访问的路径跳转到不同端口的服务中；</p>
+<p>利用Nginx实现反向代理的步骤如下：</p>
+<ol>
+<li><p>在window的HOST文件添加域名和ip对应关系的配置（Nginx服务器中的ip地址    要访问的域名）</p>
+</li>
+<li><p><strong>在Nginx的配置文件的server块进行如下参数配置</strong>：</p>
+<ul>
+<li><strong>server_name    Nginx服务器中的ip地址</strong>（将localhost改为该ip地址）</li>
+<li>location中添加转发路径：<strong>proxy_pass    转发到真正要访问的ip地址</strong></li>
+</ul>
+</li>
+</ol>
+<p><strong>实现例子：</strong></p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 实现效果：</span></span><br><span class="line"><span class="comment"># Nginx监听端口9001，当访问edu模块时，跳转到8080端口，当访问vod模块时跳转到8081端口(实现访问http://ip地址:9001/edu/直接跳转到http://ip地址:8080的效果)</span></span><br><span class="line"></span><br><span class="line"><span class="attr">server</span> <span class="string">&#123;</span></span><br><span class="line">	<span class="attr">listen</span>	<span class="string">9091</span></span><br><span class="line">	<span class="attr">server_name</span>	<span class="string">Nginx服务器中的ip地址</span></span><br><span class="line"></span><br><span class="line">	<span class="attr">location</span> <span class="string">~ /edu/ &#123;</span></span><br><span class="line">		<span class="attr">proxy_pass</span>	<span class="string">http://ip地址:8080</span></span><br><span class="line">	<span class="attr">&#125;</span></span><br><span class="line">	<span class="attr">location</span> <span class="string">~ /vod/ &#123;</span></span><br><span class="line">		<span class="attr">proxy_pass</span>	<span class="string">http://ip地址:8081</span></span><br><span class="line">	<span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"><span class="comment"># 注意：如果location的uri包含正则表达式，则必须要有~或者~*标识</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2-实例2：负载均衡"><a href="#4-2-实例2：负载均衡" class="headerlink" title="4.2 实例2：负载均衡"></a>4.2 实例2：负载均衡</h3><p><strong>实现例子：</strong></p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 实现效果：</span></span><br><span class="line"><span class="comment"># 浏览器地址栏输入地址http://Nginx服务器中的ip地址:9001/edu/时，实现负载均衡效果，平均到8080和8081两个端口中</span></span><br><span class="line"></span><br><span class="line"><span class="attr">在Nginx的配置文件的http块进行如下参数配置：</span></span><br><span class="line"><span class="attr">upstream</span> <span class="string">服务名 &#123;</span></span><br><span class="line">	<span class="attr">server</span>	<span class="string">ip地址:8080</span></span><br><span class="line">	<span class="attr">server</span>	<span class="string">ip地址:8081</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"><span class="attr">server</span> <span class="string">&#123;</span></span><br><span class="line">	<span class="attr">listen</span>	<span class="string">9091</span></span><br><span class="line">	<span class="attr">server_name</span>	  <span class="string">ip地址</span></span><br><span class="line">	<span class="attr">...</span></span><br><span class="line">	<span class="attr">location</span> <span class="string">~ /edu/ &#123;</span></span><br><span class="line">		<span class="attr">proxy_pass</span> <span class="string">http://服务名;</span></span><br><span class="line">	<span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Nginx分配服务器的策略：</strong></p>
+<ol>
+<li><p>轮询策略（默认）</p>
+<p>每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器宕机就自动剔除</p>
+</li>
+<li><p>权重策略</p>
+<p>weight代表权重默认为1，权重越高被分配的客户端越多</p>
+</li>
+<li><p>ip_hash策略</p>
+<p>每个请求按访问的ip的hash结果分配，这样每个访客固定访问一个后端服务器，可以解决session问题</p>
+</li>
+<li><p>fair策略</p>
+<p>按照后端服务器的响应时间来分配请求，响应时间短的优先分配</p>
+</li>
+</ol>
+<h3 id="4-3-实例3：动静分离"><a href="#4-3-实例3：动静分离" class="headerlink" title="4.3 实例3：动静分离"></a>4.3 实例3：动静分离</h3><p>同样需要在Nginx配置文件中对location进行配置</p>
+<h2 id="5-Nginx高可用集群搭建"><a href="#5-Nginx高可用集群搭建" class="headerlink" title="5. Nginx高可用集群搭建"></a>5. Nginx高可用集群搭建</h2><p>（后续继续学习）</p>
+<h2 id="6-Nginx原理解析"><a href="#6-Nginx原理解析" class="headerlink" title="6. Nginx原理解析"></a>6. Nginx原理解析</h2><p>结构：master负责管理监控请求派发给worker，worker通过争抢机制完成任务</p>
+<ol>
+<li><p>Nginx中一个master和多个worker进程的好处：</p>
+<ul>
+<li>可以使用**./nginx -s reload热部署**；</li>
+<li>每个worker是独立的进程，其中一个worker出现问题不会影响其他worker进行争抢实现请求过程，不会造成服务中断；</li>
+</ul>
+</li>
+<li><p>设计多个worker才是合适的：</p>
+<p>worker数和服务器的CPU数量相等最为合适；</p>
+</li>
+<li><p>nginx支持的最大并发数：</p>
+</li>
+</ol>
+<ul>
+<li><strong>普通的静态访问最大并发数</strong>：<br>worker最大连接数 * worker数 / 2</li>
+<li><strong>HTTP作为反向代理最大并发数</strong>：<br>worker最大连接数 * worker数 / 4</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://littlecheung.github.io/2020/09/03/Java%20web%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E5%B1%82%E5%8F%8A%E5%90%84%E8%87%AA%E4%BD%9C%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1040,101 +1207,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://littlecheung.github.io/2020/03/04/Java%E7%9A%84IO%E6%B5%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Littlecheung.jpg">
-      <meta itemprop="name" content="Lucas Cheung">
-      <meta itemprop="description" content="坂道偶像宅 | 后端打工人 | 小镇青年">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小张的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/04/Java%E7%9A%84IO%E6%B5%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">Java的IO流学习笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-04 19:21:35" itemprop="dateCreated datePublished" datetime="2020-03-04T19:21:35+08:00">2020-03-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-07 19:02:31" itemprop="dateModified" datetime="2022-03-07T19:02:31+08:00">2022-03-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>8.7k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>8 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这个是个人在学习Java的IO流知识时所记录的笔记，涉及IO流的基础知识；</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/04/Java%E7%9A%84IO%E6%B5%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1206,7 +1278,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1267,12 +1339,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">125k</span>
+    <span title="站点总字数">127k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:54</span>
+    <span title="站点阅读时长">1:56</span>
 </div>
 
 <!--

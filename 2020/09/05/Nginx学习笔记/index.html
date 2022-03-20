@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"littlecheung.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言这个是个人学习Nginx基本使用所总结的笔记，仅供参考 1. Nginx基本概念1.1 Nginx概念一个高性能的HTTP和反向代理web服务器，专为性能优化而开发，能承受高并发连接 1.2 正向代理与反向代理正向代理：在客户端配置代理服务器，必须要通过代理服务器才能访问互联网； 反向代理：只需要将请求发送到反向代理服务器，由反向代理服务器去选择目标服务器获取数据后，再返回给客户端（此时对外暴">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx学习笔记">
+<meta property="og:url" content="https://littlecheung.github.io/2020/09/05/Nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="小张的个人博客">
+<meta property="og:description" content="前言这个是个人学习Nginx基本使用所总结的笔记，仅供参考 1. Nginx基本概念1.1 Nginx概念一个高性能的HTTP和反向代理web服务器，专为性能优化而开发，能承受高并发连接 1.2 正向代理与反向代理正向代理：在客户端配置代理服务器，必须要通过代理服务器才能访问互联网； 反向代理：只需要将请求发送到反向代理服务器，由反向代理服务器去选择目标服务器获取数据后，再返回给客户端（此时对外暴">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-05T11:23:35.000Z">
+<meta property="article:modified_time" content="2022-03-20T04:11:26.536Z">
+<meta property="article:author" content="Lucas Cheung">
+<meta property="article:tag" content="学习笔记">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://littlecheung.github.io/2020/09/05/Nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Nginx学习笔记 | 小张的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">小张的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">个人充电 | 生活点滴</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/LittleCheung" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://littlecheung.github.io/2020/09/05/Nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Littlecheung.jpg">
+      <meta itemprop="name" content="Lucas Cheung">
+      <meta itemprop="description" content="坂道偶像宅 | 后端打工人 | 小镇青年">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小张的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Nginx学习笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-05 19:23:35" itemprop="dateCreated datePublished" datetime="2020-09-05T19:23:35+08:00">2020-09-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-03-20 12:11:26" itemprop="dateModified" datetime="2022-03-20T12:11:26+08:00">2022-03-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这个是个人学习Nginx基本使用所总结的笔记，仅供参考</p>
+<h2 id="1-Nginx基本概念"><a href="#1-Nginx基本概念" class="headerlink" title="1. Nginx基本概念"></a>1. Nginx基本概念</h2><h3 id="1-1-Nginx概念"><a href="#1-1-Nginx概念" class="headerlink" title="1.1 Nginx概念"></a>1.1 Nginx概念</h3><p>一个高性能的HTTP和反向代理web服务器，专为性能优化而开发，能承受高并发连接</p>
+<h3 id="1-2-正向代理与反向代理"><a href="#1-2-正向代理与反向代理" class="headerlink" title="1.2 正向代理与反向代理"></a>1.2 正向代理与反向代理</h3><p><strong>正向代理</strong>：在客户端配置代理服务器，必须要通过代理服务器才能访问互联网；</p>
+<p><strong>反向代理</strong>：只需要将请求发送到反向代理服务器，由反向代理服务器去选择目标服务器获取数据后，再返回给客户端（<strong>此时对外暴露的是代理服务器的地址，隐藏了真实服务器的IP地址</strong>）</p>
+<h3 id="1-3-负载均衡"><a href="#1-3-负载均衡" class="headerlink" title="1.3 负载均衡"></a>1.3 负载均衡</h3><p><strong>负载均衡</strong>：通过增加服务器数量，然后将请求分发到各个服务器上，将原先请求集中到单个服务器上改为分发到多个服务器上，即<strong>将负载分发到不同的服务器上</strong>；</p>
+<h3 id="1-4-动静分离"><a href="#1-4-动静分离" class="headerlink" title="1.4 动静分离"></a>1.4 动静分离</h3><p><strong>动静分离</strong>：<strong>将动态页面和静态页面由不同的服务器来解析（先把请求发送到Nginx，Nginx根据请求进行转发，服务器Tomcat部署动态资源，专门服务器部署静态资源）</strong>，加快解析速度和降低原来单个服务器的压力；</p>
+<h2 id="2-Nginx常用命令"><a href="#2-Nginx常用命令" class="headerlink" title="2. Nginx常用命令"></a>2. Nginx常用命令</h2><p><strong>注意：</strong>使用Nginx操作命令必须要先进入Nginx的目录**/user/local/nginx/sbin**</p>
+<ol>
+<li><p>查看Nginx版本号：**./nginx -v**</p>
+</li>
+<li><p>启动Nginx：**./nginx**</p>
+</li>
+<li><p>关闭Nginx：**./nginx -s stop**</p>
+</li>
+<li><p>重新加载Nginx（<strong>热部署</strong>）：**./nginx -s reload**</p>
+</li>
+</ol>
+<h2 id="3-Nginx配置文件"><a href="#3-Nginx配置文件" class="headerlink" title="3. Nginx配置文件"></a>3. Nginx配置文件</h2><h3 id="3-1-Nginx配置文件组成"><a href="#3-1-Nginx配置文件组成" class="headerlink" title="3.1 Nginx配置文件组成"></a>3.1 Nginx配置文件组成</h3><p>Nginx配置文件由三部分组成：</p>
+<ul>
+<li><p>第一部分：全局块<br>主要配置一些影响Nginx服务器整体运行的配置指令；</p>
+</li>
+<li><p>第二部分：events块<br>主要影响Nginx服务器与用户的网络连接，影响Nginx的性能；</p>
+</li>
+<li><p>第三部分：http块（http块包括http全局块和server块，server块又包含全局server块和location块）</p>
+<p>主要配置如代理、缓存和日志定义等绝大多数功能和第三方模块的配置</p>
+</li>
+</ul>
+<h2 id="4-Nginx配置实例"><a href="#4-Nginx配置实例" class="headerlink" title="4. Nginx配置实例"></a>4. Nginx配置实例</h2><h3 id="4-1-实例1：反向代理"><a href="#4-1-实例1：反向代理" class="headerlink" title="4.1 实例1：反向代理"></a>4.1 实例1：反向代理</h3><p>使用Nginx反向代理，可以根据访问的路径跳转到不同端口的服务中；</p>
+<p>利用Nginx实现反向代理的步骤如下：</p>
+<ol>
+<li><p>在window的HOST文件添加域名和ip对应关系的配置（Nginx服务器中的ip地址    要访问的域名）</p>
+</li>
+<li><p><strong>在Nginx的配置文件的server块进行如下参数配置</strong>：</p>
+<ul>
+<li><strong>server_name    Nginx服务器中的ip地址</strong>（将localhost改为该ip地址）</li>
+<li>location中添加转发路径：<strong>proxy_pass    转发到真正要访问的ip地址</strong></li>
+</ul>
+</li>
+</ol>
+<p><strong>实现例子：</strong></p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 实现效果：</span></span><br><span class="line"><span class="comment"># Nginx监听端口9001，当访问edu模块时，跳转到8080端口，当访问vod模块时跳转到8081端口(实现访问http://ip地址:9001/edu/直接跳转到http://ip地址:8080的效果)</span></span><br><span class="line"></span><br><span class="line"><span class="attr">server</span> <span class="string">&#123;</span></span><br><span class="line">	<span class="attr">listen</span>	<span class="string">9091</span></span><br><span class="line">	<span class="attr">server_name</span>	<span class="string">Nginx服务器中的ip地址</span></span><br><span class="line"></span><br><span class="line">	<span class="attr">location</span> <span class="string">~ /edu/ &#123;</span></span><br><span class="line">		<span class="attr">proxy_pass</span>	<span class="string">http://ip地址:8080</span></span><br><span class="line">	<span class="attr">&#125;</span></span><br><span class="line">	<span class="attr">location</span> <span class="string">~ /vod/ &#123;</span></span><br><span class="line">		<span class="attr">proxy_pass</span>	<span class="string">http://ip地址:8081</span></span><br><span class="line">	<span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"><span class="comment"># 注意：如果location的uri包含正则表达式，则必须要有~或者~*标识</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2-实例2：负载均衡"><a href="#4-2-实例2：负载均衡" class="headerlink" title="4.2 实例2：负载均衡"></a>4.2 实例2：负载均衡</h3><p><strong>实现例子：</strong></p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 实现效果：</span></span><br><span class="line"><span class="comment"># 浏览器地址栏输入地址http://Nginx服务器中的ip地址:9001/edu/时，实现负载均衡效果，平均到8080和8081两个端口中</span></span><br><span class="line"></span><br><span class="line"><span class="attr">在Nginx的配置文件的http块进行如下参数配置：</span></span><br><span class="line"><span class="attr">upstream</span> <span class="string">服务名 &#123;</span></span><br><span class="line">	<span class="attr">server</span>	<span class="string">ip地址:8080</span></span><br><span class="line">	<span class="attr">server</span>	<span class="string">ip地址:8081</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"><span class="attr">server</span> <span class="string">&#123;</span></span><br><span class="line">	<span class="attr">listen</span>	<span class="string">9091</span></span><br><span class="line">	<span class="attr">server_name</span>	  <span class="string">ip地址</span></span><br><span class="line">	<span class="attr">...</span></span><br><span class="line">	<span class="attr">location</span> <span class="string">~ /edu/ &#123;</span></span><br><span class="line">		<span class="attr">proxy_pass</span> <span class="string">http://服务名;</span></span><br><span class="line">	<span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Nginx分配服务器的策略：</strong></p>
+<ol>
+<li><p>轮询策略（默认）</p>
+<p>每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器宕机就自动剔除</p>
+</li>
+<li><p>权重策略</p>
+<p>weight代表权重默认为1，权重越高被分配的客户端越多</p>
+</li>
+<li><p>ip_hash策略</p>
+<p>每个请求按访问的ip的hash结果分配，这样每个访客固定访问一个后端服务器，可以解决session问题</p>
+</li>
+<li><p>fair策略</p>
+<p>按照后端服务器的响应时间来分配请求，响应时间短的优先分配</p>
+</li>
+</ol>
+<h3 id="4-3-实例3：动静分离"><a href="#4-3-实例3：动静分离" class="headerlink" title="4.3 实例3：动静分离"></a>4.3 实例3：动静分离</h3><p>同样需要在Nginx配置文件中对location进行配置</p>
+<h2 id="5-Nginx高可用集群搭建"><a href="#5-Nginx高可用集群搭建" class="headerlink" title="5. Nginx高可用集群搭建"></a>5. Nginx高可用集群搭建</h2><p>（后续继续学习）</p>
+<h2 id="6-Nginx原理解析"><a href="#6-Nginx原理解析" class="headerlink" title="6. Nginx原理解析"></a>6. Nginx原理解析</h2><p>结构：master负责管理监控请求派发给worker，worker通过争抢机制完成任务</p>
+<ol>
+<li><p>Nginx中一个master和多个worker进程的好处：</p>
+<ul>
+<li>可以使用**./nginx -s reload热部署**；</li>
+<li>每个worker是独立的进程，其中一个worker出现问题不会影响其他worker进行争抢实现请求过程，不会造成服务中断；</li>
+</ul>
+</li>
+<li><p>设计多个worker才是合适的：</p>
+<p>worker数和服务器的CPU数量相等最为合适；</p>
+</li>
+<li><p>nginx支持的最大并发数：</p>
+</li>
+</ol>
+<ul>
+<li><strong>普通的静态访问最大并发数</strong>：<br>worker最大连接数 * worker数 / 2</li>
+<li><strong>HTTP作为反向代理最大并发数</strong>：<br>worker最大连接数 * worker数 / 4</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"># 学习笔记</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/03/Java%20web%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E5%B1%82%E5%8F%8A%E5%90%84%E8%87%AA%E4%BD%9C%E7%94%A8/" rel="prev" title="Java web开发中的各种层作用理解">
+      <i class="fa fa-chevron-left"></i> Java web开发中的各种层作用理解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/04/Redis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="next" title="Redis学习笔记">
+      Redis学习笔记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Nginx%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">1. Nginx基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Nginx%E6%A6%82%E5%BF%B5"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 Nginx概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 正向代理与反向代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 动静分离</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Nginx%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">2. Nginx常用命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">3. Nginx配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-Nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%BB%84%E6%88%90"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 Nginx配置文件组成</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Nginx%E9%85%8D%E7%BD%AE%E5%AE%9E%E4%BE%8B"><span class="nav-number">5.</span> <span class="nav-text">4. Nginx配置实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E5%AE%9E%E4%BE%8B1%EF%BC%9A%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 实例1：反向代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E5%AE%9E%E4%BE%8B2%EF%BC%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-number">5.2.</span> <span class="nav-text">4.2 实例2：负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E5%AE%9E%E4%BE%8B3%EF%BC%9A%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB"><span class="nav-number">5.3.</span> <span class="nav-text">4.3 实例3：动静分离</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Nginx%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA"><span class="nav-number">6.</span> <span class="nav-text">5. Nginx高可用集群搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Nginx%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90"><span class="nav-number">7.</span> <span class="nav-text">6. Nginx原理解析</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lucas Cheung"
+      src="/images/Littlecheung.jpg">
+  <p class="site-author-name" itemprop="name">Lucas Cheung</p>
+  <div class="site-description" itemprop="description">坂道偶像宅 | 后端打工人 | 小镇青年</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LittleCheung" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LittleCheung" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/Lucas_Cheung" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;Lucas_Cheung" rel="noopener" target="_blank"><i class="fab fa-gitlab fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:dongnanami@gmail.com" title="E-Mail → mailto:dongnanami@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+		
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lucas Cheung</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">127k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:56</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModePath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"pluginModelPath":"assets/"});</script></body>
+</html>
