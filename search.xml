@@ -3341,6 +3341,8 @@
     <title>Nginx学习笔记</title>
     <url>/2020/09/05/Nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这个是个人学习Nginx基本使用所总结的笔记，仅供参考</p>
+<span id="more"></span>
+
 <h2 id="1-Nginx基本概念"><a href="#1-Nginx基本概念" class="headerlink" title="1. Nginx基本概念"></a>1. Nginx基本概念</h2><h3 id="1-1-Nginx概念"><a href="#1-1-Nginx概念" class="headerlink" title="1.1 Nginx概念"></a>1.1 Nginx概念</h3><p>一个高性能的HTTP和反向代理web服务器，专为性能优化而开发，能承受高并发连接</p>
 <h3 id="1-2-正向代理与反向代理"><a href="#1-2-正向代理与反向代理" class="headerlink" title="1.2 正向代理与反向代理"></a>1.2 正向代理与反向代理</h3><p><strong>正向代理</strong>：在客户端配置代理服务器，必须要通过代理服务器才能访问互联网；</p>
 <p><strong>反向代理</strong>：只需要将请求发送到反向代理服务器，由反向代理服务器去选择目标服务器获取数据后，再返回给客户端（<strong>此时对外暴露的是代理服务器的地址，隐藏了真实服务器的IP地址</strong>）</p>
@@ -3432,6 +3434,8 @@
     <title>RabbitMQ-消息队列学习笔记①</title>
     <url>/2020/09/13/RabbitMQ%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这个是个人学习RabbitMQ消息队列时所总结的一部分学习笔记，关于RabbitMQ的更深入内容后续学习继续补充；</p>
+<span id="more"></span>
+
 <h2 id="1-消息队列概述"><a href="#1-消息队列概述" class="headerlink" title="1. 消息队列概述"></a>1. 消息队列概述</h2><h3 id="1-1-MQ概念"><a href="#1-1-MQ概念" class="headerlink" title="1.1 MQ概念"></a>1.1 MQ概念</h3><p>MQ（Message Queue）本质上是一个FIFO的队列，只不过队列中存放的内容是消息，用于上下游传递消息，用于上下有“逻辑解耦+物理解耦”的消息通信服务，使用MQ之后消息发送上有只需要依赖MQ而不再需要依赖其他服务；</p>
 <h3 id="1-2-MQ作用"><a href="#1-2-MQ作用" class="headerlink" title="1.2 MQ作用"></a>1.2 MQ作用</h3><h4 id="1-2-1-流量消峰"><a href="#1-2-1-流量消峰" class="headerlink" title="1.2.1 流量消峰"></a>1.2.1 流量消峰</h4><p>以订单系统为例，加入某订单系统最多能处理一万次订单，在正常时段处理能力足够，但是在高峰期就会有订单超过一万后不允许继续下单的限制，<strong>当使用MQ做缓冲时，先把请求发送到消息队列而不是直接发送到订单系统，消息队列把短时间集中的订单分散到一段时间来处理达到流量消峰的目的，虽然相比平时下单返回的结果时间会变慢，但是不至于订单系统崩溃</strong>；</p>
 <h4 id="1-2-2-应用解耦"><a href="#1-2-2-应用解耦" class="headerlink" title="1.2.2 应用解耦"></a>1.2.2 应用解耦</h4><p>以电商系统为例，订单系统如果调用物流系统和支付系统，任何一个子系统出故障都会导致下单操作异常，当转变为基于MQ的方式后，可以减少系统间调用的问题，比如<strong>物流系统发生故障需要几分钟来修复，在这几分钟的时间里，订单系统发送的需要物流系统处理的消息先被缓存在消息队列中，用户的下单操作可以正常完成，当物流系统恢复后，物流系统继续处理订单消息即可，中途用户感受不到物流系统的故障</strong>；</p>
