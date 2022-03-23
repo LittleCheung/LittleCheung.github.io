@@ -653,36 +653,23 @@
 </li>
 </ul>
 <h4 id="1-1-4-Redis键相关命令："><a href="#1-1-4-Redis键相关命令：" class="headerlink" title="1.1.4 Redis键相关命令："></a>1.1.4 <strong>Redis键相关命令：</strong></h4><ul>
-<li><p>查看当前库所有key：**key ***</p>
-</li>
-<li><p>设置键值对：<strong>set key value</strong></p>
-</li>
-<li><p>查找key对应value：<strong>get key</strong></p>
-</li>
-<li><p><strong>只有在key不存在时设置key的值，成功添加返回1：setnx key value</strong></p>
-</li>
-<li><p>判断key是否存在：<strong>exist key</strong></p>
-</li>
-<li><p>查看key的数据类型：<strong>type key</strong></p>
-</li>
-<li><p>删除指定的key：<strong>del key</strong></p>
-</li>
-<li><p>根据value选择非阻塞删除：<strong>unlink key</strong>（仅将key从keyspace元数据中删除，真正的删除会在后续异步操作）</p>
-</li>
-<li><p>将给定的value追加到原值的末尾：<strong>append key value</strong></p>
-</li>
-<li><p>获取值的长度：<strong>strlen key</strong></p>
-</li>
-<li><p>将key中存储的数字值增加1：<strong>incr key</strong></p>
-</li>
-<li><p>将key中存储的数字值减少1：<strong>decr key</strong></p>
-</li>
-<li><p>将key中存储的数字值增减自定义值：<strong>incrby/decrby key 步长</strong></p>
-</li>
-<li><p><strong>为给定的key设置过期时间：expire key 指定时间</strong></p>
-</li>
-<li><p>查看key还有多久过期：<strong>ttl key</strong>（-1表示永不过期，-2表示已经过期）</p>
-</li>
+<li>查看当前库所有key：**key **</li>
+<li>用于查找所有符合给定模式 pattern 的 key：<strong>keys pattern</strong></li>
+<li>迭代数据库中的数据库键：SCAN cursor pattern count</li>
+<li>设置键值对：<strong>set key value</strong></li>
+<li>查找key对应value：<strong>get key</strong></li>
+<li><strong>只有在key不存在时设置key的值，成功添加返回1：setnx key value</strong></li>
+<li>判断key是否存在：<strong>exist key</strong></li>
+<li>查看key的数据类型：<strong>type key</strong></li>
+<li>删除指定的key：<strong>del key</strong></li>
+<li>根据value选择非阻塞删除：<strong>unlink key</strong>（仅将key从keyspace元数据中删除，真正的删除会在后续异步操作）</li>
+<li>将给定的value追加到原值的末尾：<strong>append key value</strong></li>
+<li>获取值的长度：<strong>strlen key</strong></li>
+<li>将key中存储的数字值增加1：<strong>incr key</strong></li>
+<li>将key中存储的数字值减少1：<strong>decr key</strong></li>
+<li>将key中存储的数字值增减自定义值：<strong>incrby/decrby key 步长</strong></li>
+<li><strong>为给定的key设置过期时间：expire key 指定时间</strong></li>
+<li>查看key还有多久过期：<strong>ttl key</strong>（-1表示永不过期，-2表示已经过期）</li>
 </ul>
 <h4 id="1-1-5-操作数据库相关命令"><a href="#1-1-5-操作数据库相关命令" class="headerlink" title="1.1.5 操作数据库相关命令"></a>1.1.5 操作数据库相关命令</h4><ul>
 <li>切换数据库：<strong>select 数字</strong></li>
