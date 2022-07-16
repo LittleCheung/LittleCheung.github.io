@@ -20,30 +20,33 @@
     var CONFIG = {"hostname":"littlecheung.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="坂道偶像宅 | 后端打工人 | 小镇青年">
-<meta property="og:type" content="website">
-<meta property="og:title" content="小张的个人博客">
-<meta property="og:url" content="https://littlecheung.github.io/index.html">
+  <meta name="description" content="Java IO &amp; 反射1. 怎么利用反射获取类中的对象？ 获取反射中类Class实例的方法（以获取String类实例为例子）  调用Class的静态方法：Class.forname(类全路径名)；  当可以知道该类的全路径名时，推荐优先使用使用该方法获取 Class 类对象； 1Class clazz &#x3D; Class.forName(&quot;java.lang.String&amp;quot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java面试知识点总结">
+<meta property="og:url" content="https://littlecheung.github.io/2022/01/07/Java%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="小张的个人博客">
-<meta property="og:description" content="坂道偶像宅 | 后端打工人 | 小镇青年">
+<meta property="og:description" content="Java IO &amp; 反射1. 怎么利用反射获取类中的对象？ 获取反射中类Class实例的方法（以获取String类实例为例子）  调用Class的静态方法：Class.forname(类全路径名)；  当可以知道该类的全路径名时，推荐优先使用使用该方法获取 Class 类对象； 1Class clazz &#x3D; Class.forName(&quot;java.lang.String&amp;quot">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-07T11:20:34.000Z">
+<meta property="article:modified_time" content="2022-07-16T03:19:32.843Z">
 <meta property="article:author" content="Lucas Cheung">
+<meta property="article:tag" content="面试题总结">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://littlecheung.github.io/">
+<link rel="canonical" href="https://littlecheung.github.io/2022/01/07/Java%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>小张的个人博客</title>
+  <title>Java面试知识点总结 | 小张的个人博客</title>
   
 
 
@@ -182,9 +185,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -200,10 +204,9 @@
       <meta itemprop="name" content="小张的个人博客">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/07/Java%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">Java面试知识点总结</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Java面试知识点总结
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -256,7 +259,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="Java-IO-amp-反射"><a href="#Java-IO-amp-反射" class="headerlink" title="Java IO &amp; 反射"></a>Java IO &amp; 反射</h2><h4 id="1-怎么利用反射获取类中的对象？"><a href="#1-怎么利用反射获取类中的对象？" class="headerlink" title="1. 怎么利用反射获取类中的对象？"></a>1. 怎么利用反射获取类中的对象？</h4><ul>
+        <h2 id="Java-IO-amp-反射"><a href="#Java-IO-amp-反射" class="headerlink" title="Java IO &amp; 反射"></a>Java IO &amp; 反射</h2><h4 id="1-怎么利用反射获取类中的对象？"><a href="#1-怎么利用反射获取类中的对象？" class="headerlink" title="1. 怎么利用反射获取类中的对象？"></a>1. 怎么利用反射获取类中的对象？</h4><ul>
 <li><p>获取反射中类Class实例的方法（以获取String类实例为例子）</p>
 <ol>
 <li>调用Class的静态方法：Class.forname(类全路径名)；</li>
@@ -3362,881 +3365,34 @@
 <li>获取互斥锁的线程，如果锁已经被占用，则该线程将进入睡眠状态；获取自旋锁的线程则不会睡眠，而是一直循环等待锁释放。</li>
 </ul>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/" rel="tag"># 面试题总结</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://littlecheung.github.io/2021/10/05/JVM%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Littlecheung.jpg">
-      <meta itemprop="name" content="Lucas Cheung">
-      <meta itemprop="description" content="坂道偶像宅 | 后端打工人 | 小镇青年">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小张的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/10/05/JVM%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">JVM学习笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-10-05 20:23:35" itemprop="dateCreated datePublished" datetime="2021-10-05T20:23:35+08:00">2021-10-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-13 22:09:45" itemprop="dateModified" datetime="2022-03-13T22:09:45+08:00">2022-03-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>20k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>18 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这是个人在学习JVM时记录的学习笔记，大体上分为内存与垃圾回收以及性能监控与调优两部分</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/10/05/JVM%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://littlecheung.github.io/2021/10/05/ElasticSearch%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Littlecheung.jpg">
-      <meta itemprop="name" content="Lucas Cheung">
-      <meta itemprop="description" content="坂道偶像宅 | 后端打工人 | 小镇青年">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小张的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/10/05/ElasticSearch%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">ElasticSearch搜索引擎基本使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-10-05 19:23:35" itemprop="dateCreated datePublished" datetime="2021-10-05T19:23:35+08:00">2021-10-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-18 19:55:23" itemprop="dateModified" datetime="2022-03-18T19:55:23+08:00">2022-03-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="1-JavaAPI操作ElasticSearch"><a href="#1-JavaAPI操作ElasticSearch" class="headerlink" title="1. JavaAPI操作ElasticSearch"></a>1. JavaAPI操作ElasticSearch</h2><h3 id="0-Maven先引入依赖"><a href="#0-Maven先引入依赖" class="headerlink" title="0. Maven先引入依赖"></a>0. Maven先引入依赖</h3>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/10/05/ElasticSearch%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/10/05/JVM%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="prev" title="JVM学习笔记">
+      <i class="fa fa-chevron-left"></i> JVM学习笔记
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
   
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://littlecheung.github.io/2021/10/03/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E4%B8%89%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%E6%AF%94%E8%BE%83/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Littlecheung.jpg">
-      <meta itemprop="name" content="Lucas Cheung">
-      <meta itemprop="description" content="坂道偶像宅 | 后端打工人 | 小镇青年">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小张的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/10/03/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E4%B8%89%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%E6%AF%94%E8%BE%83/" class="post-title-link" itemprop="url">单点登录三种实现方式比较</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-10-03 18:21:35" itemprop="dateCreated datePublished" datetime="2021-10-03T18:21:35+08:00">2021-10-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-03 23:41:42" itemprop="dateModified" datetime="2022-03-03T23:41:42+08:00">2022-03-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>878</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​            单点登录（Single Sign On, 简称SSO）是指在同一帐号平台下的多个应用系统中，用户只需登录一次，即可访问所有相互信任的应用系统。以百度为例，如果用户在百度贴吧登录过之后，当他访问百度知道时就无需再次登录即可使用服务，而百度贴吧和百度知道是百度公司旗下的两个不同的应用系统，那么就说明百度贴吧和百度知道之间实现了单点登录。</p>
-<p>​            单点登录的实现方式有多种，下面来总结三种在学习过程中遇到过的实现方法：</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/10/03/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E4%B8%89%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%E6%AF%94%E8%BE%83/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://littlecheung.github.io/2021/09/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Littlecheung.jpg">
-      <meta itemprop="name" content="Lucas Cheung">
-      <meta itemprop="description" content="坂道偶像宅 | 后端打工人 | 小镇青年">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小张的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/09/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">设计模式学习笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-09-04 19:21:35" itemprop="dateCreated datePublished" datetime="2021-09-04T19:21:35+08:00">2021-09-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-05-10 16:04:01" itemprop="dateModified" datetime="2022-05-10T16:04:01+08:00">2022-05-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>29k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>26 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>个人学习设计模式时的学习笔记，开始先介绍了七大设计原则和UML类图的基础知识，接着按照创建型模式、结构型模式和行为型模式的分类来分别介绍23种设计模式，对各种设计模式有了一个基本认识；</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/09/04/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://littlecheung.github.io/2021/03/06/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8CJUC%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Littlecheung.jpg">
-      <meta itemprop="name" content="Lucas Cheung">
-      <meta itemprop="description" content="坂道偶像宅 | 后端打工人 | 小镇青年">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小张的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/06/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8CJUC%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">多线程和JUC并发编程学习笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-03-06 16:21:35" itemprop="dateCreated datePublished" datetime="2021-03-06T16:21:35+08:00">2021-03-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-13 13:53:06" itemprop="dateModified" datetime="2022-03-13T13:53:06+08:00">2022-03-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>21k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>20 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这个是个人在学习多线程和并发编程时记录的笔记，仅涉及并发编程的基础知识</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/03/06/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8CJUC%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://littlecheung.github.io/2020/10/04/Redis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Littlecheung.jpg">
-      <meta itemprop="name" content="Lucas Cheung">
-      <meta itemprop="description" content="坂道偶像宅 | 后端打工人 | 小镇青年">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小张的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/04/Redis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">Redis学习笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-04 16:23:35" itemprop="dateCreated datePublished" datetime="2020-10-04T16:23:35+08:00">2020-10-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-23 12:24:39" itemprop="dateModified" datetime="2022-03-23T12:24:39+08:00">2022-03-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>7.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Redis个人总结的学习笔记，后续继续补充知识点</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/10/04/Redis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://littlecheung.github.io/2020/09/13/RabbitMQ%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Littlecheung.jpg">
-      <meta itemprop="name" content="Lucas Cheung">
-      <meta itemprop="description" content="坂道偶像宅 | 后端打工人 | 小镇青年">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小张的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/13/RabbitMQ%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">RabbitMQ-消息队列学习笔记①</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-09-13 18:27:35" itemprop="dateCreated datePublished" datetime="2020-09-13T18:27:35+08:00">2020-09-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-22 19:43:43" itemprop="dateModified" datetime="2022-03-22T19:43:43+08:00">2022-03-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.9k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这个是个人学习RabbitMQ消息队列时所总结的一部分学习笔记，关于RabbitMQ的更深入内容后续学习继续补充；</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/13/RabbitMQ%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://littlecheung.github.io/2020/09/05/Nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Littlecheung.jpg">
-      <meta itemprop="name" content="Lucas Cheung">
-      <meta itemprop="description" content="坂道偶像宅 | 后端打工人 | 小镇青年">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小张的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/05/Nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">Nginx学习笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-09-05 19:23:35" itemprop="dateCreated datePublished" datetime="2020-09-05T19:23:35+08:00">2020-09-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-22 19:43:58" itemprop="dateModified" datetime="2022-03-22T19:43:58+08:00">2022-03-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这个是个人学习Nginx基本使用所总结的笔记，仅供参考</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/05/Nginx%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://littlecheung.github.io/2020/09/03/Java%20web%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E5%B1%82%E5%8F%8A%E5%90%84%E8%87%AA%E4%BD%9C%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Littlecheung.jpg">
-      <meta itemprop="name" content="Lucas Cheung">
-      <meta itemprop="description" content="坂道偶像宅 | 后端打工人 | 小镇青年">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小张的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/03/Java%20web%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E5%B1%82%E5%8F%8A%E5%90%84%E8%87%AA%E4%BD%9C%E7%94%A8/" class="post-title-link" itemprop="url">Java web开发中的各种层作用理解</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-09-03 18:20:34" itemprop="dateCreated datePublished" datetime="2020-09-03T18:20:34+08:00">2020-09-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-02 22:36:11" itemprop="dateModified" datetime="2022-03-02T22:36:11+08:00">2022-03-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>一般的项目模块中都有Dao层、Entity层、Service层、Controller层和View层，今天来分享一下个人对各层作用的理解；</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/03/Java%20web%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E5%B1%82%E5%8F%8A%E5%90%84%E8%87%AA%E4%BD%9C%E7%94%A8/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
 
 
 
@@ -4288,6 +3444,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-IO-amp-%E5%8F%8D%E5%B0%84"><span class="nav-number">1.</span> <span class="nav-text">Java IO &amp; 反射</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%80%8E%E4%B9%88%E5%88%A9%E7%94%A8%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%EF%BC%9F"><span class="nav-number">1.0.1.</span> <span class="nav-text">1. 怎么利用反射获取类中的对象？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-BIO%E3%80%81NIO%E5%92%8CAIO%E6%A6%82%E5%BF%B5"><span class="nav-number">1.0.2.</span> <span class="nav-text">2. BIO、NIO和AIO概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E3%80%90NIO%E5%92%8CBIO%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8C%BA%E5%88%AB%E3%80%91"><span class="nav-number">1.0.3.</span> <span class="nav-text">3.【NIO和BIO的主要区别】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-NIO%E7%9A%84%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E6%9C%89%E5%93%AA%E5%87%A0%E4%B8%AA%EF%BC%9F"><span class="nav-number">1.0.4.</span> <span class="nav-text">4.NIO的核心组件有哪几个？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-select%E3%80%81poll%E5%92%8Cepoll%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F%EF%BC%88%E5%BE%85%E8%A1%A5%E5%85%85%EF%BC%89"><span class="nav-number">1.0.5.</span> <span class="nav-text">5. select、poll和epoll的区别？（待补充）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E8%AF%B4%E4%B8%80%E8%AF%B4Linux%E7%9A%84%E4%BA%94%E7%A7%8DIO%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.0.6.</span> <span class="nav-text">6. 说一说Linux的五种IO模型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E9%9B%86%E5%90%88"><span class="nav-number">2.</span> <span class="nav-text">Java集合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E3%80%90%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8BHashMap%E7%9A%84%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E3%80%91"><span class="nav-number">2.0.1.</span> <span class="nav-text">1.  【介绍一下HashMap的底层实现原理】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%9C%A8%E8%A7%A3%E5%86%B3%E5%93%88%E5%B8%8C%E5%86%B2%E7%AA%81%E6%97%B6%E4%B8%8D%E7%9B%B4%E6%8E%A5%E7%94%A8%E7%BA%A2%E9%BB%91%E6%A0%91%E8%80%8C%E5%85%88%E9%80%89%E6%8B%A9%E7%94%A8%E9%93%BE%E8%A1%A8%EF%BC%8C%E5%86%8D%E8%BD%AC%E7%BA%A2%E9%BB%91%E6%A0%91%EF%BC%9F"><span class="nav-number">2.0.2.</span> <span class="nav-text">2. 为什么在解决哈希冲突时不直接用红黑树而先选择用链表，再转红黑树？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1%E3%80%90HashMap%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4%E6%98%AF%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E7%9A%84%EF%BC%9F%E3%80%91"><span class="nav-number">2.0.3.</span> <span class="nav-text">3.1【HashMap为什么说是线程不安全的？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-%E3%80%90Arraylist%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4%E6%98%AF%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8%E7%9A%84%EF%BC%9F%E3%80%91"><span class="nav-number">2.0.4.</span> <span class="nav-text">3.2 【Arraylist为什么说是线程不安全的？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E3%80%90HashMap%E5%92%8CHashTable%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F%E3%80%91"><span class="nav-number">2.0.5.</span> <span class="nav-text">4. 【HashMap和HashTable的区别？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E3%80%90-ConcurrentHashMap%E5%AE%9E%E7%8E%B0%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E3%80%91"><span class="nav-number">2.0.6.</span> <span class="nav-text">5.【 ConcurrentHashMap实现线程安全的底层原理是什么？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-ConcurrentHashMap%E4%B8%8D%E6%94%AF%E6%8C%81key%E6%88%96value%E4%B8%BAnull%E7%9A%84%E5%8E%9F%E5%9B%A0%EF%BC%9F"><span class="nav-number">2.0.7.</span> <span class="nav-text">6. ConcurrentHashMap不支持key或value为null的原因？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E3%80%90%E8%B0%88%E8%B0%88HashMap%E7%9A%84%E6%89%A9%E5%AE%B9%E6%9C%BA%E5%88%B6%E3%80%91"><span class="nav-number">2.0.8.</span> <span class="nav-text">7. 【谈谈HashMap的扩容机制】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-%E3%80%90%E8%B0%88%E8%B0%88ConcurrentHashMap%E7%9A%84%E6%89%A9%E5%AE%B9%E6%9C%BA%E5%88%B6%E3%80%91%EF%BC%88%E5%BE%85%E8%A1%A5%E5%85%85%EF%BC%89"><span class="nav-number">2.0.9.</span> <span class="nav-text">8. 【谈谈ConcurrentHashMap的扩容机制】（待补充）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-%E3%80%90%E8%B0%88%E8%B0%88ArrayList%E7%9A%84%E6%89%A9%E5%AE%B9%E6%9C%BA%E5%88%B6%E3%80%91"><span class="nav-number">2.0.10.</span> <span class="nav-text">9. 【谈谈ArrayList的扩容机制】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-%E8%B0%88%E8%B0%88CopyOnWriteArraylist%E7%9A%84%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%9F%E5%85%B6%E4%B8%8EReetrantReadWriteLock%E8%AF%BB%E5%86%99%E9%94%81%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">2.0.11.</span> <span class="nav-text">10. 谈谈CopyOnWriteArraylist的底层实现原理？其与ReetrantReadWriteLock读写锁的区别？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-HashMap%E7%9A%84put-%E6%B5%81%E7%A8%8B%EF%BC%9Fget-%E6%B5%81%E7%A8%8B%EF%BC%9F%EF%BC%88%E5%BE%85%E8%A1%A5%E5%85%85%EF%BC%89"><span class="nav-number">2.0.12.</span> <span class="nav-text">11. HashMap的put()流程？get()流程？（待补充）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-ConcurrentHashMap%E7%9A%84put-%E6%B5%81%E7%A8%8B%EF%BC%9Fget-%E6%B5%81%E7%A8%8B%EF%BC%9F%EF%BC%88%E5%BE%85%E8%A1%A5%E5%85%85%EF%BC%89"><span class="nav-number">2.0.13.</span> <span class="nav-text">12. ConcurrentHashMap的put()流程？get()流程？（待补充）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">Java并发编程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E3%80%90%E8%AF%B7%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9volatile%E3%80%81Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%90%86%E8%A7%A3%E3%80%91"><span class="nav-number">3.0.1.</span> <span class="nav-text">1. 【请谈谈你对volatile、Java内存模型的理解】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E3%80%90CAS%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E3%80%91"><span class="nav-number">3.0.2.</span> <span class="nav-text">2. 【CAS底层实现原理是什么？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E4%BD%BF%E7%94%A8Atomic%E5%8E%9F%E5%AD%90%E7%B1%BB%E8%A7%A3%E5%86%B3ABA%E9%97%AE%E9%A2%98"><span class="nav-number">3.0.3.</span> <span class="nav-text">3. 使用Atomic原子类解决ABA问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%85%AC%E5%B9%B3%E9%94%81-%E9%9D%9E%E5%85%AC%E5%B9%B3%E9%94%81-%E5%8F%AF%E9%87%8D%E5%85%A5%E9%94%81%E8%AF%B7%E8%B0%88%E8%B0%88%E4%BD%A0%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%9F"><span class="nav-number">3.0.4.</span> <span class="nav-text">4. 公平锁&#x2F;非公平锁&#x2F;可重入锁请谈谈你的理解？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-%E6%AD%BB%E9%94%81%E7%BC%96%E7%A0%81%E5%8F%8A%E5%AE%9A%E4%BD%8D%E5%88%86%E6%9E%90"><span class="nav-number">3.0.5.</span> <span class="nav-text">8. 死锁编码及定位分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-LockSupport%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%EF%BC%88%E5%BE%85%E8%A1%A5%E5%85%85%EF%BC%89"><span class="nav-number">3.0.6.</span> <span class="nav-text">10. LockSupport是什么？（待补充）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-%E3%80%90AQS%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E3%80%91"><span class="nav-number">3.0.7.</span> <span class="nav-text">11. 【AQS的实现原理是什么？】</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#11-1-Semaphore%E4%BF%A1%E5%8F%B7%E9%87%8F"><span class="nav-number">3.0.7.1.</span> <span class="nav-text">11.1 Semaphore信号量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-2-CountDownLatch%E5%80%92%E8%AE%A1%E6%97%B6%E5%99%A8"><span class="nav-number">3.0.7.2.</span> <span class="nav-text">11.2 CountDownLatch倒计时器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-3-CyclicBarrier%E5%BE%AA%E7%8E%AF%E6%A0%85%E6%A0%8F"><span class="nav-number">3.0.7.3.</span> <span class="nav-text">11.3 CyclicBarrier循环栅栏</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-%E3%80%90Synchronized%E7%9A%84%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E3%80%91"><span class="nav-number">3.0.8.</span> <span class="nav-text">12. 【Synchronized的底层原理是什么？】</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#12-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4synchronized%E6%98%AF%E9%9D%9E%E5%85%AC%E5%B9%B3%E9%94%81%EF%BC%9F"><span class="nav-number">3.0.8.1.</span> <span class="nav-text">12. 为什么说synchronized是非公平锁？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-%E4%BB%80%E4%B9%88%E6%98%AF%E9%94%81%E6%B6%88%E9%99%A4%E5%92%8C%E9%94%81%E7%B2%97%E5%8C%96%EF%BC%9F"><span class="nav-number">3.0.9.</span> <span class="nav-text">14. 什么是锁消除和锁粗化？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-%E3%80%90%E4%B9%90%E8%A7%82%E9%94%81%E4%B8%80%E5%AE%9A%E6%98%AF%E5%A5%BD%E7%9A%84%E5%90%97%EF%BC%9F%E3%80%91"><span class="nav-number">3.0.10.</span> <span class="nav-text">15. 【乐观锁一定是好的吗？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#16-%E3%80%90%E4%B8%8ESynchronized%E7%9B%B8%E6%AF%94%EF%BC%8C%E5%8F%AF%E9%87%8D%E5%85%A5%E9%94%81ReentrantLock%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E6%9C%89%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C%EF%BC%9F%E3%80%91"><span class="nav-number">3.0.11.</span> <span class="nav-text">16. 【与Synchronized相比，可重入锁ReentrantLock的实现原理有什么不同？】</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#16-1-%E4%BA%86%E8%A7%A3ReentrantLock%E5%90%97%EF%BC%9F"><span class="nav-number">3.0.11.1.</span> <span class="nav-text">16.1 了解ReentrantLock吗？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#16-2-%E4%BA%86%E8%A7%A3ReadWriteLock%E5%90%97%EF%BC%9F"><span class="nav-number">3.0.11.2.</span> <span class="nav-text">16.2 了解ReadWriteLock吗？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#16-3-ReentrantReadWriteLock%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">3.0.11.3.</span> <span class="nav-text">16.3 ReentrantReadWriteLock实现原理是什么？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#17-Java-%E4%B8%AD%E7%94%A8%E5%88%B0%E7%9A%84%E7%BA%BF%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">3.0.12.</span> <span class="nav-text">17. Java 中用到的线程调度算法是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#18-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8Executor%E6%A1%86%E6%9E%B6%E8%80%8C%E4%B8%8D%E6%98%AF%E7%9B%B4%E6%8E%A5new-Thread-%EF%BC%89"><span class="nav-number">3.0.13.</span> <span class="nav-text">18. 为什么使用Executor框架而不是直接new Thread(）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#19-%E3%80%90%E4%BB%80%E4%B9%88%E6%98%AF%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%EF%BC%9F%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E7%9A%84%E7%A7%8D%E7%B1%BB%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F%E3%80%91"><span class="nav-number">3.0.14.</span> <span class="nav-text">19. 【什么是阻塞队列？阻塞队列的实现原理是什么？阻塞队列的种类有哪些？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#20-%E3%80%90%E5%9C%A8-Java%E4%B8%ADCyclicBarriar%E5%BE%AA%E7%8E%AF%E6%A0%85%E6%A0%8F%E5%92%8CCountdownLatch%E5%80%92%E8%AE%A1%E6%97%B6%E5%99%A8%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F%E3%80%91"><span class="nav-number">3.0.15.</span> <span class="nav-text">20. 【在 Java中CyclicBarriar循环栅栏和CountdownLatch倒计时器有什么区别？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#21-SynchronizedMap-%E5%92%8C-ConcurrentHashMap%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F%EF%BC%88%E5%BE%85%E8%A1%A5%E5%85%85%EF%BC%89"><span class="nav-number">3.0.16.</span> <span class="nav-text">21. SynchronizedMap 和 ConcurrentHashMap有什么区别？（待补充）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#22-Java-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E4%B8%AD-submit-%E5%92%8C-execute-%E6%96%B9%E6%B3%95%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">3.0.17.</span> <span class="nav-text">22. Java 线程池中 submit() 和 execute()方法有什么区别？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#23-ThreadLocal-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8%EF%BC%9F"><span class="nav-number">3.0.18.</span> <span class="nav-text">23. ThreadLocal 是什么？有什么用？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#23-1-ThreadLocal%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%88%E5%BE%85%E8%A1%A5%E5%85%85%EF%BC%89"><span class="nav-number">3.0.18.1.</span> <span class="nav-text">23.1 ThreadLocal的实现原理（待补充）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#23-2-ThreadLocal%E7%9A%84%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2%E9%97%AE%E9%A2%98%EF%BC%88%E5%BE%85%E8%A1%A5%E5%85%85%EF%BC%89"><span class="nav-number">3.0.18.2.</span> <span class="nav-text">23.2 ThreadLocal的内存泄露问题（待补充）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#24-%E3%80%90Linux-%E7%8E%AF%E5%A2%83%E4%B8%8B%E5%A6%82%E4%BD%95%E6%9F%A5%E6%89%BE%E5%93%AA%E4%B8%AA%E7%BA%BF%E7%A8%8B%E4%BD%BF%E7%94%A8-CPU-%E7%9A%84%E6%97%B6%E9%97%B4%E6%9C%80%E9%95%BF%E3%80%91"><span class="nav-number">3.0.19.</span> <span class="nav-text">24. 【Linux 环境下如何查找哪个线程使用 CPU 的时间最长】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#25-%E5%A6%82%E6%9E%9C%E4%BD%A0%E6%8F%90%E4%BA%A4%E4%BB%BB%E5%8A%A1%E6%97%B6%EF%BC%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0%E9%98%9F%E5%88%97%E5%B7%B2%E6%BB%A1%EF%BC%8C%E8%BF%99%E6%97%B6%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">3.0.20.</span> <span class="nav-text">25. 如果你提交任务时，线程池队列已满，这时会发生什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#26-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E7%9B%B4%E6%8E%A5%E8%B0%83%E7%94%A8run-%E6%96%B9%E6%B3%95%EF%BC%8C%E8%80%8C%E8%A6%81%E5%85%88%E8%B0%83%E7%94%A8start-%E5%86%8D%E6%89%A7%E8%A1%8Crun%EF%BC%88%EF%BC%89%EF%BC%9F"><span class="nav-number">3.0.21.</span> <span class="nav-text">26. 为什么不能直接调用run()方法，而要先调用start()再执行run（）？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#27-%E4%BA%86%E8%A7%A3Fork-Join%E6%A1%86%E6%9E%B6%E5%90%97%EF%BC%9F%EF%BC%88%E5%BE%85%E8%A1%A5%E5%85%85%EF%BC%89"><span class="nav-number">3.0.22.</span> <span class="nav-text">27. 了解Fork&#x2F;Join框架吗？（待补充）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#28-%E3%80%90JDK-1-6%E5%90%8E%E5%AF%B9Synchronized%E7%9A%84%E9%94%81%E4%BC%98%E5%8C%96%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F%E3%80%91"><span class="nav-number">3.0.23.</span> <span class="nav-text">28. 【JDK 1.6后对Synchronized的锁优化有哪些？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#29-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E7%BA%BF%E7%A8%8B%E6%B1%A0%EF%BC%9F"><span class="nav-number">3.0.24.</span> <span class="nav-text">29. 为什么使用线程池？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E3%80%9029-1-%E8%AF%B4%E4%B8%8B%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%AE%9E%E7%8E%B0%E7%B1%BBThreadPoolExecutor%E6%A0%B8%E5%BF%83%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE%E3%80%91"><span class="nav-number">3.0.24.1.</span> <span class="nav-text">【29.1 说下线程池实现类ThreadPoolExecutor核心参数配置】</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#29-2-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%89%A7%E8%A1%8C%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%B5%81%E7%A8%8B%EF%BC%88%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%89%EF%BC%9F"><span class="nav-number">3.0.24.2.</span> <span class="nav-text">29.2 线程池执行任务的流程（实现原理）？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#29-3-%E5%B8%B8%E7%94%A8%E7%9A%84Java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%B1%BB%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">3.0.24.3.</span> <span class="nav-text">29.3 常用的Java线程池类型有哪些？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#29-4-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%B8%B8%E7%94%A8%E7%9A%84%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">3.0.24.4.</span> <span class="nav-text">29.4 线程池常用的阻塞队列有哪些？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#29-5-%E3%80%90%E5%A6%82%E6%9E%9C%E7%BA%BF%E4%B8%8A%E6%9C%BA%E5%99%A8%E7%AA%81%E7%84%B6%E5%AE%95%E6%9C%BA%EF%BC%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E4%B8%AD%E7%9A%84%E8%AF%B7%E6%B1%82%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F%E3%80%91"><span class="nav-number">3.0.24.5.</span> <span class="nav-text">29.5 【如果线上机器突然宕机，线程池的阻塞队列中的请求怎么办？】</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM"><span class="nav-number">4.</span> <span class="nav-text">JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E8%AF%B4%E4%B8%8B%E4%BD%A0%E5%B9%B3%E6%97%B6%E5%B7%A5%E4%BD%9C%E7%94%A8%E8%BF%87%E7%9A%84JVM%E5%B8%B8%E7%94%A8%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">4.0.1.</span> <span class="nav-text">3. 说下你平时工作用过的JVM常用基本配置参数有哪些？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%BC%BA%E5%BC%95%E7%94%A8%E3%80%81%E8%BD%AF%E5%BC%95%E7%94%A8%E3%80%81%E5%BC%B1%E5%BC%95%E7%94%A8%E3%80%81%E8%99%9A%E5%BC%95%E7%94%A8%E5%88%86%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">4.0.2.</span> <span class="nav-text">4. 强引用、软引用、弱引用、虚引用分别是什么？有什么区别？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E5%B8%B8%E8%A7%81%E5%8F%91%E7%94%9FOOM%EF%BC%88out-of-memory%EF%BC%89%E7%9A%84%E5%8E%9F%E5%9B%A0%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="nav-number">4.0.3.</span> <span class="nav-text">5. 常见发生OOM（out of memory）的原因及解决办法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-%E3%80%90%E4%BB%8B%E7%BB%8D%E4%B8%8BJava%E4%B8%AD%E7%9A%84%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95%E5%92%8C%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8%EF%BC%8C%E5%90%84%E8%87%AA%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E3%80%91"><span class="nav-number">4.0.4.</span> <span class="nav-text">8. 【介绍下Java中的垃圾回收算法和垃圾回收器，各自的优缺点是什么？】</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E3%80%908-1-%E8%83%BD%E8%AF%A6%E7%BB%86%E8%AF%B4%E4%B8%80%E4%B8%8BCMS%E7%9A%84%E5%9B%9E%E6%94%B6%E8%BF%87%E7%A8%8B%E5%90%97%EF%BC%9FCMS%E7%9A%84%E9%97%AE%E9%A2%98%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E3%80%91"><span class="nav-number">4.0.4.1.</span> <span class="nav-text">【8.1 能详细说一下CMS的回收过程吗？CMS的问题是什么？】</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E3%80%908-2-%E8%83%BD%E8%AF%A6%E7%BB%86%E8%AF%B4%E4%B8%80%E4%B8%8BG1%E7%9A%84%E5%9B%9E%E6%94%B6%E8%BF%87%E7%A8%8B%E5%90%97%EF%BC%9F%E3%80%91"><span class="nav-number">4.0.4.2.</span> <span class="nav-text">【8.2 能详细说一下G1的回收过程吗？】</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-3-%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8G1%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8%E8%A7%A3%E5%86%B3%E5%A4%A7%E5%86%85%E5%AD%98%E6%9C%BA%E5%99%A8%E7%9A%84%E6%96%B0%E7%94%9F%E4%BB%A3GC%E8%BF%87%E6%85%A2%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">4.0.4.3.</span> <span class="nav-text">8.3 如何利用G1垃圾回收器解决大内存机器的新生代GC过慢的问题？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-%E3%80%90%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%98%E6%85%A2%EF%BC%8C%E8%AF%8A%E6%96%AD%E6%80%9D%E8%B7%AF%E5%92%8C%E6%80%A7%E8%83%BD%E8%AF%84%E4%BC%B0%E8%83%BD%E8%B0%88%E8%B0%88%E5%90%97%EF%BC%9F%E3%80%91"><span class="nav-number">4.0.5.</span> <span class="nav-text">9. 【生产环境服务器变慢，诊断思路和性能评估能谈谈吗？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-1%E3%80%90%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E5%87%BA%E7%8E%B0CPU%E5%8D%A0%E7%94%A8%E8%BF%87%E9%AB%98%EF%BC%8C%E8%AF%B7%E8%B0%88%E8%B0%88%E4%BD%A0%E7%9A%84%E5%88%86%E6%9E%90%E6%80%9D%E8%B7%AF%E5%92%8C%E5%AE%9A%E4%BD%8D%E3%80%91"><span class="nav-number">4.0.6.</span> <span class="nav-text">10.1【生产环境出现CPU占用过高，请谈谈你的分析思路和定位】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-2-%E3%80%90%E7%BA%BF%E4%B8%8A%E6%9C%BA%E5%99%A8%E7%9A%84%E4%B8%80%E4%B8%AA%E8%BF%9B%E7%A8%8B%E7%94%A8kill%E5%91%BD%E4%BB%A4%E6%9D%80%E4%B8%8D%E6%AD%BB%E8%AF%A5%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F%E3%80%91"><span class="nav-number">4.0.7.</span> <span class="nav-text">10.2 【线上机器的一个进程用kill命令杀不死该怎么办？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-3-%E3%80%90%E6%8E%92%E6%9F%A5OOM%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98%E7%9A%84%E6%AD%A5%E9%AA%A4%E3%80%91"><span class="nav-number">4.0.8.</span> <span class="nav-text">10.3 【排查OOM异常问题的步骤】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-4-%E3%80%90%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E5%BF%AB%E6%BB%A1%E4%BA%86%EF%BC%8C%E5%9C%A8%E4%B8%8D%E5%BD%B1%E5%93%8D%E6%9C%8D%E5%8A%A1%E6%AD%A3%E5%B8%B8%E8%BF%90%E8%A1%8C%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%EF%BC%9F%E3%80%91"><span class="nav-number">4.0.9.</span> <span class="nav-text">10.4 【服务器存储空间快满了，在不影响服务正常运行的情况下如何解决？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-5-%E3%80%90%E7%BA%BF%E4%B8%8A%E5%87%BA%E7%8E%B0%E7%B3%BB%E7%BB%9F%E7%BC%93%E6%85%A2%E7%9A%84%E6%8E%92%E6%9F%A5%E6%80%9D%E8%B7%AF%E3%80%91"><span class="nav-number">4.0.10.</span> <span class="nav-text">10.5 【线上出现系统缓慢的排查思路】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-%E3%80%90%E4%BB%8B%E7%BB%8D%E4%B8%8BJVM%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%EF%BC%88%E7%B1%BB%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%EF%BC%89%E3%80%91"><span class="nav-number">4.0.11.</span> <span class="nav-text">11. 【介绍下JVM的类加载机制（类的生命周期）】</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B%E4%B8%80%EF%BC%9ALoading%E5%8A%A0%E8%BD%BD"><span class="nav-number">4.0.11.1.</span> <span class="nav-text">类的加载过程一：Loading加载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B%E4%BA%8C%EF%BC%9ALinking%E8%BF%9E%E6%8E%A5"><span class="nav-number">4.0.11.2.</span> <span class="nav-text">类的加载过程二：Linking连接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B%E4%B8%89%EF%BC%9AInitialization%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">4.0.11.3.</span> <span class="nav-text">类的加载过程三：Initialization初始化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-1-%E4%BB%80%E4%B9%88%E6%98%AF%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%EF%BC%9F%E5%B8%B8%E7%94%A8%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">4.0.11.4.</span> <span class="nav-text">11.1 什么是类加载器？常用的类加载器有哪些？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-ParNew-CMS%E7%9A%84GC%EF%BC%8C%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E5%8F%AA%E5%81%9AYoung-GC%EF%BC%8CJVM%E5%8F%82%E6%95%B0%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE%EF%BC%9F"><span class="nav-number">4.0.12.</span> <span class="nav-text">12. ParNew+CMS的GC，如何保证只做Young GC，JVM参数如何配置？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E5%AD%98%E6%B4%BB%EF%BC%9F%EF%BC%88JVM%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%9A%84%E6%97%B6%E5%80%99%E5%A6%82%E4%BD%95%E7%A1%AE%E5%AE%9A%E5%9E%83%E5%9C%BE%EF%BC%9F%EF%BC%89"><span class="nav-number">4.0.13.</span> <span class="nav-text">13. 如何判断一个对象是否存活？（JVM垃圾回收的时候如何确定垃圾？）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-%E3%80%90Young-GC%E3%80%81Old-GC%E5%92%8CFull-GC%E5%88%86%E5%88%AB%E5%9C%A8%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E4%BC%9A%E5%8F%91%E7%94%9F%EF%BC%9F%E3%80%91"><span class="nav-number">4.0.14.</span> <span class="nav-text">14. 【Young GC、Old GC和Full GC分别在什么情况下会发生？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-%E3%80%90%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6%EF%BC%9F%E3%80%91"><span class="nav-number">4.0.15.</span> <span class="nav-text">15. 【什么是双亲委派机制？为什么需要双亲委派机制？】</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#15-1-%E5%88%97%E4%B8%BE%E4%B8%80%E4%BA%9B%E4%BD%A0%E7%9F%A5%E9%81%93%E7%9A%84%E6%89%93%E7%A0%B4%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6%E7%9A%84%E4%BE%8B%E5%AD%90%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%89%93%E7%A0%B4%EF%BC%9F"><span class="nav-number">4.0.15.1.</span> <span class="nav-text">15.1 列举一些你知道的打破双亲委派机制的例子，为什么要打破？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#17-%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E7%94%A8-%E8%BF%90%E7%AE%97%E7%AC%A6%E8%BF%9B%E8%A1%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%9E%E6%8E%A5%E6%AF%94%E8%B0%83%E7%94%A8-StringBuffer-StringBuilder-%E5%AF%B9%E8%B1%A1%E7%9A%84-append-%E6%96%B9%E6%B3%95%E8%BF%9E%E6%8E%A5%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%80%A7%E8%83%BD%E6%9B%B4%E5%A5%BD%EF%BC%9F"><span class="nav-number">4.0.16.</span> <span class="nav-text">17. 什么情况下用+运算符进行字符串连接比调用 StringBuffer&#x2F;StringBuilder 对象的 append 方法连接字符串性能更好？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#19-%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E4%BC%9A%E5%8F%91%E7%94%9F%E6%A0%88%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%EF%BC%9F"><span class="nav-number">4.0.17.</span> <span class="nav-text">19. 什么情况下会发生栈内存溢出？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#20-%E8%B0%88%E8%B0%88JVM%E4%B8%AD%E7%9A%84%E5%B8%B8%E9%87%8F%E6%B1%A0%EF%BC%9F"><span class="nav-number">4.0.18.</span> <span class="nav-text">20. 谈谈JVM中的常量池？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#21-%E3%80%90%E8%AF%B4%E4%B8%80%E4%B8%8BJVM%E8%B0%83%E4%BC%98%E7%9A%84%E5%91%BD%E4%BB%A4%E3%80%91"><span class="nav-number">4.0.19.</span> <span class="nav-text">21. 【说一下JVM调优的命令】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#22-%E3%80%90%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E3%80%81%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E6%98%AF%E4%BB%80%E4%B9%88%E4%BB%A5%E5%8F%8A%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3%EF%BC%9F%E3%80%91"><span class="nav-number">4.0.20.</span> <span class="nav-text">22. 【内存泄漏、内存溢出是什么以及怎么解决？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#23-%E3%80%90%E4%BB%8B%E7%BB%8D%E4%B8%8BJVM%E7%9A%84%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%EF%BC%88%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%EF%BC%89%E3%80%91"><span class="nav-number">4.0.21.</span> <span class="nav-text">23. 【介绍下JVM的内存区域（运行时数据区）】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#24-%E3%80%90Java%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B%E7%9A%84%E4%BA%94%E4%B8%AA%E6%AD%A5%E9%AA%A4%E3%80%91"><span class="nav-number">4.0.22.</span> <span class="nav-text">24.【Java对象创建过程的五个步骤】</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Step1-%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%A3%80%E6%9F%A5"><span class="nav-number">4.0.22.1.</span> <span class="nav-text">Step1:类加载检查</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Step2-%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98"><span class="nav-number">4.0.22.2.</span> <span class="nav-text">Step2:分配内存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Step3-%E5%88%9D%E5%A7%8B%E5%8C%96%E9%9B%B6%E5%80%BC"><span class="nav-number">4.0.22.3.</span> <span class="nav-text">Step3:初始化零值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Step4-%E8%AE%BE%E7%BD%AE%E5%AF%B9%E8%B1%A1%E5%A4%B4"><span class="nav-number">4.0.22.4.</span> <span class="nav-text">Step4:设置对象头</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Step5-%E6%89%A7%E8%A1%8C-init-%E6%96%B9%E6%B3%95"><span class="nav-number">4.0.22.5.</span> <span class="nav-text">Step5:执行 init() 方法</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring"><span class="nav-number">5.</span> <span class="nav-text">Spring</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E3%80%90%E4%BB%80%E4%B9%88%E6%98%AF%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC%EF%BC%88IoC%EF%BC%89%EF%BC%9F%E4%BB%80%E4%B9%88%E6%98%AF%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%EF%BC%88DI%EF%BC%89%EF%BC%9F%E3%80%91"><span class="nav-number">5.0.1.</span> <span class="nav-text">1. 【什么是控制反转（IoC）？什么是依赖注入（DI）？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Spring%E5%AE%B9%E5%99%A8%EF%BC%9ABeanFactory%E5%92%8CApplicationContext%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">5.0.2.</span> <span class="nav-text">2. Spring容器：BeanFactory和ApplicationContext有什么区别？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E3%80%90Spring-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%83%BD%E7%94%A8%E5%88%B0%E4%BA%86%E5%93%AA%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9F%E3%80%91"><span class="nav-number">5.0.3.</span> <span class="nav-text">3. 【Spring 框架中都用到了哪些设计模式？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E3%80%90-%E4%BB%80%E4%B9%88%E6%98%AFAOP%EF%BC%9F%E4%BA%86%E8%A7%A3AOP%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%90%97%EF%BC%9F%E3%80%91"><span class="nav-number">5.0.4.</span> <span class="nav-text">4.【 什么是AOP？了解AOP实现动态代理的两种方式吗？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E3%80%90Spring%E6%98%AF%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86Bean%E7%9A%84%EF%BC%9F%E3%80%91"><span class="nav-number">5.0.5.</span> <span class="nav-text">5. 【Spring是如何管理Bean的？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E3%80%90%E8%AF%B4%E4%B8%80%E8%AF%B4Bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E3%80%91"><span class="nav-number">5.0.6.</span> <span class="nav-text">6. 【说一说Bean的生命周期】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-1-%E3%80%90%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8BSpringMVC%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E3%80%91"><span class="nav-number">5.0.7.</span> <span class="nav-text">7.1 【介绍一下SpringMVC的工作流程】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-2-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8DSpring-MVC%E7%9A%84%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="nav-number">5.0.8.</span> <span class="nav-text">7.2 简单介绍Spring MVC的核心组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-Spring%E6%98%AF%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E7%9A%84%EF%BC%9F%EF%BC%88%E5%BE%85%E8%A1%A5%E5%85%85%EF%BC%89"><span class="nav-number">5.0.9.</span> <span class="nav-text">8. Spring是怎么解决循环依赖的？（待补充）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-%E3%80%90Spring%E7%9A%84%E4%BA%8B%E5%8A%A1%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E5%85%B6%E5%A6%82%E4%BD%95%E7%AE%A1%E7%90%86%E4%BA%8B%E5%8A%A1%EF%BC%9F%E3%80%91"><span class="nav-number">5.0.10.</span> <span class="nav-text">9. 【Spring的事务实现原理是什么？其如何管理事务？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-%E8%AF%B4%E4%B8%80%E8%AF%B4%E4%BD%A0%E7%9F%A5%E9%81%93%E7%9A%84Spring-MVC%E6%B3%A8%E8%A7%A3"><span class="nav-number">5.0.11.</span> <span class="nav-text">10. 说一说你知道的Spring MVC注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-%E8%AF%B4%E4%B8%80%E4%B8%8B%E4%BD%A0%E7%9F%A5%E9%81%93%E7%9A%84Spring-SpringBoot%E6%B3%A8%E8%A7%A3"><span class="nav-number">5.0.12.</span> <span class="nav-text">11. 说一下你知道的Spring &#x2F; SpringBoot注解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MyBatis"><span class="nav-number">6.</span> <span class="nav-text">MyBatis</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AFORM%E6%A1%86%E6%9E%B6%EF%BC%9F"><span class="nav-number">6.0.1.</span> <span class="nav-text">1. 什么是ORM框架？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E3%80%90MyBatis-%E4%B8%AD-%E5%92%8C-%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E3%80%91"><span class="nav-number">6.0.2.</span> <span class="nav-text">2. 【MyBatis 中 #{}和 ${}的区别是什么？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-MyBatis-%E6%9C%89%E5%87%A0%E7%A7%8D%E5%88%86%E9%A1%B5%E6%96%B9%E5%BC%8F%EF%BC%9F%E5%88%86%E9%A1%B5%E6%96%B9%E5%BC%8F%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">6.0.3.</span> <span class="nav-text">3. MyBatis 有几种分页方式？分页方式区别是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E3%80%90MyBatis-%E6%98%AF%E5%90%A6%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD%EF%BC%9F%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD%E7%9A%84%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E3%80%91"><span class="nav-number">6.0.4.</span> <span class="nav-text">4. 【MyBatis 是否支持延迟加载？延迟加载的原理是什么？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E3%80%90%E8%AF%B4%E4%B8%80%E4%B8%8B-MyBatis-%E7%9A%84%E4%B8%80%E7%BA%A7%E7%BC%93%E5%AD%98%E5%92%8C%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98%EF%BC%9F%E3%80%91"><span class="nav-number">6.0.5.</span> <span class="nav-text">5. 【说一下 MyBatis 的一级缓存和二级缓存？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E5%BD%93%E5%AE%9E%E4%BD%93%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%B1%9E%E6%80%A7%E5%90%8D%E5%92%8C%E8%A1%A8%E4%B8%AD%E7%9A%84%E5%AD%97%E6%AE%B5%E5%90%8D%E4%B8%8D%E4%B8%80%E6%A0%B7-%EF%BC%8C%E6%80%8E%E4%B9%88%E5%8A%9E-%EF%BC%9F"><span class="nav-number">6.0.6.</span> <span class="nav-text">6. 当实体类中的属性名和表中的字段名不一样 ，怎么办 ？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2-like-%E8%AF%AD%E5%8F%A5%E8%AF%A5%E6%80%8E%E4%B9%88%E5%86%99"><span class="nav-number">6.0.7.</span> <span class="nav-text">8. 模糊查询 like 语句该怎么写?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-Mybatis%E6%98%AF%E5%A6%82%E4%BD%95%E5%B0%86sql%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C%E5%B0%81%E8%A3%85%E4%B8%BA%E7%9B%AE%E6%A0%87%E5%AF%B9%E8%B1%A1%E5%B9%B6%E8%BF%94%E5%9B%9E%E7%9A%84%EF%BC%9F-%E9%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%E6%98%A0%E5%B0%84%E5%BD%A2%E5%BC%8F%EF%BC%9F"><span class="nav-number">6.0.8.</span> <span class="nav-text">9. Mybatis是如何将sql执行结果封装为目标对象并返回的？ 都有哪些映射形式？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-Mybatis%E7%9A%84Xml%E6%98%A0%E5%B0%84%E6%96%87%E4%BB%B6%E4%B8%AD%EF%BC%8C%E4%B8%8D%E5%90%8C%E7%9A%84Xml%E6%98%A0%E5%B0%84%E6%96%87%E4%BB%B6%EF%BC%8Cid%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E9%87%8D%E5%A4%8D%EF%BC%9F"><span class="nav-number">6.0.9.</span> <span class="nav-text">10. Mybatis的Xml映射文件中，不同的Xml映射文件，id是否可以重复？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-%E4%BB%80%E4%B9%88%E6%98%AF-MyBatis-%E7%9A%84%E6%8E%A5%E5%8F%A3%E7%BB%91%E5%AE%9A%EF%BC%9F%E6%9C%89%E5%93%AA%E4%BA%9B%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%EF%BC%9F"><span class="nav-number">6.0.10.</span> <span class="nav-text">11. 什么是 MyBatis 的接口绑定？有哪些实现方式？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-%E3%80%90%E4%BD%BF%E7%94%A8MyBatis%E7%9A%84-mapper%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E6%97%B6%E6%9C%89%E5%93%AA%E4%BA%9B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%EF%BC%9F%E3%80%91"><span class="nav-number">6.0.11.</span> <span class="nav-text">12. 【使用MyBatis的 mapper接口调用时有哪些注意事项？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-%E3%80%90%E9%80%9A%E5%B8%B8%E4%B8%80%E4%B8%AA-Xml-%E6%98%A0%E5%B0%84%E6%96%87%E4%BB%B6%EF%BC%8C%E9%83%BD%E4%BC%9A%E5%86%99%E4%B8%80%E4%B8%AA-Dao-%E6%8E%A5%E5%8F%A3%E4%B8%8E%E4%B9%8B%E5%AF%B9%E5%BA%94%EF%BC%8C%E8%AF%B7%E9%97%AE%E8%BF%99%E4%B8%AA-Dao-%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9FDao-%E6%8E%A5%E5%8F%A3%E9%87%8C%E7%9A%84%E6%96%B9%E6%B3%95%E5%8F%82%E6%95%B0%E4%B8%8D%E5%90%8C%E6%97%B6%E6%96%B9%E6%B3%95%E8%83%BD%E9%87%8D%E8%BD%BD%E5%90%97%EF%BC%9F%E3%80%91"><span class="nav-number">6.0.12.</span> <span class="nav-text">13. 【通常一个 Xml 映射文件，都会写一个 Dao 接口与之对应，请问这个 Dao 接口的工作原理是什么？Dao 接口里的方法参数不同时方法能重载吗？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-Mybatis-%E9%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B-Executor-%E6%89%A7%E8%A1%8C%E5%99%A8%EF%BC%9F%E5%AE%83%E4%BB%AC%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">6.0.13.</span> <span class="nav-text">14. Mybatis 都有哪些 Executor 执行器？它们之间的区别是什么？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97RabbitMQ"><span class="nav-number">7.</span> <span class="nav-text">消息队列RabbitMQ</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E8%AF%B4%E8%AF%B4Broker%E6%9C%8D%E5%8A%A1%E8%8A%82%E7%82%B9%E3%80%81Queue%E9%98%9F%E5%88%97%E3%80%81Exchange%E4%BA%A4%E6%8D%A2%E6%9C%BA"><span class="nav-number">7.0.1.</span> <span class="nav-text">1. 说说Broker服务节点、Queue队列、Exchange交换机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E7%9A%84%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B%EF%BC%9F"><span class="nav-number">7.0.2.</span> <span class="nav-text">2. 如何进行消息队列的技术选型？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%EF%BC%9F"><span class="nav-number">7.0.2.1.</span> <span class="nav-text">2.1 为什么使用消息队列？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E6%9C%89%E4%BB%80%E4%B9%88%E7%BC%BA%E7%82%B9%EF%BC%9F"><span class="nav-number">7.0.2.2.</span> <span class="nav-text">2.2 消息队列有什么缺点？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-%E3%80%90Kafka%E3%80%81RabbitMQ%E3%80%81RocketMQ%E3%80%81ActiveMQ%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB%E3%80%91"><span class="nav-number">7.0.2.3.</span> <span class="nav-text">2.3 【Kafka、RabbitMQ、RocketMQ、ActiveMQ之间的区别】</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%BC%95%E5%85%A5MQ%E5%90%8E%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E5%85%B6%E9%AB%98%E5%8F%AF%E7%94%A8%E6%80%A7%EF%BC%9F"><span class="nav-number">7.0.3.</span> <span class="nav-text">3. 引入MQ后如何保证其高可用性？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E3%80%90%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%B6%88%E6%81%AF%E4%B8%8D%E8%A2%AB%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9%EF%BC%88%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%B6%88%E6%81%AF%E6%B6%88%E8%B4%B9%E6%97%B6%E7%9A%84%E5%B9%82%E7%AD%89%E6%80%A7%EF%BC%89%EF%BC%9F%E3%80%91"><span class="nav-number">7.0.4.</span> <span class="nav-text">4. 【如何保证消息不被重复消费（如何保证消息消费时的幂等性）？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E3%80%90%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81RabbitMQ%E6%B6%88%E6%81%AF%E7%9A%84%E5%8F%AF%E9%9D%A0%E6%80%A7%E4%BC%A0%E8%BE%93%EF%BC%88%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E6%B6%88%E6%81%AF%E4%B8%A2%E5%A4%B1%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%89%EF%BC%9F%E3%80%91"><span class="nav-number">7.0.5.</span> <span class="nav-text">5. 【如何保证RabbitMQ消息的可靠性传输（如何处理消息丢失的问题）？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E3%80%90%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%B6%88%E6%81%AF%E7%9A%84%E6%9C%89%E5%BA%8F%E6%80%A7%EF%BC%9F%EF%BC%88%E5%8D%B3%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E9%A1%BA%E5%BA%8F%E6%B6%88%E8%B4%B9%EF%BC%89%E3%80%91"><span class="nav-number">7.0.6.</span> <span class="nav-text">6. 【如何保证消息的有序性？（即如何保证顺序消费）】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E3%80%90-%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E6%B6%88%E6%81%AF%E5%A0%86%E7%A7%AF%E7%9A%84%E6%83%85%E5%86%B5%EF%BC%9F%E3%80%91"><span class="nav-number">7.0.7.</span> <span class="nav-text">7.【 如何解决消息堆积的情况？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-MQ%E5%A4%84%E7%90%86%E6%B6%88%E6%81%AF%E5%A4%B1%E8%B4%A5%E4%BA%86%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F"><span class="nav-number">7.0.8.</span> <span class="nav-text">8. MQ处理消息失败了怎么办？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-RabbitMQ%E5%92%8CKafka%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">7.0.9.</span> <span class="nav-text">9. RabbitMQ和Kafka有什么区别？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-RabbitMQ%E7%9A%84%E6%9E%84%E9%80%A0"><span class="nav-number">7.0.10.</span> <span class="nav-text">10. RabbitMQ的构造</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-%E7%94%9F%E4%BA%A7%E8%80%85%E7%94%9F%E4%BA%A7%E6%B6%88%E6%81%AF%E4%B8%8E%E6%B6%88%E8%B4%B9%E8%80%85%E6%B6%88%E8%B4%B9%E6%B6%88%E6%81%AF%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-number">7.0.11.</span> <span class="nav-text">11. 生产者生产消息与消费者消费消息的过程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97Kafka"><span class="nav-number">8.</span> <span class="nav-text">消息队列Kafka</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Kafka%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%B6%88%E6%81%AF%E6%B6%88%E8%B4%B9%E7%9A%84%E9%A1%BA%E5%BA%8F%E6%80%A7%EF%BC%9F"><span class="nav-number">8.0.1.</span> <span class="nav-text">1. Kafka如何保证消息消费的顺序性？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Kafka%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E9%AB%98%E5%8F%AF%E7%94%A8%EF%BC%9F"><span class="nav-number">8.0.2.</span> <span class="nav-text">2. Kafka如何保证高可用？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Kafka%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%B6%88%E6%81%AF%E4%B8%8D%E4%B8%A2%E5%A4%B1%EF%BC%9F"><span class="nav-number">8.0.3.</span> <span class="nav-text">3. Kafka如何保证消息不丢失？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E6%8F%8F%E8%BF%B0%E4%B8%8BKafka%E4%B8%AD%E7%9A%84leader-replica%E5%92%8Cfollower-replica%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">8.0.4.</span> <span class="nav-text">4. 描述下Kafka中的leader replica和follower replica的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E4%B8%BA%E4%BB%80%E4%B9%88Kafka%E4%B8%8D%E6%94%AF%E6%8C%81%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%EF%BC%9F"><span class="nav-number">8.0.5.</span> <span class="nav-text">5. 为什么Kafka不支持读写分离？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%EF%BC%88%E7%B4%A2%E5%BC%95%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96%E3%80%81%E4%BA%8B%E5%8A%A1%E3%80%81SQL%E8%B0%83%E4%BC%98%E3%80%81SQL%E8%AF%AD%E5%8F%A5%E7%BC%96%E5%86%99%E3%80%81%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E8%AE%BE%E8%AE%A1%EF%BC%89"><span class="nav-number">9.</span> <span class="nav-text">MySQL（索引及其优化、事务、SQL调优、SQL语句编写、数据库表设计）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%AE%80%E5%8D%95%E6%8F%8F%E8%BF%B0-MySQL-%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E7%B4%A2%E5%BC%95%EF%BC%88%E4%B8%BB%E9%94%AE%E7%B4%A2%E5%BC%95%EF%BC%8C%E5%94%AF%E4%B8%80%E7%B4%A2%E5%BC%95%EF%BC%8C%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%EF%BC%89%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">9.0.1.</span> <span class="nav-text">1. 简单描述 MySQL 中的各种索引（主键索引，唯一索引，联合索引）的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-%E4%B8%BA%E6%95%B0%E6%8D%AE%E8%A1%A8%E5%BB%BA%E7%AB%8B%E7%B4%A2%E5%BC%95%E7%9A%84%E5%8E%9F%E5%88%99%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">9.0.1.1.</span> <span class="nav-text">1.1 为数据表建立索引的原则有哪些？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E4%B8%8D%E8%B5%B0%E7%B4%A2%E5%BC%95%EF%BC%88%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%EF%BC%89%EF%BC%9F"><span class="nav-number">9.0.1.2.</span> <span class="nav-text">1.2 什么情况下不走索引（索引失效）？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95%E6%9F%A5%E8%AF%A2%E4%B8%80%E5%AE%9A%E8%83%BD%E6%8F%90%E9%AB%98%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%80%A7%E8%83%BD%E5%90%97%EF%BC%9F"><span class="nav-number">9.0.1.3.</span> <span class="nav-text">1.3 使用索引查询一定能提高查询的性能吗？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E3%80%90%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1%E7%89%B9%E6%80%A7%E5%92%8C%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB-%E3%80%91"><span class="nav-number">9.0.2.</span> <span class="nav-text">2. 【介绍一下数据库中的事务特性和隔离级别?】</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E3%80%902-1-%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%9A%84%EF%BC%9F%E3%80%91"><span class="nav-number">9.0.2.1.</span> <span class="nav-text">【2.1 事务隔离是如何实现的？】</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E3%80%90MyISAM%E5%92%8CInnoDB%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E7%9A%84%E5%8C%BA%E5%88%AB%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F%E3%80%91"><span class="nav-number">9.0.3.</span> <span class="nav-text">3. 【MyISAM和InnoDB存储引擎的区别有哪些？】</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-%E8%AE%B2%E4%B8%80%E8%AE%B2%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%EF%BC%9F"><span class="nav-number">9.0.3.1.</span> <span class="nav-text">3.1  讲一讲聚簇索引和非聚簇索引？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E4%B8%80%E5%AE%9A%E4%BC%9A%E5%9B%9E%E8%A1%A8%E6%9F%A5%E8%AF%A2%E5%90%97%EF%BC%9F"><span class="nav-number">9.0.3.2.</span> <span class="nav-text">3.2 非聚簇索引一定会回表查询吗？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E4%B8%89%E8%8C%83%E5%BC%8F%E4%BA%86%E8%A7%A3%E5%90%97%EF%BC%9F"><span class="nav-number">9.0.4.</span> <span class="nav-text">4. 数据库设计三范式了解吗？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E4%BD%A0%E4%BA%86%E8%A7%A3MySQL%E7%9A%84%E6%97%A5%E5%BF%97%E5%90%97%EF%BC%9F"><span class="nav-number">9.0.5.</span> <span class="nav-text">5. 你了解MySQL的日志吗？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E3%80%90-Innodb%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0mysql%E7%9A%84%E4%BA%8B%E5%8A%A1%E3%80%91"><span class="nav-number">9.0.6.</span> <span class="nav-text">6.【 Innodb如何实现mysql的事务】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E3%80%907-%E8%AF%B4%E4%B8%80%E8%AF%B4%E7%B4%A2%E5%BC%95%E7%9A%84%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E5%AE%9E%E7%8E%B0%EF%BC%9F%E3%80%91"><span class="nav-number">9.0.7.</span> <span class="nav-text">【7. 说一说索引的底层原理实现？】</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#7-1-%E3%80%90%E4%B8%BA%E4%BB%80%E4%B9%88%E7%B4%A2%E5%BC%95%E7%BB%93%E6%9E%84%E9%BB%98%E8%AE%A4%E4%BD%BF%E7%94%A8B-Tree%EF%BC%8C%E8%80%8C%E4%B8%8D%E6%98%AFB-Tree%E5%91%A2%EF%BC%9F%E3%80%91"><span class="nav-number">9.0.7.1.</span> <span class="nav-text">7.1 【为什么索引结构默认使用B+Tree，而不是B-Tree呢？】</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-%E3%80%90%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E7%B4%A2%E5%BC%95%E7%BB%93%E6%9E%84%E9%BB%98%E8%AE%A4%E4%BD%BF%E7%94%A8B-%E6%A0%91%E8%80%8C%E4%B8%8D%E6%98%AFB%E6%A0%91%E3%80%81Hash%EF%BC%8C%E4%BA%8C%E5%8F%89%E6%A0%91%EF%BC%8C%E7%BA%A2%E9%BB%91%E6%A0%91%EF%BC%9F%E3%80%91"><span class="nav-number">9.0.8.</span> <span class="nav-text">8. 【为什么MySQL索引结构默认使用B+树而不是B树、Hash，二叉树，红黑树？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E4%B8%AD%E7%9A%84%E9%A1%BA%E5%BA%8F%EF%BC%9F"><span class="nav-number">9.0.9.</span> <span class="nav-text">9. 为什么需要注意联合索引中的顺序？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#9-1%E3%80%90%E7%9F%A5%E9%81%93MySQL%E7%9A%84%E6%9C%80%E5%B7%A6%E5%89%8D%E7%BC%80%E5%8E%9F%E5%88%99%E5%90%97%EF%BC%9F%E3%80%91"><span class="nav-number">9.0.9.1.</span> <span class="nav-text">9.1【知道MySQL的最左前缀原则吗？】</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-2-%E4%BA%86%E8%A7%A3%E5%89%8D%E7%BC%80%E7%B4%A2%E5%BC%95%E5%90%97%EF%BC%9F%EF%BC%88%E5%BE%85%E8%A1%A5%E5%85%85%EF%BC%89"><span class="nav-number">9.0.9.2.</span> <span class="nav-text">9.2 了解前缀索引吗？（待补充）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-3-%E4%BA%86%E8%A7%A3%E7%B4%A2%E5%BC%95%E4%B8%8B%E6%8E%A8%E5%90%97%EF%BC%9F%EF%BC%88%E5%BE%85%E8%A1%A5%E5%85%85%EF%BC%89"><span class="nav-number">9.0.9.3.</span> <span class="nav-text">9.3 了解索引下推吗？（待补充）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-4-%E3%80%90%E6%80%8E%E4%B9%88%E6%9F%A5%E7%9C%8BMySQL%E8%AF%AD%E5%8F%A5%E6%9C%89%E6%B2%A1%E6%9C%89%E7%94%A8%E5%88%B0%E7%B4%A2%E5%BC%95%EF%BC%9F%E3%80%91"><span class="nav-number">9.0.9.4.</span> <span class="nav-text">9.4 【怎么查看MySQL语句有没有用到索引？】</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-5-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BB%BA%E8%AE%AE%E4%BD%BF%E7%94%A8%E8%87%AA%E5%A2%9E%E9%95%BF%E4%B8%BB%E9%94%AE%E4%BD%9C%E4%B8%BA%E7%B4%A2%E5%BC%95%EF%BC%9F"><span class="nav-number">9.0.9.5.</span> <span class="nav-text">9.5 为什么建议使用自增长主键作为索引？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-%E3%80%90-%E4%BA%86%E8%A7%A3MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E9%94%81%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%90%97%EF%BC%9F%E3%80%91"><span class="nav-number">9.0.10.</span> <span class="nav-text">10.【 了解MySQL数据库锁的实现原理吗？】</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#10-1-%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E4%B8%8E%E9%94%81%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">9.0.10.1.</span> <span class="nav-text">10.1 隔离级别与锁的关系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-2-%E4%BC%98%E5%8C%96%E9%94%81%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">9.0.10.2.</span> <span class="nav-text">10.2 优化锁的方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-%E3%80%90%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E3%80%91%EF%BC%88%E5%90%8E%E7%BB%AD%E9%9C%80%E8%A6%81%E5%86%8D%E4%BA%86%E8%A7%A3%EF%BC%89"><span class="nav-number">9.0.11.</span> <span class="nav-text">11. 【分库分表相关内容】（后续需要再了解）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#11-1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%EF%BC%9F"><span class="nav-number">9.0.11.1.</span> <span class="nav-text">11.1 什么是分库分表？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-2-%E5%A6%82%E4%BD%95%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9B%E8%A1%8C%E5%9E%82%E7%9B%B4%E6%8B%86%E5%88%86%E6%88%96%E6%B0%B4%E5%B9%B3%E6%8B%86%E5%88%86%EF%BC%9F"><span class="nav-number">9.0.11.2.</span> <span class="nav-text">11.2 如何对数据库进行垂直拆分或水平拆分？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-3-%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E4%BC%9A%E5%B8%A6%E6%9D%A5%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">9.0.11.3.</span> <span class="nav-text">11.3 分库分表会带来什么问题？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-4-%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%89%8D%E5%8F%AF%E4%BB%A5%E8%AE%A9%E7%B3%BB%E7%BB%9F%E4%BB%8E%E6%9C%AA%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E5%8A%A8%E6%80%81%E5%88%87%E6%8D%A2%E5%88%B0%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E4%B8%8A%EF%BC%9F"><span class="nav-number">9.0.11.4.</span> <span class="nav-text">11.4 如何设计才可以让系统从未分库分表动态切换到分库分表上？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-5-%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E4%B9%8B%E5%90%8E%E5%85%A8%E5%B1%80id%E6%80%8E%E4%B9%88%E7%94%9F%E6%88%90%EF%BC%9F"><span class="nav-number">9.0.11.5.</span> <span class="nav-text">11.5 分库分表之后全局id怎么生成？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-%E3%80%90%E7%BB%9F%E8%AE%A1%E8%BF%87%E6%85%A2%E6%9F%A5%E8%AF%A2%E5%90%97%EF%BC%9F%E5%AF%B9%E6%85%A2%E6%9F%A5%E8%AF%A2%E9%83%BD%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96%E8%BF%87%EF%BC%9F%E3%80%91"><span class="nav-number">9.0.12.</span> <span class="nav-text">12.【统计过慢查询吗？对慢查询都怎么优化过？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-%E3%80%90%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%EF%BC%9F%E3%80%91"><span class="nav-number">9.0.13.</span> <span class="nav-text">13. 【什么是读写分离？】</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#13-1-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E4%BC%9A%E5%B8%A6%E6%9D%A5%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E7%9A%84%E5%BB%B6%E6%97%B6%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">9.0.13.1.</span> <span class="nav-text">13.1 读写分离会带来什么问题？如何解决主从同步的延时问题？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#13-2-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%EF%BC%9F"><span class="nav-number">9.0.13.2.</span> <span class="nav-text">13.2 如何实现读写分离？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#13-3-%E3%80%90%E4%BA%86%E8%A7%A3%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%8E%9F%E7%90%86%E5%90%97%EF%BC%9F%E3%80%91"><span class="nav-number">9.0.13.3.</span> <span class="nav-text">13.3 【了解主从复制原理吗？】</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-Sql%E8%AF%AD%E5%8F%A5%E4%BC%98%E5%8C%96%E6%96%B9%E5%BC%8F%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">9.0.14.</span> <span class="nav-text">14. Sql语句优化方式有哪些？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-MySQL-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BD%9C%E5%8F%91%E5%B8%83%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AD%98%E5%82%A8%EF%BC%8C%E4%B8%80%E5%A4%A9%E4%BA%94%E4%B8%87%E6%9D%A1%E4%BB%A5%E4%B8%8A%E7%9A%84%E5%A2%9E%E9%87%8F%EF%BC%8C-%E9%A2%84%E8%AE%A1%E8%BF%90%E7%BB%B4%E4%B8%89%E5%B9%B4-%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96%EF%BC%9F"><span class="nav-number">9.0.15.</span> <span class="nav-text">15. MySQL 数据库作发布系统的存储，一天五万条以上的增量， 预计运维三年,怎么优化？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#16-%E3%80%90%E9%94%81%E4%BC%98%E5%8C%96%E7%AD%96%E7%95%A5%E6%9C%89%E5%93%AA%E4%BA%9B%E6%80%9D%E8%B7%AF%EF%BC%9F%E3%80%91"><span class="nav-number">9.0.16.</span> <span class="nav-text">16. 【锁优化策略有哪些思路？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#17-%E3%80%90MySQL%E7%9A%84CPU%E7%AA%81%E7%84%B6%E9%A3%99%E5%8D%87%E5%88%B0500-%E8%A6%81%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86%EF%BC%9F%E3%80%91"><span class="nav-number">9.0.17.</span> <span class="nav-text">17. 【MySQL的CPU突然飙升到500%要怎么处理？】</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98Redis"><span class="nav-number">10.</span> <span class="nav-text">缓存Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E3%80%90Redis-%E7%9A%84%E6%8C%81%E4%B9%85%E5%8C%96%E6%9C%BA%E5%88%B6%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F%E5%90%84%E8%87%AA%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%EF%BC%9F%E3%80%91%EF%BC%88%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81redis%E6%8C%82%E6%8E%89%E4%B9%8B%E5%90%8E%E5%86%8D%E9%87%8D%E5%90%AF%E6%95%B0%E6%8D%AE%E5%8F%AF%E4%BB%A5%E8%BF%9B%E8%A1%8C%E6%81%A2%E5%A4%8D%EF%BC%9F%EF%BC%89"><span class="nav-number">10.0.1.</span> <span class="nav-text">1. 【Redis 的持久化机制有哪些？各自的优缺点？】（怎么保证redis挂掉之后再重启数据可以进行恢复？）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E3%80%90Redis-%E7%9A%84%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6%E4%BA%86%E8%A7%A3%E4%B9%88%EF%BC%9F%E3%80%91%EF%BC%88%E5%BE%85%E8%A1%A5%E5%85%85%EF%BC%89"><span class="nav-number">10.0.2.</span> <span class="nav-text">2. 【Redis 的同步机制了解么？】（待补充）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-Redis%E7%9A%84%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%9A%84%EF%BC%9F"><span class="nav-number">10.0.2.1.</span> <span class="nav-text">2.1 Redis的主从同步是如何实现的？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E3%80%90%E7%94%A8%E8%BF%87%E5%93%AA%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%9A%84Redis%E5%91%BD%E4%BB%A4%EF%BC%9F%E3%80%91"><span class="nav-number">10.0.3.</span> <span class="nav-text">3. 【用过哪些常用的Redis命令？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E3%80%90%E6%98%AF%E5%90%A6%E4%BD%BF%E7%94%A8%E8%BF%87-Redis%E9%9B%86%E7%BE%A4%EF%BC%8C%E9%9B%86%E7%BE%A4%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E3%80%91"><span class="nav-number">10.0.4.</span> <span class="nav-text">4.【是否使用过 Redis集群，集群的工作原理是什么？】</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-Redis-Cluster%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E8%83%BD%E8%AF%B4%E4%B8%80%E4%B8%8B%E5%90%97%EF%BC%9F"><span class="nav-number">10.0.4.1.</span> <span class="nav-text">4.1 Redis Cluster模式的工作原理能说一下吗？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-Redis-cluster%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E5%88%86%E5%B8%83%EF%BC%9F"><span class="nav-number">10.0.4.2.</span> <span class="nav-text">4.Redis cluster如何实现数据分布？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-3-Redis-cluster%E6%96%B9%E6%A1%88%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E4%BC%9A%E5%AF%BC%E8%87%B4%E6%95%B4%E4%B8%AA%E9%9B%86%E7%BE%A4%E4%B8%8D%E5%8F%AF%E7%94%A8%EF%BC%9F"><span class="nav-number">10.0.4.3.</span> <span class="nav-text">4.3 Redis cluster方案什么情况下会导致整个集群不可用？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E3%80%90Redis-sentinel%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%EF%BC%9F%E3%80%91"><span class="nav-number">10.0.5.</span> <span class="nav-text">5. 【Redis sentinel的工作原理？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E3%80%90%E6%80%8E%E4%B9%88%E7%90%86%E8%A7%A3-Redis-%E4%BA%8B%E5%8A%A1%EF%BC%9F%E3%80%91"><span class="nav-number">10.0.6.</span> <span class="nav-text">6. 【怎么理解 Redis 事务？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E3%80%90MySQL-%E9%87%8C%E6%9C%89-2000w-%E6%95%B0%E6%8D%AE%EF%BC%8Credis-%E4%B8%AD%E5%8F%AA%E5%AD%98-20w-%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%8C%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81-redis-%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E9%83%BD%E6%98%AF%E7%83%AD%E7%82%B9%E6%95%B0%E6%8D%AE%EF%BC%9F%E3%80%91"><span class="nav-number">10.0.7.</span> <span class="nav-text">7. 【MySQL 里有 2000w 数据，redis 中只存 20w 的数据，如何保证 redis 中的数据都是热点数据？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-Redis%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E4%B8%BA%E5%95%A5%E5%8D%95%E7%BA%BF%E7%A8%8B%E8%BF%98%E8%83%BD%E6%9C%89%E5%BE%88%E9%AB%98%E7%9A%84%E6%95%88%E7%8E%87%EF%BC%9F"><span class="nav-number">10.0.8.</span> <span class="nav-text">8. Redis的线程模型是什么？为啥单线程还能有很高的效率？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#8-1-%E3%80%90Redis%E5%8D%95%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%E3%80%91"><span class="nav-number">10.0.8.1.</span> <span class="nav-text">8.1 【Redis单线程模型】</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-2-%E4%B8%BA%E4%BB%80%E4%B9%88Redis%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%E6%95%88%E7%8E%87%E4%B9%9F%E8%83%BD%E8%BF%99%E4%B9%88%E9%AB%98%EF%BC%9F"><span class="nav-number">10.0.8.2.</span> <span class="nav-text">8.2 为什么Redis是单线程模型效率也能这么高？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-3-Redis-6-0%E5%89%8D%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89%E6%8B%A9%E5%8D%95%E7%BA%BF%E7%A8%8B%EF%BC%9F"><span class="nav-number">10.0.8.3.</span> <span class="nav-text">8.3 Redis 6.0前为什么选择单线程？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-4-Redis-6-0%E5%90%8E%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%BC%95%E5%85%A5%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%91%A2%EF%BC%9F"><span class="nav-number">10.0.8.4.</span> <span class="nav-text">8.4 Redis 6.0后为什么要引入多线程呢？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-5-Redis%E5%BC%80%E5%90%AF%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%90%8E%E6%98%AF%E5%90%A6%E4%BC%9A%E5%AD%98%E5%9C%A8%E7%BA%BF%E7%A8%8B%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">10.0.8.5.</span> <span class="nav-text">8.5 Redis开启多线程后是否会存在线程并发安全问题？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-%E5%81%87%E5%A6%82-Redis-%E9%87%8C%E9%9D%A2%E6%9C%89-1-%E4%BA%BF%E4%B8%AA-key%EF%BC%8C%E5%85%B6%E4%B8%AD%E6%9C%89-10w-%E4%B8%AA-key-%E6%98%AF%E4%BB%A5-%E6%9F%90%E4%B8%AA%E5%9B%BA%E5%AE%9A%E7%9A%84%E5%B7%B2%E7%9F%A5%E7%9A%84%E5%89%8D%E7%BC%80%E5%BC%80%E5%A4%B4%E7%9A%84%EF%BC%8C%E5%A6%82%E6%9E%9C%E5%B0%86%E5%AE%83%E4%BB%AC%E5%85%A8%E9%83%A8%E6%89%BE%E5%87%BA%E6%9D%A5%EF%BC%9F"><span class="nav-number">10.0.9.</span> <span class="nav-text">9. 假如 Redis 里面有 1 亿个 key，其中有 10w 个 key 是以 某个固定的已知的前缀开头的，如果将它们全部找出来？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#9-1-%E5%A6%82%E6%9E%9C%E8%BF%99%E4%B8%AA-redis-%E6%AD%A3%E5%9C%A8%E7%BB%99%E7%BA%BF%E4%B8%8A%E7%9A%84%E4%B8%9A%E5%8A%A1%E6%8F%90%E4%BE%9B%E6%9C%8D%E5%8A%A1%EF%BC%8C%E9%82%A3%E4%BD%BF%E7%94%A8-keys-%E6%8C%87%E4%BB%A4%E4%BC%9A%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">10.0.9.1.</span> <span class="nav-text">9.1 如果这个 redis 正在给线上的业务提供服务，那使用 keys 指令会有什么问题？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-%E5%A6%82%E6%9E%9C%E6%9C%89%E5%A4%A7%E9%87%8F%E7%9A%84-key-%E9%9C%80%E8%A6%81%E8%AE%BE%E7%BD%AE%E5%90%8C%E4%B8%80%E6%97%B6%E9%97%B4%E8%BF%87%E6%9C%9F%EF%BC%8C%E4%B8%80%E8%88%AC%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">10.0.10.</span> <span class="nav-text">10. 如果有大量的 key 需要设置同一时间过期，一般需要注意什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-%E3%80%90%E4%BD%BF%E7%94%A8%E8%BF%87-Redis-%E5%81%9A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E4%B9%88%EF%BC%8C%E4%BD%A0%E6%98%AF%E6%80%8E%E4%B9%88%E7%94%A8%E7%9A%84%EF%BC%9F%E3%80%91"><span class="nav-number">10.0.11.</span> <span class="nav-text">11. 【使用过 Redis 做消息队列么，你是怎么用的？】</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#11-1-%E5%8F%AF%E4%B8%8D%E5%8F%AF%E4%BB%A5%E4%B8%8D%E7%94%A8-sleep-%E5%91%A2%EF%BC%9F"><span class="nav-number">10.0.11.1.</span> <span class="nav-text">11.1 可不可以不用 sleep 呢？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-2-%E8%83%BD%E4%B8%8D%E8%83%BD%E7%94%9F%E4%BA%A7%E4%B8%80%E6%AC%A1%E6%B6%88%E8%B4%B9%E5%A4%9A%E6%AC%A1%E5%91%A2%EF%BC%9F"><span class="nav-number">10.0.11.2.</span> <span class="nav-text">11.2 能不能生产一次消费多次呢？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-3-pub-sub-%E6%9C%89%E4%BB%80%E4%B9%88%E7%BC%BA%E7%82%B9%EF%BC%9F"><span class="nav-number">10.0.11.3.</span> <span class="nav-text">11.3 pub&#x2F;sub 有什么缺点？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-4-Redis-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%BB%B6%E6%97%B6%E9%98%9F%E5%88%97%EF%BC%9F"><span class="nav-number">10.0.11.4.</span> <span class="nav-text">11.4 Redis 如何实现延时队列？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-%E3%80%90%E4%BA%86%E8%A7%A3Redis%E8%BF%87%E6%9C%9F%E9%94%AE%E7%9A%84%E5%88%A0%E9%99%A4%E7%AD%96%E7%95%A5%E5%90%97%EF%BC%9F%EF%BC%88%E5%8D%B3Redis%E7%9A%84%E8%BF%87%E6%9C%9F%E7%AD%96%E7%95%A5%EF%BC%89%E3%80%91"><span class="nav-number">10.0.12.</span> <span class="nav-text">12. 【了解Redis过期键的删除策略吗？（即Redis的过期策略）】</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#12-1-%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AERedis%E7%9A%84%E8%BF%87%E6%9C%9F%E5%88%A0%E9%99%A4%E7%AD%96%E7%95%A5%E6%AF%94%E8%BE%83%E5%90%88%E7%90%86%EF%BC%9F"><span class="nav-number">10.0.12.1.</span> <span class="nav-text">12.1 如何设置Redis的过期删除策略比较合理？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E3%80%81%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF%E3%80%81%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9%EF%BC%9F"><span class="nav-number">10.0.13.</span> <span class="nav-text">14. 缓存穿透、缓存击穿、缓存雪崩？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-%E3%80%90%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81Redis%E6%98%AF%E9%AB%98%E5%B9%B6%E5%8F%91%E5%92%8C%E9%AB%98%E5%8F%AF%E7%94%A8%EF%BC%9F%E3%80%91"><span class="nav-number">10.0.14.</span> <span class="nav-text">15. 【怎么保证Redis是高并发和高可用？】</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#15-1-redis%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E6%9D%A5%E6%89%BF%E8%BD%BD%E8%AF%BB%E8%AF%B7%E6%B1%82QPS%E8%B6%85%E8%BF%8710%E4%B8%87-%EF%BC%9F"><span class="nav-number">10.0.14.1.</span> <span class="nav-text">15.1 redis如何通过读写分离来承载读请求QPS超过10万+？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#15-2-master%E6%8C%81%E4%B9%85%E5%8C%96%E5%AF%B9%E4%BA%8E%E4%B8%BB%E4%BB%8E%E6%9E%B6%E6%9E%84%E7%9A%84%E5%AE%89%E5%85%A8%E4%BF%9D%E9%9A%9C%E7%9A%84%E6%84%8F%E4%B9%89"><span class="nav-number">10.0.14.2.</span> <span class="nav-text">15.2 master持久化对于主从架构的安全保障的意义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#15-3-redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%8E%9F%E7%90%86%E5%92%8C%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0"><span class="nav-number">10.0.14.3.</span> <span class="nav-text">15.3 redis主从复制原理和断点续传</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#15-4-redis%E4%B8%BB%E4%BB%8E%E6%9E%B6%E6%9E%84%E4%B8%8B%E5%A6%82%E4%BD%95%E6%89%8D%E8%83%BD%E5%81%9A%E5%88%B099-99-%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8%E6%80%A7%EF%BC%9F"><span class="nav-number">10.0.14.4.</span> <span class="nav-text">15.4 redis主从架构下如何才能做到99.99%的高可用性？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#15-5-%E7%94%B1%E4%BA%8E%E4%B8%BB%E4%BB%8E%E5%BB%B6%E8%BF%9F%E5%AF%BC%E8%87%B4%E8%AF%BB%E5%8F%96%E5%88%B0%E8%BF%87%E6%9C%9F%E6%95%B0%E6%8D%AE%E6%80%8E%E6%A0%B7%E5%A4%84%E7%90%86%EF%BC%9F%EF%BC%88%E5%BE%85%E8%A1%A5%E5%85%85%EF%BC%89"><span class="nav-number">10.0.14.5.</span> <span class="nav-text">15.5 由于主从延迟导致读取到过期数据怎样处理？（待补充）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#16-%E3%80%90%E8%AF%B4%E4%B8%80%E4%B8%8BRedis%E7%9A%84%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%E3%80%91"><span class="nav-number">10.0.15.</span> <span class="nav-text">16. 【说一下Redis的缓存淘汰策略】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#17-%E3%80%90%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8F%8C%E5%86%99%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F%E3%80%91"><span class="nav-number">10.0.16.</span> <span class="nav-text">17. 【如何保证缓存和数据库的数据双写一致性？】</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#17-1-%E4%B8%89%E7%A7%8D%E5%B8%B8%E7%94%A8%E7%9A%84%E7%BC%93%E5%AD%98%E8%AF%BB%E5%86%99%E7%AD%96%E7%95%A5%EF%BC%88%E5%BE%85%E8%A1%A5%E5%85%85%EF%BC%89"><span class="nav-number">10.0.16.1.</span> <span class="nav-text">17.1 三种常用的缓存读写策略（待补充）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#18-%E3%80%90Redis%E9%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%9F%E5%88%86%E5%88%AB%E5%9C%A8%E5%93%AA%E4%BA%9B%E5%9C%BA%E6%99%AF%E4%B8%8B%E4%BD%BF%E7%94%A8%E6%AF%94%E8%BE%83%E5%90%88%E9%80%82%EF%BC%9F-%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%94%A8%E5%88%B0%E5%93%AA%E4%BA%9BRedis%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%9F-%E3%80%91"><span class="nav-number">10.0.17.</span> <span class="nav-text">18. 【Redis都有哪些数据类型？分别在哪些场景下使用比较合适？(在项目中用到哪些Redis的数据结构？)】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#19-Redis%E5%B9%B6%E5%8F%91%E7%AB%9E%E4%BA%89%E9%97%AE%E9%A2%98%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%EF%BC%9F"><span class="nav-number">10.0.18.</span> <span class="nav-text">19. Redis并发竞争问题如何解决？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#20-%E3%80%90%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8FSession%EF%BC%9F%E3%80%91"><span class="nav-number">10.0.19.</span> <span class="nav-text">20. 【如何利用Redis实现分布式Session？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#21-%E3%80%90%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%EF%BC%9F%E3%80%91"><span class="nav-number">10.0.20.</span> <span class="nav-text">21. 【如何利用Redis实现分布式锁？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#22-Redis-%E6%98%AF%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E6%95%B0%E6%8D%AE%E6%98%AF%E5%90%A6%E8%BF%87%E6%9C%9F%E7%9A%84%E5%91%A2%EF%BC%9F"><span class="nav-number">10.0.21.</span> <span class="nav-text">22. Redis 是如何判断数据是否过期的呢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#23-%E3%80%90RedLock%E7%AE%97%E6%B3%95%E7%9A%84%E5%8E%9F%E7%90%86%E3%80%91%EF%BC%88%E5%BE%85%E8%A1%A5%E5%85%85%EF%BC%89"><span class="nav-number">10.0.22.</span> <span class="nav-text">23. 【RedLock算法的原理】（待补充）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#24-%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%93%E5%AD%98%E9%A2%84%E7%83%AD%E5%92%8C%E7%BC%93%E5%AD%98%E9%99%8D%E7%BA%A7%EF%BC%9F"><span class="nav-number">10.0.23.</span> <span class="nav-text">24. 什么是缓存预热和缓存降级？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#25-Redis%E5%A6%82%E4%BD%95%E5%81%9A%E5%86%85%E5%AD%98%E4%BC%98%E5%8C%96%EF%BC%9F"><span class="nav-number">10.0.24.</span> <span class="nav-text">25. Redis如何做内存优化？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#26-%E5%A6%82%E6%9E%9C%E7%8E%B0%E5%9C%A8%E6%9C%89%E4%B8%AA%E8%B6%85%E9%AB%98%E5%B9%B6%E5%8F%91%E7%9A%84%E7%B3%BB%E7%BB%9F%EF%BC%8C%E7%94%A8Redis%E6%9D%A5%E6%8A%97%E4%BD%8F%E5%A4%A7%E9%83%A8%E5%88%86%E8%AF%BB%E8%AF%B7%E6%B1%82%EF%BC%8C%E8%AF%B7%E9%97%AE%E8%A6%81%E6%80%8E%E4%B9%88%E8%AE%BE%E8%AE%A1%EF%BC%9F"><span class="nav-number">10.0.25.</span> <span class="nav-text">26. 如果现在有个超高并发的系统，用Redis来抗住大部分读请求，请问要怎么设计？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F"><span class="nav-number">11.</span> <span class="nav-text">分布式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E3%80%90%E4%BB%80%E4%B9%88%E6%98%AFCAP%E5%AE%9A%E7%90%86%EF%BC%9F%E3%80%91"><span class="nav-number">11.0.1.</span> <span class="nav-text">1. 【什么是CAP定理？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8%EF%BC%9F"><span class="nav-number">11.0.2.</span> <span class="nav-text">2. 如何实现分布式存储？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E3%80%90%E4%BD%A0%E8%83%BD%E8%AF%B4%E4%B8%8B%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95SSO%E5%90%97%EF%BC%9F%E3%80%91"><span class="nav-number">11.0.3.</span> <span class="nav-text">5. 【你能说下单点登录SSO吗？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E4%BB%80%E4%B9%88%E6%98%AFBASE%E7%90%86%E8%AE%BA%EF%BC%9F"><span class="nav-number">11.0.4.</span> <span class="nav-text">6. 什么是BASE理论？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E3%80%90%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%B9%82%E7%AD%89%E6%80%A7%EF%BC%9F%E3%80%91"><span class="nav-number">11.0.5.</span> <span class="nav-text">7. 【如何保证分布式系统中接口的幂等性？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-%E3%80%90%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%9F%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%9C%80%E7%BB%88%E4%B8%80%E8%87%B4%E6%80%A7%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%EF%BC%9F%E3%80%91"><span class="nav-number">11.0.6.</span> <span class="nav-text">8. 【谈谈你对分布式事务的理解？如何实现最终一致性分布式事务？】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-%E4%BB%8B%E7%BB%8DSpring-Cloud%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E5%8F%8A%E5%85%B6%E4%BD%9C%E7%94%A8%EF%BC%88%E8%AF%B4%E8%AF%B4Spring-Cloud%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%EF%BC%89"><span class="nav-number">11.0.7.</span> <span class="nav-text">9 介绍Spring Cloud核心组件及其作用（说说Spring Cloud的工作原理）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-%E8%AF%B4%E4%B8%80%E8%AF%B4Spring-Cloud%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%88Eureka%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E5%8F%91%E7%8E%B0%E7%9A%84%EF%BC%9F%EF%BC%89"><span class="nav-number">11.0.8.</span> <span class="nav-text">10. 说一说Spring Cloud服务发现原理（Eureka是如何进行服务注册发现的？）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-Hystrix%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%86%94%E6%96%AD%EF%BC%9F"><span class="nav-number">11.0.9.</span> <span class="nav-text">11 Hystrix如何实现熔断？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-RPC%E5%92%8CHTTP%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%8C%E4%BD%BF%E2%BD%A4%E5%9C%BA%E6%99%AF%EF%BC%9F"><span class="nav-number">11.0.10.</span> <span class="nav-text">12. RPC和HTTP的区别，使⽤场景？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%EF%BC%88%E5%BE%85%E8%A1%A5%E5%85%85%EF%BC%89"><span class="nav-number">12.</span> <span class="nav-text">搜索引擎（待补充）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-es%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84%E5%8E%9F%E7%90%86%E8%83%BD%E8%AF%B4%E4%B8%80%E4%B8%8B%E4%B9%88%EF%BC%88es%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%EF%BC%89"><span class="nav-number">12.0.1.</span> <span class="nav-text">1. es的分布式架构原理能说一下么（es是如何实现分布式的）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-es%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9Fes%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">12.0.2.</span> <span class="nav-text">2. es写入数据的工作原理是什么？es查询数据的工作原理是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-es%E5%9C%A8%E6%95%B0%E6%8D%AE%E9%87%8F%E5%BE%88%E5%A4%A7%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%EF%BC%88%E6%95%B0%E5%8D%81%E4%BA%BF%E7%BA%A7%E5%88%AB%EF%BC%89%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%EF%BC%9F"><span class="nav-number">12.0.3.</span> <span class="nav-text">3. es在数据量很大的情况下（数十亿级别）如何提高查询性能？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-es%E7%94%9F%E4%BA%A7%E9%9B%86%E7%BE%A4%E7%9A%84%E9%83%A8%E7%BD%B2%E6%9E%B6%E6%9E%84%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E6%AF%8F%E4%B8%AA%E7%B4%A2%E5%BC%95%E7%9A%84%E6%95%B0%E6%8D%AE%E9%87%8F%E5%A4%A7%E6%A6%82%E6%9C%89%E5%A4%9A%E5%B0%91%EF%BC%9F%E6%AF%8F%E4%B8%AA%E7%B4%A2%E5%BC%95%E5%A4%A7%E6%A6%82%E6%9C%89%E5%A4%9A%E5%B0%91%E4%B8%AA%E5%88%86%E7%89%87%EF%BC%9F"><span class="nav-number">12.0.4.</span> <span class="nav-text">4. es生产集群的部署架构是什么？每个索引的数据量大概有多少？每个索引大概有多少个分片？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C"><span class="nav-number">13.</span> <span class="nav-text">计算机网络</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%BD%91%E7%BB%9C%E5%88%86%E5%B1%82%E6%A8%A1%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B%E4%BB%A5%E5%8F%8A%E6%AF%8F%E4%B8%80%E5%B1%82%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">13.0.1.</span> <span class="nav-text">1. 网络分层模型有哪些以及每一层的作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%90%84%E5%B1%82%E6%9C%89%E5%93%AA%E4%BA%9B%E5%8D%8F%E8%AE%AE%EF%BC%9F"><span class="nav-number">13.0.2.</span> <span class="nav-text">2. 计算机网络各层有哪些协议？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-ICMP%E5%8D%8F%E8%AE%AE%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">13.0.2.1.</span> <span class="nav-text">2.1 ICMP协议的作用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E3%80%90%E8%AF%B7%E8%AF%B4%E4%B8%80%E4%B8%8B%E4%BB%8E%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9C%B0%E5%9D%80%E6%A0%8F%E8%BE%93%E5%85%A5URL%E5%88%B0%E6%98%BE%E7%A4%BA%E4%B8%BB%E9%A1%B5%E7%9A%84%E8%BF%87%E7%A8%8B%E3%80%91"><span class="nav-number">13.0.3.</span> <span class="nav-text">3. 【请说一下从浏览器地址栏输入URL到显示主页的过程】</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-URI%E5%92%8CURL%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">13.0.3.1.</span> <span class="nav-text">3.1 URI和URL的区别</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E3%80%90ARP%E5%9C%B0%E5%9D%80%E8%A7%A3%E6%9E%90%E5%8D%8F%E8%AE%AE%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E3%80%91"><span class="nav-number">13.0.4.</span> <span class="nav-text">4. 【ARP地址解析协议工作原理】</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-%E6%9C%89%E4%BA%86IP%E5%9C%B0%E5%9D%80%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%98%E8%A6%81%E7%94%A8MAC%E5%9C%B0%E5%9D%80%EF%BC%9F"><span class="nav-number">13.0.4.1.</span> <span class="nav-text">4.1 有了IP地址为什么还要用MAC地址？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-TCP%E5%92%8CUDP%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98"><span class="nav-number">13.0.5.</span> <span class="nav-text">5. TCP和UDP相关问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#5-1-%E8%AF%B7%E7%AE%80%E8%BF%B0TCP%E4%B8%8EUDP%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">13.0.5.1.</span> <span class="nav-text">5.1 请简述TCP与UDP的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-2-TCP%E7%9A%84%E7%B2%98%E5%8C%85%E5%92%8C%E6%8B%86%E5%8C%85%E9%97%AE%E9%A2%98"><span class="nav-number">13.0.5.2.</span> <span class="nav-text">5.2 TCP的粘包和拆包问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-3-TCP%E7%9A%84%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6%E4%B8%8E%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3"><span class="nav-number">13.0.5.3.</span> <span class="nav-text">5.3 TCP的流量控制与滑动窗口</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-4-TCP%E7%9A%84%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6"><span class="nav-number">13.0.5.4.</span> <span class="nav-text">5.4 TCP的拥塞控制</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E3%80%90%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8BTCP%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%BB%BA%E7%AB%8B%E8%BF%9E%E6%8E%A5%E7%9A%84%E8%BF%87%E7%A8%8B%E3%80%91"><span class="nav-number">13.0.6.</span> <span class="nav-text">6. 【介绍一下TCP三次握手建立连接的过程】</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#6-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%87%87%E7%94%A8%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E8%80%8C%E4%B8%8D%E6%98%AF%E4%B8%A4%E6%AC%A1%E6%8F%A1%E6%89%8B%EF%BC%9F"><span class="nav-number">13.0.6.1.</span> <span class="nav-text">6.1 为什么采用三次握手而不是两次握手？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-2-%E5%8D%8A%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97%E5%92%8C%E5%85%A8%E8%BF%9E%E6%8E%A5%E9%98%9F%E5%88%97"><span class="nav-number">13.0.6.2.</span> <span class="nav-text">6.2 半连接队列和全连接队列</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E3%80%90%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8BTCP%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E9%87%8A%E6%94%BE%E8%BF%9E%E6%8E%A5%E7%9A%84%E8%BF%87%E7%A8%8B%E3%80%91"><span class="nav-number">13.0.7.</span> <span class="nav-text">7. 【介绍一下TCP四次挥手释放连接的过程】</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#7-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%EF%BC%9F"><span class="nav-number">13.0.7.1.</span> <span class="nav-text">7.1 为什么需要四次挥手？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-2-%E5%A6%82%E6%9E%9C%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%87%BA%E7%8E%B0%E5%A4%A7%E9%87%8FCLOSE-WAIT%E7%8A%B6%E6%80%81%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%EF%BC%9F"><span class="nav-number">13.0.7.2.</span> <span class="nav-text">7.2 如果服务器出现大量CLOSE_WAIT状态如何解决？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-3-TCP%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E8%BF%87%E7%A8%8B%E4%B8%AD%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E7%AD%89%E5%BE%852MSL-%E6%89%8D%E8%BF%9B%E5%85%A5CLOSED%E5%85%B3%E9%97%AD%E7%8A%B6%E6%80%81"><span class="nav-number">13.0.7.3.</span> <span class="nav-text">7.3 TCP四次挥手过程中，为什么需要等待2MSL,才进入CLOSED关闭状态</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-%E3%80%90DNS%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E5%8E%9F%E7%90%86%E3%80%91"><span class="nav-number">13.0.8.</span> <span class="nav-text">8. 【DNS域名解析原理】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-%E3%80%90HTTP%E5%92%8CHTTPS%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%8C%BA%E5%88%AB%E3%80%91"><span class="nav-number">13.0.9.</span> <span class="nav-text">9. 【HTTP和HTTPS协议的区别】</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#9-1-%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BD%BF%E7%94%A8HTTPS%E6%96%B9%E5%BC%8F%E4%B8%8EWeb%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%80%9A%E4%BF%A1%E6%AD%A5%E9%AA%A4"><span class="nav-number">13.0.9.1.</span> <span class="nav-text">9.1 客户端使用HTTPS方式与Web服务器通信步骤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-2-%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E5%92%8C%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%EF%BC%9F"><span class="nav-number">13.0.9.2.</span> <span class="nav-text">9.2 什么是数字签名和数字证书？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-3-%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E5%92%8C%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">13.0.9.3.</span> <span class="nav-text">9.3 对称加密和非对称加密的区别</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-HTTP%E4%B8%ADGET%E5%92%8CPOST%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">13.0.10.</span> <span class="nav-text">10. HTTP中GET和POST的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-%E3%80%90%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3HTTP%E6%98%AF%E6%97%A0%E7%8A%B6%E6%80%81%E5%8D%8F%E8%AE%AE%E3%80%91"><span class="nav-number">13.0.11.</span> <span class="nav-text">11. 【如何理解HTTP是无状态协议】</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#11-1-HTTP1-0%E3%80%811-1%E4%B8%8E2-0%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">13.0.11.1.</span> <span class="nav-text">11.1 HTTP1.0、1.1与2.0的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-2-HTTP%E7%9A%84%E7%8A%B6%E6%80%81%E7%A0%81301%E5%92%8C302%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">13.0.11.2.</span> <span class="nav-text">11.2 HTTP的状态码301和302的区别</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-forward%E5%92%8Credirect%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">13.0.12.</span> <span class="nav-text">12. forward和redirect的区别？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-WebSocket%E4%B8%8ESocket%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">13.0.13.</span> <span class="nav-text">13. WebSocket与Socket的区别？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-Session%E5%92%8CCookie%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">13.0.14.</span> <span class="nav-text">14. Session和Cookie的区别？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#14-1-Session%E5%92%8CCookie%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="nav-number">13.0.14.1.</span> <span class="nav-text">14.1 Session和Cookie运行流程</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-%E9%87%8D%E5%AE%9A%E5%90%91%E5%92%8C%E8%AF%B7%E6%B1%82%E8%BD%AC%E5%8F%91%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">13.0.15.</span> <span class="nav-text">15. 重定向和请求转发的区别？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">14.</span> <span class="nav-text">操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Linux%E9%87%8C%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E4%B8%80%E4%B8%AA%E6%83%B3%E7%9F%A5%E9%81%93%E7%9A%84%E8%BF%9B%E7%A8%8B%EF%BC%9F"><span class="nav-number">14.0.1.</span> <span class="nav-text">1. Linux里如何查看一个想知道的进程？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Linux%E9%87%8C%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E5%B8%A6%E6%9C%89%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6%EF%BC%9F"><span class="nav-number">14.0.2.</span> <span class="nav-text">2. Linux里如何查看带有关键字的日志文件？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Linux%E4%BF%AE%E6%94%B9%E4%B8%BB%E6%9C%BA%E5%90%8D%E7%9A%84%E5%91%BD%E4%BB%A4%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">14.0.3.</span> <span class="nav-text">3. Linux修改主机名的命令是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Linux%E6%9F%A5%E7%9C%8B%E5%86%85%E5%AD%98%E7%9A%84%E5%91%BD%E4%BB%A4%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">14.0.4.</span> <span class="nav-text">4. Linux查看内存的命令是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-Linux%E4%B8%AD%EF%BC%8C%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E7%AB%AF%E5%8F%A3%E6%9F%A5%E8%BF%9B%E7%A8%8B%EF%BC%8C%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E8%BF%9B%E7%A8%8B%E6%9F%A5%E7%AB%AF%E5%8F%A3%EF%BC%9F"><span class="nav-number">14.0.5.</span> <span class="nav-text">5. Linux中，如何通过端口查进程，如何通过进程查端口？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E3%80%90Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%80%8E%E4%B9%88%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%EF%BC%9F%EF%BC%88%E4%BB%A5%E9%83%A8%E7%BD%B2Tomcat%E4%B8%BA%E4%BE%8B%EF%BC%89%E3%80%91"><span class="nav-number">14.0.6.</span> <span class="nav-text">6. 【Linux服务器怎么部署项目？（以部署Tomcat为例）】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">14.0.7.</span> <span class="nav-text">6. 进程与线程的区别？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E5%8D%8F%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">14.0.8.</span> <span class="nav-text">7. 协程与线程的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#7-1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%8F%E7%A8%8B%EF%BC%9F"><span class="nav-number">14.0.8.1.</span> <span class="nav-text">7.1 什么是协程？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-2-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8D%8F%E7%A8%8B%E6%AF%94%E7%BA%BF%E7%A8%8B%E5%88%87%E6%8D%A2%E7%9A%84%E5%BC%80%E9%94%80%E5%B0%8F%EF%BC%9F"><span class="nav-number">14.0.8.2.</span> <span class="nav-text">7.2 为什么协程比线程切换的开销小？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-%E5%B9%B6%E8%A1%8C%E5%92%8C%E5%B9%B6%E5%8F%91%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">14.0.9.</span> <span class="nav-text">8. 并行和并发的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%88%87%E6%8D%A2%E6%B5%81%E7%A8%8B"><span class="nav-number">14.0.10.</span> <span class="nav-text">9. 进程与线程的切换流程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#9-1-%E8%BF%9B%E7%A8%8B%E5%88%87%E6%8D%A2%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%94%E7%BA%BF%E7%A8%8B%E6%9B%B4%E6%B6%88%E8%80%97%E8%B5%84%E6%BA%90%EF%BC%9F%EF%BC%88%E4%B8%BA%E4%BB%80%E4%B9%88%E8%99%9A%E6%8B%9F%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E5%88%87%E6%8D%A2%E4%BC%9A%E6%AF%94%E8%BE%83%E8%80%97%E6%97%B6%EF%BC%9F%EF%BC%89"><span class="nav-number">14.0.10.1.</span> <span class="nav-text">9.1 进程切换为什么比线程更消耗资源？（为什么虚拟地址空间切换会比较耗时？）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F%E6%9C%89%E5%93%AA%E4%BA%9B%E5%8F%8A%E5%85%B6%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">14.0.11.</span> <span class="nav-text">10. 进程间通信方式有哪些及其优缺点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-%E8%BF%9B%E7%A8%8B%E9%97%B4%E4%BA%92%E6%96%A5%E5%90%8C%E6%AD%A5%E6%96%B9%E5%BC%8F%E6%9C%89%E5%93%AA%E4%BA%9B%E5%8F%8A%E5%85%B6%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">14.0.12.</span> <span class="nav-text">11. 进程间互斥同步方式有哪些及其优缺点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E7%9A%84%E6%96%B9%E5%BC%8F%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">14.0.13.</span> <span class="nav-text">12. 线程同步的方式有哪些？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">14.0.14.</span> <span class="nav-text">13. 线程的分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%B4%E7%95%8C%E5%8C%BA%EF%BC%8C%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E5%86%B2%E7%AA%81%EF%BC%9F"><span class="nav-number">14.0.15.</span> <span class="nav-text">14. 什么是临界区，如何解决冲突？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-%E4%BB%80%E4%B9%88%E6%98%AF%E6%AD%BB%E9%94%81%EF%BC%9F%E6%AD%BB%E9%94%81%E4%BA%A7%E7%94%9F%E7%9A%84%E6%9D%A1%E4%BB%B6%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">14.0.16.</span> <span class="nav-text">15. 什么是死锁？死锁产生的条件是什么？如何处理死锁问题？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#16-%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%AD%96%E7%95%A5%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%EF%BC%9F"><span class="nav-number">14.0.17.</span> <span class="nav-text">16. 进程调度策略有哪几种？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#17-%E8%BF%9B%E7%A8%8B%E6%9C%89%E5%93%AA%E4%BA%9B%E7%8A%B6%E6%80%81%E4%BB%A5%E5%8F%8A%E7%8A%B6%E6%80%81%E4%B9%8B%E9%97%B4%E5%A6%82%E4%BD%95%E8%BD%AC%E6%8D%A2%EF%BC%9F"><span class="nav-number">14.0.18.</span> <span class="nav-text">17. 进程有哪些状态以及状态之间如何转换？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#18-%E5%88%86%E9%A1%B5%E5%92%8C%E5%88%86%E6%AE%B5"><span class="nav-number">14.0.19.</span> <span class="nav-text">18. 分页和分段</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#18-1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%88%86%E9%A1%B5%EF%BC%9F"><span class="nav-number">14.0.19.1.</span> <span class="nav-text">18.1 什么是分页？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#18-2-%E4%BB%80%E4%B9%88%E6%98%AF%E5%88%86%E6%AE%B5%EF%BC%9F"><span class="nav-number">14.0.19.2.</span> <span class="nav-text">18.2 什么是分段？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#18-3-%E5%88%86%E9%A1%B5%E5%92%8C%E5%88%86%E6%AE%B5%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">14.0.19.3.</span> <span class="nav-text">18.3 分页和分段的区别</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#19-%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%A4%E6%8D%A2%E7%A9%BA%E9%97%B4%EF%BC%9F"><span class="nav-number">14.0.20.</span> <span class="nav-text">19. 什么是交换空间？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#20-%E4%BB%80%E4%B9%88%E6%98%AF%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%EF%BC%9F"><span class="nav-number">14.0.21.</span> <span class="nav-text">20. 什么是虚拟内存？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#21-%E4%BB%80%E4%B9%88%E6%98%AFIO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%EF%BC%9F"><span class="nav-number">14.0.22.</span> <span class="nav-text">21. 什么是IO多路复用？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#22-%E4%B8%AD%E6%96%AD%E7%9A%84%E5%A4%84%E7%90%86%E8%BF%87%E7%A8%8B"><span class="nav-number">14.0.23.</span> <span class="nav-text">22. 中断的处理过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#22-1-%E4%B8%AD%E6%96%AD%E5%92%8C%E8%BD%AE%E8%AF%A2%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">14.0.23.1.</span> <span class="nav-text">22.1 中断和轮询的区别？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#23-%E3%80%90%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9%E8%87%AA%E6%97%8B%E9%94%81%E7%9A%84%E7%90%86%E8%A7%A3%E3%80%91"><span class="nav-number">14.0.24.</span> <span class="nav-text">23. 【谈谈你对自旋锁的理解】</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
