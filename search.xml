@@ -3889,8 +3889,15 @@
   <entry>
     <title>Java面试知识点总结</title>
     <url>/2022/01/07/Java%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h2 id="Java-IO-amp-反射"><a href="#Java-IO-amp-反射" class="headerlink" title="Java IO &amp; 反射"></a>Java IO &amp; 反射</h2><h4 id="1-怎么利用反射获取类中的对象？"><a href="#1-怎么利用反射获取类中的对象？" class="headerlink" title="1. 怎么利用反射获取类中的对象？"></a>1. 怎么利用反射获取类中的对象？</h4><ul>
-<li><p>获取反射中类Class实例的方法（以获取String类实例为例子）</p>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一些关于Java各个知识点的个人总结，例如Java基础、集合、并发编程、JVM、Redis、MySQL、RabbitMQ等模块内容；</p>
+<span id="more"></span>
+
+<h2 id="Java-IO-amp-反射"><a href="#Java-IO-amp-反射" class="headerlink" title="Java IO &amp; 反射"></a>Java IO &amp; 反射</h2><h4 id="✨1-1-Java反射是什么？如何通过反射调用一个对象的方法？"><a href="#✨1-1-Java反射是什么？如何通过反射调用一个对象的方法？" class="headerlink" title="✨1.1 Java反射是什么？如何通过反射调用一个对象的方法？"></a>✨1.1 Java反射是什么？如何通过反射调用一个对象的方法？</h4><p>定义：在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性，这种动态获取信息以及动态调用对象方法的功能称为Java的反射机制<strong>（反射就是把Java类中的各种成分映射成一个个的Java对象）</strong></p>
+<p>通过反射调用一个对象的方法（以user类为例）：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>通过反射获取类中的对象</span><br><span class="line">    <span class="type">Class</span> <span class="variable">clazz</span> <span class="operator">=</span> User.class;</span><br><span class="line"><span class="number">2.</span>创建运行时类的对象</span><br><span class="line">    <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> (User)clazz.newInstance();</span><br><span class="line"><span class="number">3.</span>获取方法</span><br><span class="line">    <span class="type">Method</span> <span class="variable">method</span> <span class="operator">=</span> clazz.getMethod(<span class="string">&quot;具体方法名&quot;</span>, <span class="string">&quot;需要传入的参数&quot;</span>);</span><br><span class="line"><span class="number">4.</span>通过invoke()进行调用</span><br><span class="line">    <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> method.invoke(user);</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-怎么利用反射获取类中的对象？"><a href="#1-2-怎么利用反射获取类中的对象？" class="headerlink" title="1.2 怎么利用反射获取类中的对象？"></a>1.2 怎么利用反射获取类中的对象？</h4><ul>
+<li><p><strong>获取反射中类Class实例的方法（以获取String类实例为例子）</strong></p>
 <ol>
 <li>调用Class的静态方法：Class.forname(类全路径名)；</li>
 </ol>
@@ -3912,7 +3919,7 @@
 <li>使用类的加载器：ClassLoader；</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ClassLoader classLoader = String.class.getClassLoader();</span><br><span class="line">Class clazz = classLoader.loadClass(&quot;java.lang.String&quot;)</span><br></pre></td></tr></table></figure></li>
-<li><p>创建运行时类的对象</p>
+<li><p><strong>创建运行时类的对象</strong></p>
 <ol>
 <li><p>直接通过new关键字；</p>
 </li>
@@ -4061,51 +4068,88 @@
 <p>用户进程发起系统调用操作之后，给内核传递描述符、缓冲区指针、缓冲区大小等，告诉内核当整个操作完成时如何通知进程，然后就立刻去做其他事情了。当内核收到系统调用命令后会立刻返回，然后内核开始等待数据准备，数据准备好以后直接把数据拷贝到用户空间，然后再通知进程本次IO已经完成。用户进程在两个阶段是非阻塞的，且内核在整体阶段是异步状态。</p>
 </li>
 </ul>
-<h2 id="Java集合"><a href="#Java集合" class="headerlink" title="Java集合"></a>Java集合</h2><h4 id="1-【介绍一下HashMap的底层实现原理】"><a href="#1-【介绍一下HashMap的底层实现原理】" class="headerlink" title="1.  【介绍一下HashMap的底层实现原理】"></a>1.  【介绍一下HashMap的底层实现原理】</h4><ul>
-<li><strong>HashMap的底层是数组+链表+红黑树</strong>，基于hash算法实现的，通过put(key,value)存储和get(key)获取对象。存储对象时传入key，它调用key.hashCode()计算hash值，根据hash值将value保存到对应的bucket位置，且hashmap会根据当前bucket的占用情况自动调整容量（超过Load Factor则resize为原来的2倍）。获取对象时将key传给get()，它调用hashcode()计算hash值从而得到bucket位置，并进一步调用equals()确定键值对。</li>
+<h4 id="✨7-Maven的scope有哪几个？"><a href="#✨7-Maven的scope有哪几个？" class="headerlink" title="✨7. Maven的scope有哪几个？"></a>✨7. Maven的scope有哪几个？</h4><ol>
+<li>compile：<strong>默认scope</strong>，运行期有效，需要打入包中</li>
+<li>provided：编译期有效，运行期不需要提供，不会打入包中</li>
+<li>runtime：编译期不需要，在运行期有效，需要导入包中</li>
+<li>test：测试需要，不会打入包中</li>
+<li>system：非本地仓库引入、存在系统的某个路径下的jar</li>
+</ol>
+<h4 id="✨8-String、StringBuilder和StringBuffer的区别？（待补充）"><a href="#✨8-String、StringBuilder和StringBuffer的区别？（待补充）" class="headerlink" title="✨8. String、StringBuilder和StringBuffer的区别？（待补充）"></a>✨8. String、StringBuilder和StringBuffer的区别？（待补充）</h4><h4 id="✨9-子类重写父类方法的规则"><a href="#✨9-子类重写父类方法的规则" class="headerlink" title="✨9. 子类重写父类方法的规则"></a>✨9. 子类重写父类方法的规则</h4><ul>
+<li>参数列表和方法名与被重写方法的参数列表和方法名必须完全相同。</li>
+<li>返回类型与被重写方法的返回类型可以不相同，但是必须是父类返回值类型的派生类。</li>
+<li>访问权限不能比父类中被重写的方法的访问权限更低。</li>
 </ul>
-<p><strong>Hash解决哈希冲突的方法：</strong></p>
+<h4 id="✨10-子类中调用父类方法的规则"><a href="#✨10-子类中调用父类方法的规则" class="headerlink" title="✨10. 子类中调用父类方法的规则"></a>✨10. 子类中调用父类方法的规则</h4><ol>
+<li>子类构造函数中想要调用父类构造函数，用super。</li>
+<li>子类重写父类方法后，若想调用父类中被重写的方法，用super</li>
+<li>调用父类中未被重写的方法可以直接调用，但子类不可以调用父类的私有方法。</li>
+</ol>
+<h2 id="✨👏Java集合"><a href="#✨👏Java集合" class="headerlink" title="✨👏Java集合"></a>✨👏Java集合</h2><h4 id="✨1-【介绍一下HashMap的底层实现原理】"><a href="#✨1-【介绍一下HashMap的底层实现原理】" class="headerlink" title="✨1.  【介绍一下HashMap的底层实现原理】"></a>✨1.  【介绍一下HashMap的底层实现原理】</h4><ul>
+<li><strong>HashMap的底层是数组+链表+红黑树</strong>，基于hash算法实现的，存储对象时通过put(key,value)传入key，它调用hashCode()计算hash值，根据hash值将value保存到对应的bucket位置，获取对象时将key传给get()，它调用hashcode()计算hash值从而得到bucket位置，并进一步调用equals()确定键值对。</li>
+</ul>
+<p><strong>HashMap解决哈希冲突的方法：</strong></p>
 <ul>
-<li>当计算出的hash值相同时会发生hash冲突(即hash碰撞)，为了解决hash碰撞问题，HashMap通过链表将产生碰撞冲突的元素组织起来。在Java 8中，如果一个bucket中碰撞冲突的元素超过某个阈值(默认是8)，先会尝试进行数组扩容来减小链表长度，如果数组容量&gt;=64时，则会树化使用红黑树来替换链表。</li>
+<li>当计算出的hash值相同时会发生hash冲突(即hash碰撞)，为了解决hash碰撞问题，HashMap通过链表将产生碰撞冲突的元素组织起来。在jdk1.8中，如果一个bucket中碰撞冲突的元素超过某个阈值(默认是8)，先会尝试进行数组扩容来减小链表长度，如果数组容量&gt;=64时，则会树化使用红黑树来替换链表。</li>
 </ul>
-<h4 id="2-为什么在解决哈希冲突时不直接用红黑树而先选择用链表，再转红黑树？"><a href="#2-为什么在解决哈希冲突时不直接用红黑树而先选择用链表，再转红黑树？" class="headerlink" title="2. 为什么在解决哈希冲突时不直接用红黑树而先选择用链表，再转红黑树？"></a>2. 为什么在解决哈希冲突时不直接用红黑树而先选择用链表，再转红黑树？</h4><p>因为红黑树是一种平衡二叉树，需要进行左旋、右旋、变色这些操作来保持平衡，而单链表不需要。当元素小于8个时，此时做查询操作链表结构已经能保证查询性能，当元素大于8个时，红黑树搜索时间复杂度是O(log n)，而链表是O(n)，此时需要用红黑树来加快查询速度，但会导致新增节点效率变慢，因此如果一开始就用红黑树，元素个数少且新增节点效率又比较慢，是相当浪费性能的。</p>
+<h4 id="✨2-为什么在解决哈希冲突时不直接用红黑树而先选择用链表，再转红黑树？"><a href="#✨2-为什么在解决哈希冲突时不直接用红黑树而先选择用链表，再转红黑树？" class="headerlink" title="✨2. 为什么在解决哈希冲突时不直接用红黑树而先选择用链表，再转红黑树？"></a>✨2. 为什么在解决哈希冲突时不直接用红黑树而先选择用链表，再转红黑树？</h4><p>因为红黑树是一种平衡二叉树，需要进行左旋、右旋、变色这些操作来保持平衡，而单链表不需要。当元素个数小于8个时，此时做查询操作链表结构已经能保证查询性能，当元素个数大于8个时，红黑树搜索时间复杂度是O(log n)，而链表是O(n)，此时可以用红黑树来加快查询速度，但会导致新增节点的效率变慢，因此假如一开始就用红黑树，元素个数少查询性能没提升且新增节点效率又比较慢。</p>
 <h4 id="3-1【HashMap为什么说是线程不安全的？】"><a href="#3-1【HashMap为什么说是线程不安全的？】" class="headerlink" title="3.1【HashMap为什么说是线程不安全的？】"></a>3.1【HashMap为什么说是线程不安全的？】</h4><ul>
-<li><strong>多线程下扩容会死循环：</strong>JDK1.7中的 HashMap 使用头插法插入元素，在多线程的环境下，扩容的时候有可能导致环形链表的出现，形成死循环。因此，JDK1.8使用尾插法插入元素，在扩容时会保持链表元素原本的顺序，不会出现环形链表的问题。</li>
+<li><strong>多线程下扩容会死循环：</strong>JDK1.7中的 HashMap 使用头插法插入元素，在多线程的环境下，扩容时有可能导致环形链表的出现形成死循环。到了JDK1.8使用尾插法插入元素，在扩容时会保持链表元素原本的顺序，不会出现环形链表的问题。</li>
 <li><strong>多线程的put可能导致元素的丢失：</strong>多线程同时执行 put 操作，如果计算出来的索引位置是相同的，那会造成前一个key被后一个key 覆盖，从而导致元素的丢失。此问题在JDK 1.7和 JDK 1.8 中都存在。</li>
 <li><strong>put和get并发时，可能导致get为null：</strong>线程1执行put时，因为元素个数超出threshold而导致rehash，线程2此时执行get，有可能导致这个问题。此问题在JDK 1.7和 JDK 1.8 中都存在。</li>
 </ul>
 <h4 id="3-2-【Arraylist为什么说是线程不安全的？】"><a href="#3-2-【Arraylist为什么说是线程不安全的？】" class="headerlink" title="3.2 【Arraylist为什么说是线程不安全的？】"></a>3.2 【Arraylist为什么说是线程不安全的？】</h4><p><strong>ArrayList的底层是数组队列</strong>，相当于一个动态数组，与数组不同的是容量可以动态增长；</p>
 <ul>
 <li><p><strong>并发环境下进行add操作时可能会导致elementData数组越界</strong></p>
-<p>add()实际执行的过程并非原子操作为：</p>
+<p>add()实际执行的过程并非原子操作：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">elementData[size] = e;</span><br><span class="line">size = size + <span class="number">1</span>;</span><br></pre></td></tr></table></figure></li>
-<li><p><strong>一个线程的值可能会覆盖另一个线程添加的值</strong></p>
+</ul>
+<h4 id="✨4-1【HashMap和HashTable的区别？】"><a href="#✨4-1【HashMap和HashTable的区别？】" class="headerlink" title="✨4.1【HashMap和HashTable的区别？】"></a>✨4.1【HashMap和HashTable的区别？】</h4><ol>
+<li><strong>线程是否安全</strong>： HashMap 是非线程安全的，Hashtable 是线程安全的,  因为Hashtable内部的方法，例如chear()，基本都经过synchronized修饰。<strong>（如果你要保证线程安全的话就使用 ConcurrentHashMap ，HashTable基本被淘汰使用了）</strong></li>
+<li><strong>对 Null key 和 Null value 的支持</strong>： HashMap允许key和value为null，但null作为键只能有一个，null作为值可以有多个；Hashtable 不允许key和value为null，否则会抛出NullPointerException。<strong>（使用ConcurrentHashMap，同Hashtable一样不允许key和value为null）</strong></li>
+<li><strong>初始容量大小和每次扩充容量大小的不同</strong> ：HashTable中数组的默认大小是11，增加方式是old*2+1，HashMap中数组的默认大小是16，增加方式是2的指数倍；</li>
+</ol>
+<h4 id="✨4-2-【ArrayList和LinkedList的区别？】"><a href="#✨4-2-【ArrayList和LinkedList的区别？】" class="headerlink" title="✨4.2 【ArrayList和LinkedList的区别？】"></a>✨4.2 【ArrayList和LinkedList的区别？】</h4><ol>
+<li><p>ArrayList的实现是基于动态数组，LinkedList的实现是基于<strong>双向链表</strong>。</p>
+<ul>
+<li><p>✨<strong>单链表和双向链表的区别：</strong></p>
+<ol>
+<li>单向链表只有一个指向下一结点的指针，双向链表除了有一个指向下一结点的指针外，还有一个指向前一结点的指针。</li>
+<li>单向链表只能next ，双向链表可以return。</li>
+<li>单链表只能单向读取，双向链表可以通过prev()快速找到前一结点。</li>
+</ol>
+<p><strong>单向链表优缺点：</strong></p>
+<ol>
+<li>优点：单向链表增加删除节点简单。遍历时候不会死循环；</li>
+<li>缺点：只能从头到尾遍历。只能找到后继，无法找到前驱，也就是只能前进。</li>
+</ol>
+<p><strong>双向链表优缺点：</strong></p>
+<ol>
+<li>优点：可以找到前驱和后继，可进可退；</li>
+<li>缺点：增加删除节点复杂，多需要分配一个指针存储空间。</li>
+</ol>
 </li>
 </ul>
-<h4 id="4-【HashMap和HashTable的区别？】"><a href="#4-【HashMap和HashTable的区别？】" class="headerlink" title="4. 【HashMap和HashTable的区别？】"></a>4. 【HashMap和HashTable的区别？】</h4><ol>
-<li><strong>线程是否安全</strong>： HashMap 是非线程安全的，Hashtable 是线程安全的,  因为 Hashtable 内部的方法基本都经过synchronized 修饰。<strong>（如果你要保证线程安全的话就使用 ConcurrentHashMap ，HashTable基本被淘汰使用了）</strong></li>
-<li><strong>效率</strong>：因为Hashtable加了synchronized锁。所以HashMap 要比 Hashtable 效率高一点。</li>
-<li><strong>对 Null key 和 Null value 的支持</strong>： HashMap 可以存储为null 的 key 和 value，但 null 作为键只能有一个，null 作为值可以有多个；Hashtable 不允许有 null 键和 null 值，否则会抛出 NullPointerException。<strong>（使用ConcurrentHashMap，同Hashtable一样不允许有 null 键和 null 值）</strong></li>
-<li><strong>初始容量大小和每次扩充容量大小的不同</strong> ：① 创建时如果不指定容量初始值，Hashtable 默认的初始大小为 11，之后每次扩充，容量变为原来的 2n+1。HashMap 默认的初始化大小为 16。之后每次扩充，容量变为原来的 2 倍。② 创建时如果给定了容量初始值，那么 Hashtable 会直接使用你给定的大小，而 HashMap 会将其扩充为 2 的幂次方大小。也就是说 HashMap 总是使用 2 的幂次方作为哈希表的大小。</li>
-<li><strong>底层数据结构</strong>： JDK1.8 以后的 HashMap 在解决哈希冲突时有了较大的变化，当链表长度大于阈值（默认为 8）<strong>（将链表转换成红黑树前会判断，如果当前数组的长度小于 64，那么会选择先进行数组扩容，而不是转换为红黑树）</strong>时，将链表转化为红黑树，以减少搜索时间。Hashtable 没有这样的机制。</li>
+</li>
+<li><p>对于<strong>随机访问</strong>，ArrayList优于LinkedList，不需要像链式结构从头遍历。</p>
+</li>
+<li><p>对于<strong>插入和删除操作</strong>，LinkedList优于ArrayList，不需要像线性结构那样移动插入位置后面的数据。</p>
+</li>
+<li><p>LinkedList比ArrayList更占内存，因为LinkedList的节点除了存储数据，还存储了两个引用指针；</p>
+</li>
 </ol>
-<h4 id="5-【-ConcurrentHashMap实现线程安全的底层原理是什么？】"><a href="#5-【-ConcurrentHashMap实现线程安全的底层原理是什么？】" class="headerlink" title="5.【 ConcurrentHashMap实现线程安全的底层原理是什么？】"></a>5.【 ConcurrentHashMap实现线程安全的底层原理是什么？】</h4><ul>
-<li>JDK7中的ConcurrentHashMap由Hash bucket数组组成，每个哈希桶数组切分成多个Segment数组，每个Segment数组中由多个HashEntry组成，即把数据分为一段段存储，然后给每一段数据配一把分段锁，当一个线程占有锁访问其中一段数据时，其他段的数据也能被其他线程访问实现并发访问；<strong>Segment继承自ReentrantLock，其中有volatile修饰的HashEntry&lt;K, V&gt;[] table保证在数组扩容时的可见性</strong>；<strong>volatile修饰HashEntry的元素value和指向下一个节点的指针next，保证了多线程环境下数据获取时的可见性</strong>（ConcurrentHashMap的get()不需要加锁的原因）；</li>
-<li>JDK8中ConcurrentHashMap选择了与HashMap相同的Node数组+链表+红黑树结构，在锁的实现上抛弃了原有的Segment分段锁，采用CAS+synchronized实现更加细粒度的锁，只需要锁住链表的头节点（或者是红黑树的根节点），而不会影响其他哈希桶数组元素的读写，进一步提高并发度；</li>
+<h4 id="✨5-【ConcurrentHashMap实现线程安全的底层原理是什么？】"><a href="#✨5-【ConcurrentHashMap实现线程安全的底层原理是什么？】" class="headerlink" title="✨5.【ConcurrentHashMap实现线程安全的底层原理是什么？】"></a>✨5.【ConcurrentHashMap实现线程安全的底层原理是什么？】</h4><ul>
+<li>JDK7中的ConcurrentHashMap由Hash bucket数组组成，每个哈希桶数组切分成多个Segment数组，每个Segment数组中由多个HashEntry组成，即把数据分为一段段存储，然后给每一段数据配一把分段锁，当一个线程占有锁访问其中一段数据时，其他段的数据也能被同时其他线程访问，实现并发访问；<strong>Segment继承自ReentrantLock，其中有volatile修饰的HashEntry&lt;K, V&gt;[] table保证在数组扩容时的可见性</strong>；<strong>volatile修饰HashEntry中的属性value和指向下一个节点的指针next，保证了多线程环境下数据获取时的可见性，这也是ConcurrentHashMap的get()不需要加锁的原因</strong>；</li>
+<li>JDK8中ConcurrentHashMap选择了与HashMap相同的Node数组+链表+红黑树结构，在锁的实现上抛弃了原有的Segment分段锁，采用CAS+synchronized实现更加细粒度的锁，只需要锁住链表的头节点（或者是红黑树的根节点），而不会影响其他Node数组元素的读写，进一步提高并发度；</li>
 </ul>
 <h4 id="6-ConcurrentHashMap不支持key或value为null的原因？"><a href="#6-ConcurrentHashMap不支持key或value为null的原因？" class="headerlink" title="6. ConcurrentHashMap不支持key或value为null的原因？"></a>6. ConcurrentHashMap不支持key或value为null的原因？</h4><p>因为ConcurrentHashMap是用于多线程的，如果通过get(key)得到了null，无法判断是映射的value值就为null，还是没有找到对应的key而为null，存在二义性；而key不支持为null是源码规定的，当key和value都为null时会抛出空指针异常；</p>
-<h4 id="7-【谈谈HashMap的扩容机制】"><a href="#7-【谈谈HashMap的扩容机制】" class="headerlink" title="7. 【谈谈HashMap的扩容机制】"></a>7. 【谈谈HashMap的扩容机制】</h4><p><strong>什么时候扩容：</strong>一般情况下，<strong>当元素数量大于等于阈值时, 即当前容器内的元素个数大于当前数组的长度×负载因子的值的时</strong>便会触发扩容，每次扩容的容量都是之前容量的2倍，并将原来的对象拷贝到新的数组中；</p>
-<p><strong>JDK7中的扩容机制：</strong></p>
-<ol>
-<li>resize()中传入新的容量，引用扩容前的Entry数组后进行判断，如果扩容前的数组大小已经达到最大容量，则修改阈值为int的最大值，以后就不会扩容了；之后<strong>初始化一个新的Entry数组，将数据通过transfer()将原Entry数组的元素拷贝到新的Entry数组中</strong>，HashMap的table属性引用新的Entry数组，并修改新阈值=新容量×负载因子；</li>
-<li>tranfer()细节：遍历旧的Entry数组取得旧Entry数组的每个元素，释放旧Entry数组的对象引用，重新计算每个元素在数组中的位置，使用单链表的头插法，同一位置上的新元素总会先被放在链表的头部位置，如果发生了hash冲突的话先放在一个索引上的元素终会被放到Entry链的尾部；将元素放在数组上后再访问下一个Entry链上的元素；</li>
-</ol>
-<p><strong>JDK8中的扩容机制相较JDK7做的优化</strong>：</p>
+<h4 id="✨7-【谈谈HashMap的扩容机制】"><a href="#✨7-【谈谈HashMap的扩容机制】" class="headerlink" title="✨7. 【谈谈HashMap的扩容机制】"></a>✨7. 【谈谈HashMap的扩容机制】</h4><p><strong>什么时候扩容：</strong>一般情况下，<strong>当元素数量大于等于阈值时, 即当前容器内的元素个数大于当前数组的长度×负载因子的值</strong>时便会触发扩容，每次扩容的容量都是之前容量的2倍，并将原来的对象拷贝到新的数组中；</p>
 <ul>
-<li>**resize()**之后元素的位置在原来的位置，或者是原来的位置+oldCap(即原来哈希表的长度)，不需要重新计算hash，只需要看原来的hash值新增的那个bit是1还是0；</li>
-<li>JDK8使用尾插法，rehash时，旧链表迁移新链表时，如果在新表的数组索引位置相同，链表元素也不会像JDK7使用头插法那样会倒置；</li>
+<li><strong>负载因子</strong>表示Hash表中元素的填满程度，负载因子越大，填满的元素越多，空间利用率越高，但发生冲突的机会变大了，而<strong>负载因子是0.75的时候，空间利用率比较高，而且避免了相当多的Hash冲突，使得底层的链表或者是红黑树的高度比较低，提升了空间效率</strong>。</li>
 </ul>
-<h4 id="8-【谈谈ConcurrentHashMap的扩容机制】（待补充）"><a href="#8-【谈谈ConcurrentHashMap的扩容机制】（待补充）" class="headerlink" title="8. 【谈谈ConcurrentHashMap的扩容机制】（待补充）"></a>8. 【谈谈ConcurrentHashMap的扩容机制】（待补充）</h4><p>当往ConcurrentHashMap如果新增节点之后，会调用addCount()重新计算map中的size，并检查是否需要进行扩容，当sizeCtl&gt;0.75n时就触发扩容逻辑，若所在链表的元素个数达到了阈值 8，则会调用treeifyBin())把链表转换成红黑树，不过在结构转换之前，会对数组长度进行判断，如果数组长度n小于阈值默认是64，则会调用tryPresize())把数组长度扩大到原来的两倍，并触发transfer方法，重新调整节点的位置。</p>
+<p><strong>JDK7中的扩容机制：</strong></p>
+<p>resize()中传入新的容量，引用扩容前的Entry数组后进行判断，如果扩容前的数组大小已经达到最大容量，则修改阈值为int的最大值，以后就不会扩容了；之后<strong>初始化一个新的Entry数组，将数据通过transfer()将原Entry数组的元素拷贝到新的Entry数组中</strong>，HashMap的table属性引用新的Entry数组，并修改新阈值=新容量×负载因子；</p>
+<h5 id="7-1-HashMap在JDK8时扩容上做了哪些优化？（待补充）"><a href="#7-1-HashMap在JDK8时扩容上做了哪些优化？（待补充）" class="headerlink" title="7.1 HashMap在JDK8时扩容上做了哪些优化？（待补充）"></a>7.1 HashMap在JDK8时扩容上做了哪些优化？（待补充）</h5><h5 id="✨7-2-为什么HashMap扩容的时候是两倍？（待补充）"><a href="#✨7-2-为什么HashMap扩容的时候是两倍？（待补充）" class="headerlink" title="✨7.2 为什么HashMap扩容的时候是两倍？（待补充）"></a>✨7.2 为什么HashMap扩容的时候是两倍？（待补充）</h5><h4 id="8-谈谈ConcurrentHashMap的扩容机制（待补充）"><a href="#8-谈谈ConcurrentHashMap的扩容机制（待补充）" class="headerlink" title="8. 谈谈ConcurrentHashMap的扩容机制（待补充）"></a>8. 谈谈ConcurrentHashMap的扩容机制（待补充）</h4><p>当往ConcurrentHashMap如果新增节点之后，会调用addCount()重新计算map中的size，并检查是否需要进行扩容，当sizeCtl&gt;0.75n时就触发扩容逻辑，若所在链表的元素个数达到了阈值 8，则会调用treeifyBin())把链表转换成红黑树，不过在结构转换之前，会对数组长度进行判断，如果数组长度n小于阈值默认是64，则会调用tryPresize())把数组长度扩大到原来的两倍，并触发transfer方法，重新调整节点的位置。</p>
 <ul>
 <li><strong>扩容阈值sizeCtl关键点：</strong></li>
 </ul>
@@ -4168,32 +4212,47 @@
 <li>ReetrantReadWriteLock对读线程而言，为了实现数据实时性，在写锁被获取后读线程和写线程都会等待，或者当读锁被获取后写线程会等待，即<strong>读写互斥</strong>，从而解决“脏读”等问题，也就是说如果使用读写锁依然会出现读线程阻塞等待的情况。</li>
 <li>CopyOnWriteArraylist读写在不同容器上所以<strong>读写不互斥</strong>，即读线程对数据的更新是延时感知的，因此读线程不会存在等待的情况。</li>
 </ol>
-<h4 id="11-HashMap的put-流程？get-流程？（待补充）"><a href="#11-HashMap的put-流程？get-流程？（待补充）" class="headerlink" title="11. HashMap的put()流程？get()流程？（待补充）"></a>11. HashMap的put()流程？get()流程？（待补充）</h4><p>以JDK 1.8为例，首先根据key的值计算hash值找到该元素在数组中存储的下标，如果数组是空的则调用resize进行初始化；如果没有发生哈希冲突则直接放在对应的数组下标处；如果发生了哈希冲突且key已经存在，则覆盖掉value；如果发生哈希冲突后发现该节点是链表，判断该链表是否大于8，若大于8且数组容量小于64就进行数组扩容后插入键值对，若数组容量大于64则将链表转换为红黑树。</p>
+<h4 id="✨11-HashMap的put-流程？get-流程？（待补充）"><a href="#✨11-HashMap的put-流程？get-流程？（待补充）" class="headerlink" title="✨11. HashMap的put()流程？get()流程？（待补充）"></a>✨11. HashMap的put()流程？get()流程？（待补充）</h4><p>以JDK 1.8为例，首先根据key的值计算hash值找到该元素在数组中存储的下标，如果数组是空的则调用resize进行初始化；如果没有发生哈希冲突则直接放在对应的数组下标处；如果发生了哈希冲突且key已经存在，则覆盖掉value；如果发生哈希冲突后发现该节点是链表，判断该链表是否大于8，若大于8且数组容量小于64就进行数组扩容后插入键值对，若数组容量大于64则将链表转换为红黑树。</p>
 <h4 id="12-ConcurrentHashMap的put-流程？get-流程？（待补充）"><a href="#12-ConcurrentHashMap的put-流程？get-流程？（待补充）" class="headerlink" title="12. ConcurrentHashMap的put()流程？get()流程？（待补充）"></a>12. ConcurrentHashMap的put()流程？get()流程？（待补充）</h4><ul>
 <li>JDK 1.7时先会尝试获取锁，如果获取失败利用自旋方式获取锁，如果自旋重试的次数超过了64次，则改为阻塞获取锁；获取到锁后，将当前Segment通过key的hashcode定位到相应HashEntry数组，遍历该HashEntry，如果不为空则判断传入的key和当前遍历的key是否相等，相等则覆盖旧的value，如果为空则新建一个HashEntry并加入Segment中，同时判断是否需要扩容，最后put()成功后释放Segment的锁；</li>
 <li>JDK 1.8根据key计算出hash值，判断是否需要进行初始化，根据hash值定位到Node，拿到首节点f，对首节点f进行判断：如果f为null，则通过CAS的方式尝试添加；如果f.hash=MOVED=-1，说明其他线程在扩容，就参与一起扩容；如果都不满足，则synchronized锁住首节点f后遍历插入，当链表长度达到8时，数组扩容或将链表转换为红黑树；</li>
 </ul>
-<h2 id="Java并发编程"><a href="#Java并发编程" class="headerlink" title="Java并发编程"></a>Java并发编程</h2><h4 id="1-【请谈谈你对volatile、Java内存模型的理解】"><a href="#1-【请谈谈你对volatile、Java内存模型的理解】" class="headerlink" title="1. 【请谈谈你对volatile、Java内存模型的理解】"></a>1. 【请谈谈你对volatile、Java内存模型的理解】</h4><p>volatile是JVM提供的轻量级的同步机制，能<strong>保证可见性，不保证原子性，禁止指令重排保证有序性</strong></p>
+<h4 id="✨13-TreeSet和HashSet的区别？"><a href="#✨13-TreeSet和HashSet的区别？" class="headerlink" title="✨13. TreeSet和HashSet的区别？"></a>✨13. TreeSet和HashSet的区别？</h4><ol>
+<li><strong>底层使用的数据存储结构不同：</strong>Hashset底层是HashMap实现的，使用哈希表结构储存，而Treeset底层是TreeMap，使用二叉树结构储存；</li>
+<li><strong>元素是否有序：</strong>HashSet中的元素是无序的，而TreeSet实现了SortedSet接口，可以确保集合元素处于排序状态，其是有序的；</li>
+<li><strong>保证元素唯一方式不同：</strong>HashSet是通过hashCode()和equals()来保证的，而TreeSet是通过实现了Compareable接口的compareTo()来保证的;</li>
+</ol>
+<h4 id="✨14-Set集合是如何实现去重的？（Set集合去重原理）"><a href="#✨14-Set集合是如何实现去重的？（Set集合去重原理）" class="headerlink" title="✨14. Set集合是如何实现去重的？（Set集合去重原理）"></a>✨14. Set集合是如何实现去重的？（Set集合去重原理）</h4><ul>
+<li><p><strong>HashSet去重原理：通过hashCode()和equals()是否都相同来比较</strong></p>
+<p>put()中调用hashCode()先算出当前元素的哈希值，比较哈希值是否相同，通过equals()比较对象是否相等</p>
 <ul>
-<li><p><strong>JMM（Java内存模型）</strong>并不真实存在，描述的是一组规范，定义了程序中各个变量的访问方式，三个特性是<strong>可见性、原子性和有序性</strong>；</p>
+<li><p>如果哈希值不同，则说明元素不相同，将元素添加到集合中；</p>
+</li>
+<li><p>如果哈希值相同，则继续判断equals()</p>
 <ul>
-<li>JMM关于同步的规定：<ul>
-<li>线程解锁前，必须把共享变量的值刷新回<strong>主内存（堆空间）</strong></li>
-<li>线程加锁前，必须读取主内存的最新值到自己的<strong>工作内存（栈空间）</strong></li>
-<li>加锁解锁是同一把锁</li>
+<li>如果equals返回true，则说明元素的哈希值与内容都相同，该元素重复，不会添加到集合中；</li>
+<li>如果equals返回false，则说明元素的哈希值相同，但内容不同，元素不重复，就添加到集合中；</li>
 </ul>
 </li>
 </ul>
+</li>
+<li><p><strong>TreeSet去重：compareTo()</strong></p>
+<p>调用了comparaTo()，根据比较器的属性去重。如果compareTo()返回0，说明是重复的；如果是负数，则往前面排；如果是正数，往后面排。</p>
+</li>
+</ul>
+<h2 id="✨👏Java并发编程"><a href="#✨👏Java并发编程" class="headerlink" title="✨👏Java并发编程"></a>✨👏Java并发编程</h2><h4 id="1-【请谈谈你对volatile、Java内存模型的理解】"><a href="#1-【请谈谈你对volatile、Java内存模型的理解】" class="headerlink" title="1. 【请谈谈你对volatile、Java内存模型的理解】"></a>1. 【请谈谈你对volatile、Java内存模型的理解】</h4><p>volatile是JVM提供的轻量级的同步机制，能<strong>保证可见性，不保证原子性，禁止指令重排保证有序性</strong></p>
+<ul>
+<li><p><strong>JMM（Java内存模型）</strong>并不真实存在，描述的是一组规范，定义了程序中各个变量的访问方式，它有三个特性是<strong>可见性、原子性和有序性</strong>；</p>
 </li>
 <li><p>JMM规定所有变量都存储在主内存，线程对变量的所有操作（读取、赋值等）必须在工作内存中进行，当需要对共享变量进行修改时，首先要将共享变量拷贝副本到自己的工作内存，然后对变量进行操作，操作完成后再将变量写回主内存；</p>
 <ul>
-<li><strong>可见性：</strong>当一个线程对主内存的变量进行了修改，其他线程能够收到通知得知该变量已经被修改。</li>
+<li><strong>可见性：</strong>当一个线程对主内存的共享变量进行了修改，其他线程能够收到通知得知该变量已经被修改。</li>
 </ul>
 </li>
 <li><p><strong>volatile不保证原子性解释：</strong></p>
 <ul>
-<li><strong>原子性：</strong>即某个线程正在做某个具体业务时，中间不可以被加塞或者分割，需要整体完整，要么同时成功要么同时失败。</li>
-<li><strong>一个线程a修改了共享变量的值但未写回主内存时，当不保证原子性就可能出现另一个线程b又对同一个共享变量进行操作，但此时a线程工作内存中共享变量对线程b不可见，可能出现写数据丢失情况</strong></li>
+<li><strong>原子性：</strong>即某个线程正在做某个具体业务时，中间不可以被加塞或者分割，操作需要整体完整。</li>
+<li>一个线程a修改了共享变量的值但未写回主内存时，当不保证原子性就可能出现另一个线程b又对同一个共享变量进行操作，但此时a线程工作内存中的共享变量副本对线程b不可见，可能出现写数据丢失情况</li>
 <li>如何解决volatile原子性问题？<ul>
 <li><strong>使用JUC下的AtomicInteger类</strong></li>
 </ul>
@@ -4207,18 +4266,17 @@
 <li><p><strong>内存屏障</strong>：又称为内存栅栏，作用有以下两个：</p>
 <ol>
 <li>保证特定操作的执行顺序</li>
-<li>保证某些变量的内存可见性<strong>（Lock前缀指令实现了volatile的内存可见性）</strong></li>
+<li>保证某些变量的内存可见性（Lock前缀指令实现了volatile的内存可见性）</li>
 </ol>
 </li>
 </ul>
-<p><strong>通过插入内存屏障禁止编译器和处理器在内存屏障前后的指令执行重排序优化，并且内存栅栏能强制刷出CPU的各种缓存数据，使线程都能读取到这些数据的最新版本</strong></p>
+<p>通过插入内存屏障禁止编译器和处理器在内存屏障前后的指令执行重排序优化，并且内存栅栏能强制刷出CPU的各种缓存数据，使线程都能读取到这些数据的最新版本</p>
 <ul>
 <li><strong>happen-before原则：</strong>规定了在一些特殊情况下不允许编译器和指令器对代码进行指令重排，保证代码的有序性；</li>
 </ul>
 </li>
 <li><p>volatile使用场景：</p>
-<p><strong>volatile修饰单例对象的DCL（双端检索机制）的单例模式</strong></p>
-<p>（原因在于DCl机制不一定线程安全，原因是有指令重排的存在，需要再加入volatile禁止指令重排）</p>
+<p>volatile修饰单例对象的DCL（双端检索机制）的单例模式（原因在于DCl机制不一定线程安全，原因是有指令重排的存在，需要再加入volatile禁止指令重排）</p>
 </li>
 </ul>
 <h4 id="2-【CAS底层实现原理是什么？】"><a href="#2-【CAS底层实现原理是什么？】" class="headerlink" title="2. 【CAS底层实现原理是什么？】"></a>2. 【CAS底层实现原理是什么？】</h4><p><strong>CAS（Compare and Swap 比较并交换）</strong>：比较当前工作内存中的值和主内存中的值，如果相同则执行规定操作修改为新的值，否则继续比较直到主内存和工作内存中的值一致为止</p>
@@ -4234,7 +4292,7 @@
 </ul>
 </li>
 </ul>
-<h4 id="3-使用Atomic原子类解决ABA问题"><a href="#3-使用Atomic原子类解决ABA问题" class="headerlink" title="3. 使用Atomic原子类解决ABA问题"></a>3. 使用Atomic原子类解决ABA问题</h4><p><strong>问题简介：</strong>有两个线程同时去修改一个变量的值，比如线程1、线程2都去更新变量值，将变量值从A更新成B，线程1获取到CPU的时间片，线程2由于某些原因发生阻塞进行等待，此时线程1进行比较更新，成功将变量从A更新成B；更新完毕后，恰好又有线程3进来想把变量的值从B更新成A，线程3进行比较更新，成功将变量从B更新成A；线程2获取到CPU时间片然后进行比较更新，发现值是预期的A，然后就将其更新成B，此值就有了A-&gt;B-&gt;A的过程。</p>
+<h4 id="3-【使用Atomic原子类解决ABA问题】"><a href="#3-【使用Atomic原子类解决ABA问题】" class="headerlink" title="3. 【使用Atomic原子类解决ABA问题】"></a>3. 【使用Atomic原子类解决ABA问题】</h4><p><strong>问题简介：</strong>有两个线程同时去修改一个变量的值，比如线程1、线程2都去更新变量值，将变量值从A更新成B，线程1获取到CPU的时间片，线程2由于某些原因发生阻塞进行等待，此时线程1进行比较更新，成功将变量从A更新成B；更新完毕后，恰好又有线程3进来想把变量的值从B更新成A，线程3进行比较更新，成功将变量从B更新成A；线程2获取到CPU时间片然后进行比较更新，发现值是预期的A，然后就将其更新成B，此值就有了A-&gt;B-&gt;A的过程。</p>
 <p><strong>如何避免ABA问题：</strong></p>
 <ul>
 <li>加版本号或者加时间戳（原子引用）<ul>
@@ -4242,13 +4300,13 @@
 </ul>
 </li>
 </ul>
-<h4 id="4-公平锁-非公平锁-可重入锁请谈谈你的理解？"><a href="#4-公平锁-非公平锁-可重入锁请谈谈你的理解？" class="headerlink" title="4. 公平锁/非公平锁/可重入锁请谈谈你的理解？"></a>4. 公平锁/非公平锁/可重入锁请谈谈你的理解？</h4><ul>
-<li>公平锁：多个线程在等待同一个锁时，必须按照申请锁的时间顺序来依次获得释放的锁；</li>
+<h4 id="4-【公平锁-非公平锁-可重入锁请谈谈你的理解？】"><a href="#4-【公平锁-非公平锁-可重入锁请谈谈你的理解？】" class="headerlink" title="4. 【公平锁/非公平锁/可重入锁请谈谈你的理解？】"></a>4. 【公平锁/非公平锁/可重入锁请谈谈你的理解？】</h4><ul>
+<li>公平锁：多个线程在等待同一个锁时，必须按照申请锁的先后时间顺序来依次获得释放的锁；</li>
 <li>非公平锁：在锁被释放时，任何一个等待该锁的线程都有机会获得锁（可能会造成优先级反转或者线程饥饿现象）；</li>
 <li>可重入锁：又名<strong>递归锁</strong>，是指在同一个线程中，在外层方法获取锁的时候，进入内层方法会自动获取锁；</li>
 </ul>
 <h4 id="8-死锁编码及定位分析"><a href="#8-死锁编码及定位分析" class="headerlink" title="8. 死锁编码及定位分析"></a>8. 死锁编码及定位分析</h4><p><strong>死锁理解：</strong></p>
-<p>线程T1持有锁L1并且申请获得锁L2，而另一个线程T2持有锁L2并且申请锁L1。因为锁是唯一的，两个线程都在等待对方释放自己需要的锁，所以线程T1和T2永远被阻塞了。两个线程都会停留在阻塞状态，永远不会结束，这就导致了死锁。</p>
+<p>线程T1持有锁L1并且申请获得锁L2，而另一个线程T2持有锁L2并且申请锁L1。因为锁是唯一的，两个线程都在等待对方释放自己需要的锁，所以两个线程都会停留在阻塞状态永远不会结束，这就导致了死锁。</p>
 <p><strong>死锁定位：</strong></p>
 <p>方法一：</p>
 <ol>
@@ -4283,7 +4341,7 @@
 </ul>
 </li>
 </ol>
-<h4 id="11-【AQS的实现原理是什么？】"><a href="#11-【AQS的实现原理是什么？】" class="headerlink" title="11. 【AQS的实现原理是什么？】"></a>11. 【AQS的实现原理是什么？】</h4><p><strong>AQS，即抽象队列同步器（基于模板方法模式实现）</strong>（AbstractQueuedSynchronizer）使用一个volatile修饰的int型变量表示持有锁的同步状态，通过内置的FIFO队列（底层是由同步队列+条件队列组成）来完成资源获取的排队工作，将每一条要去抢占资源的线程封装成一个Node节点来实现锁的分配，通过CAS完成对State状态值的修改；（<strong>即用一个 int 类型的变量表示同步状态，并提供了一系列的 CAS 操作来管理这个同步状态</strong>）</p>
+<h4 id="11-【AQS的实现原理是什么？】"><a href="#11-【AQS的实现原理是什么？】" class="headerlink" title="11. 【AQS的实现原理是什么？】"></a>11. 【AQS的实现原理是什么？】</h4><p><strong>AQS，即抽象队列同步器（基于模板方法模式实现）</strong>（AbstractQueuedSynchronizer）<strong>使用一个volatile修饰的int型变量表示持有锁的同步状态State，通过内置的先进先出队列（底层是由同步队列+条件队列组成）来完成资源获取的排队工作，将每一条要去抢占资源的线程封装成一个Node节点来实现锁的分配，通过CAS操作完成对同步状态值的修改</strong>；</p>
 <ul>
 <li>同步队列管理获取不到锁的线程的排队和释放，条件队列是在一定场景下对同步队列的补充，如获得锁的线程尝试从空队列中拿数据时，条件队列就管理该线程使其阻塞；</li>
 </ul>
@@ -4328,20 +4386,18 @@
 <li><code>CyclicBarrier</code> 默认的构造方法是 <code>CyclicBarrier(int parties)</code>，其参数表示屏障拦截的线程数量，每个线程调用 <code>await()</code> 方法告诉 <code>CyclicBarrier</code> 我已经到达了屏障，然后当前线程被阻塞，parties 就代表了有拦截的线程的数量，当拦截的线程数量达到这个值的时候就打开栅栏，让所有线程通过</li>
 <li><code>CyclicBarrier</code> 可以用于多线程计算数据，最后合并计算结果的应用场景。</li>
 </ul>
-<h4 id="12-【Synchronized的底层原理是什么？】"><a href="#12-【Synchronized的底层原理是什么？】" class="headerlink" title="12. 【Synchronized的底层原理是什么？】"></a>12. 【Synchronized的底层原理是什么？】</h4><p><strong>Synchronized是一种实现同步互斥的方式，被Synchronized修饰过的代码块在编译前后会被编译器生成monitorenter和monitorexit两个字节码指令，在虚拟机执行到monitorenter指令时，首先尝试获取对象的锁，如果这个对象没有锁定或者当前线程已经拥有了这个对象的锁，把锁的计数器+1；当执行monitorexit指令时将锁计数器-1；当计数器为0时锁就被释放，通过在对象头设置标记达到获取锁和释放锁的目的</strong>；</p>
+<h4 id="✨12-【Synchronized的底层原理是什么？】"><a href="#✨12-【Synchronized的底层原理是什么？】" class="headerlink" title="✨12. 【Synchronized的底层原理是什么？】"></a>✨12. 【Synchronized的底层原理是什么？】</h4><p>Synchronized是一种实现同步互斥的方式，<strong>被Synchronized修饰过的代码块在编译前后会被编译器生成monitorenter和monitorexit两个字节码指令，在虚拟机执行到monitorenter指令时，首先尝试获取对象的锁，如果这个对象没有锁定或者当前线程已经拥有了这个锁，则把锁的计数器+1；当执行monitorexit指令时将锁计数器-1；当计数器为0时锁就被释放，通过在对象头设置标记达到获取锁和释放锁的目的</strong>；</p>
 <h5 id="12-为什么说synchronized是非公平锁？"><a href="#12-为什么说synchronized是非公平锁？" class="headerlink" title="12. 为什么说synchronized是非公平锁？"></a>12. 为什么说synchronized是非公平锁？</h5><ol>
 <li>当持有锁的线程释放锁时，该线程会执行两个操作：先将锁的持有者owner属性赋为为null，再去唤醒等待链表中的其中一个线程，当两个操作之间如果有其他线程刚好在尝试获取锁就可以马上获取到锁；</li>
 <li>当线程尝试获取锁失败进入阻塞时，其放入等待链表的顺序和最终被唤醒的顺序不一定是一致的；</li>
 </ol>
-<h4 id="14-什么是锁消除和锁粗化？"><a href="#14-什么是锁消除和锁粗化？" class="headerlink" title="14. 什么是锁消除和锁粗化？"></a>14. 什么是锁消除和锁粗化？</h4><p><strong>锁消除：</strong>指虚拟机即时编译器在运行时对一些代码上要求同步，但被检测到不可能存在共享数据竞争的锁进行消除的行为。</p>
-<p><strong>锁粗化：</strong>原则上同步块的作用范围要尽量小，但是如果一系列的连续操作都对同一个对象反复加锁和解锁，甚至加锁操作在循环体内，频繁的互斥同步操作也会导致不必要的性能损耗。锁粗化指的是增大锁的作用域的行为。</p>
-<h4 id="15-【乐观锁一定是好的吗？】"><a href="#15-【乐观锁一定是好的吗？】" class="headerlink" title="15. 【乐观锁一定是好的吗？】"></a>15. 【乐观锁一定是好的吗？】</h4><p>乐观锁虽然避免了悲观锁独占对象的同时也提高了并发性能，但是它有如下缺点：</p>
+<h4 id="15-乐观锁一定是好的吗？"><a href="#15-乐观锁一定是好的吗？" class="headerlink" title="15. 乐观锁一定是好的吗？"></a>15. 乐观锁一定是好的吗？</h4><p>乐观锁虽然避免了悲观锁独占对象的同时也提高了并发性能，但是它有如下缺点：</p>
 <ol>
 <li>乐观锁只能保证一个共享变量的原子操作；</li>
-<li>采用自旋锁的方式（当一个线程在获取锁的时候，如果锁已经被其它线程获取，那么该线程将循环等待，然后不断的判断锁是否能够被成功获取，直到获取到锁才会退出循环），长时间自旋可能导致开销大，假如CAS长时间不成功而一直自旋会给CPU带来很大开销；</li>
+<li>采用自旋锁的方式（当一个线程在获取锁的时候，如果锁已经被其它线程获取，那么该线程将循环等待，然后不断的判断锁是否能够被成功获取，直到获取到锁才会退出循环），长时间不成功一直自旋会导致CPU开销大；</li>
 <li>会造成ABA问题（原因在于CAS的核心思想是通过比对内存值与预期值是否一样而判断内存之是否被改过，并不在意中途是否发生过变化），可引入版本号解决；</li>
 </ol>
-<h4 id="16-【与Synchronized相比，可重入锁ReentrantLock的实现原理有什么不同？】"><a href="#16-【与Synchronized相比，可重入锁ReentrantLock的实现原理有什么不同？】" class="headerlink" title="16. 【与Synchronized相比，可重入锁ReentrantLock的实现原理有什么不同？】"></a>16. 【与Synchronized相比，可重入锁ReentrantLock的实现原理有什么不同？】</h4><p><strong>其实锁的实现原理基本都是为了达到一个目的：让所有线程都能看到某种标记</strong>，Synchronized通过在对象头中设置标记实现这一目的，而ReentrantLock以及所有基于Lock接口的实现类，都是通过用volitile修饰的int型变量，并保证每个线程都拥有对该变量的可见性，本质是基于AQS框架；</p>
+<h4 id="✨16-【与Synchronized相比，可重入锁ReentrantLock的实现原理有什么不同？】"><a href="#✨16-【与Synchronized相比，可重入锁ReentrantLock的实现原理有什么不同？】" class="headerlink" title="✨16. 【与Synchronized相比，可重入锁ReentrantLock的实现原理有什么不同？】"></a>✨16. 【与Synchronized相比，可重入锁ReentrantLock的实现原理有什么不同？】</h4><p><strong>其实锁的实现原理基本都是为了达到一个目的：让所有线程都能看到某种标记</strong>，Synchronized通过在对象头中设置标记实现这一目的，而ReentrantLock以及所有基于Lock接口的实现类，都是<strong>通过用volitile修饰的int型变量</strong>，保证每个线程都拥有对该变量的可见性，本质是基于AQS；</p>
 <h5 id="16-1-了解ReentrantLock吗？"><a href="#16-1-了解ReentrantLock吗？" class="headerlink" title="16.1 了解ReentrantLock吗？"></a>16.1 了解ReentrantLock吗？</h5><p>ReetrantLock是一个可重入的独占锁，支持公平锁和非公平锁，<strong>其实现依赖于AQS维护一个阻塞队列，多个线程需要加锁时，竞争失败者会进入阻塞队列等待唤醒，之后重新尝试加锁</strong>；</p>
 <p>其有两个特性：一是可重入，二是可以指定公平或非公平</p>
 <ul>
@@ -4383,18 +4439,18 @@
 </ul>
 </li>
 </ul>
-<h4 id="17-Java-中用到的线程调度算法是什么？"><a href="#17-Java-中用到的线程调度算法是什么？" class="headerlink" title="17. Java 中用到的线程调度算法是什么？"></a>17. Java 中用到的线程调度算法是什么？</h4><p>有两种调度模型：<strong>分时调度模型和抢占式调度模型</strong>。 </p>
+<h4 id="17-Java-中用到的线程调度算法有哪些？"><a href="#17-Java-中用到的线程调度算法有哪些？" class="headerlink" title="17. Java 中用到的线程调度算法有哪些？"></a>17. Java 中用到的线程调度算法有哪些？</h4><p>有两种调度模型：<strong>分时调度模型和抢占式调度模型</strong>。 </p>
 <ul>
 <li>分时调度模型是指让所有的线程采用<strong>时间片轮转</strong>的方式轮流获得CPU的使用权，并且平均分配每个线程占用的CPU时间片；</li>
-<li>JVM采用抢占式调度模型，是指优先让可运行池中优先级高的线程占用 CPU，如果可运行池中的线程优先级相同，那么就随机选择一个线程使其占用 CPU。处于运行状态的线程会一直运行，直至它不得不放弃 CPU。</li>
+<li>JVM采用抢占式调度模型，是指优先让可运行池中优先级高的线程占用 CPU，如果可运行池中的线程优先级相同，那么就随机选择一个线程使其占用 CPU。</li>
 </ul>
 <h4 id="18-为什么使用Executor框架而不是直接new-Thread-）"><a href="#18-为什么使用Executor框架而不是直接new-Thread-）" class="headerlink" title="18. 为什么使用Executor框架而不是直接new Thread(）"></a>18. 为什么使用Executor框架而不是直接new Thread(）</h4><ol>
 <li>每次执行任务创建线程都new Thread()比较<strong>消耗性能</strong>；</li>
 <li>调用new Thread()创建的线程<strong>缺乏管理，而且可以无限制的创建</strong>， 线程之间的相互竞争会导致过多占用系统资源而导致系统瘫痪，还有线程之间的频繁交替也会消耗很多系统资源；</li>
 <li>直接使用new Thread() 启动的线程<strong>不利于扩展</strong>，比如定时执行、定期执行、线程中断等都不便实现。</li>
 </ol>
-<h4 id="19-【什么是阻塞队列？阻塞队列的实现原理是什么？阻塞队列的种类有哪些？】"><a href="#19-【什么是阻塞队列？阻塞队列的实现原理是什么？阻塞队列的种类有哪些？】" class="headerlink" title="19. 【什么是阻塞队列？阻塞队列的实现原理是什么？阻塞队列的种类有哪些？】"></a>19. 【什么是阻塞队列？阻塞队列的实现原理是什么？阻塞队列的种类有哪些？】</h4><p><strong>阻塞队列（BlockingQueue）</strong>：是一个支持两个附加操作的队列。 这两个附加的操作是：在队列为空时，获取元素的线程即消费者会等待队列变为非空。当队列满时，添加元素的线程即生产者会等待队列可用。 阻塞队列常用于生产者和消费者的场景，生产者是往队列里添加元素的线程，消费者是从队列里获取元素的线程。</p>
-<p><strong>阻塞队列的实现原理：</strong>当生产者线程试图向阻塞队列添加元素时，如果队列已满，则线程被阻塞；当消费者线程试图从中获取元素时，如果队列为空，则该线程也会被阻塞；</p>
+<h4 id="19-【什么是阻塞队列？阻塞队列的实现原理是什么？阻塞队列的种类有哪些？】"><a href="#19-【什么是阻塞队列？阻塞队列的实现原理是什么？阻塞队列的种类有哪些？】" class="headerlink" title="19. 【什么是阻塞队列？阻塞队列的实现原理是什么？阻塞队列的种类有哪些？】"></a>19. 【什么是阻塞队列？阻塞队列的实现原理是什么？阻塞队列的种类有哪些？】</h4><p><strong>阻塞队列（BlockingQueue）</strong>：是一个支持两个附加操作的队列。 这两个附加的操作是：在队列为空时，获取元素的线程即消费者会等待队列变为非空。当队列满时，添加元素的线程即生产者会等待队列可用。</p>
+<p><strong>阻塞队列的实现原理：</strong>当生产者线程试图向阻塞队列添加元素时，如果队列已满则线程会被阻塞；当消费者线程试图从中获取元素时，如果队列为空则该线程也会被阻塞；</p>
 <p><strong>阻塞队列的类型有如下几种：</strong></p>
 <ul>
 <li><strong>ArrayBlockingQueue</strong> ：一个由数组结构组成的有界阻塞队列。</li>
@@ -4405,7 +4461,7 @@
 <li>LinkedTransferQueue：一个由链表结构组成的无界阻塞队列。 </li>
 <li>LinkedBlockingDeque：一个由链表结构组成的双向阻塞队列</li>
 </ul>
-<h4 id="20-【在-Java中CyclicBarriar循环栅栏和CountdownLatch倒计时器有什么区别？】"><a href="#20-【在-Java中CyclicBarriar循环栅栏和CountdownLatch倒计时器有什么区别？】" class="headerlink" title="20. 【在 Java中CyclicBarriar循环栅栏和CountdownLatch倒计时器有什么区别？】"></a>20. 【在 Java中CyclicBarriar循环栅栏和CountdownLatch倒计时器有什么区别？】</h4><ol>
+<h4 id="20-在-Java中CyclicBarriar循环栅栏和CountdownLatch倒计时器有什么区别？"><a href="#20-在-Java中CyclicBarriar循环栅栏和CountdownLatch倒计时器有什么区别？" class="headerlink" title="20. 在 Java中CyclicBarriar循环栅栏和CountdownLatch倒计时器有什么区别？"></a>20. 在 Java中CyclicBarriar循环栅栏和CountdownLatch倒计时器有什么区别？</h4><ol>
 <li>CountDownLatch 简单的说就是<strong>一个线程等待</strong>，直到他所等待的其他线程都执行完成并且调用 countDown()方法发出通知后，当前线程才可以继续执行；</li>
 <li>CyclicBarrier 是<strong>所有线程都进行等待</strong>，直到所有线程到达进入 await()方法之后，所有线程同时开始执行；</li>
 <li>CountDownLatch 的计数器只能使用一次，而CyclicBarrier的计数器可以使用reset() 方法重置实现多次使用。</li>
@@ -4419,18 +4475,14 @@
 <li>execute()方法的返回类型是 void，它定义在 Executor 接口中，用于提交不需要返回值的任务，所以无法判断任务是否被线程池执行成功。 </li>
 <li>submit()方法定义在 ExecutorService 接口中，用于提交需要返回值的任务，线程池会返回一个持有计算结果的 Future 类型对象，可以通过这个Future对象判断任务是否执行成功。</li>
 </ul>
-<h4 id="23-ThreadLocal-是什么？有什么用？"><a href="#23-ThreadLocal-是什么？有什么用？" class="headerlink" title="23. ThreadLocal 是什么？有什么用？"></a>23. ThreadLocal 是什么？有什么用？</h4><p>ThreadLocal ，即线程本地变量。</p>
+<h4 id="23-ThreadLocal-是什么以及作用是什么？（待补充）"><a href="#23-ThreadLocal-是什么以及作用是什么？（待补充）" class="headerlink" title="23. ThreadLocal 是什么以及作用是什么？（待补充）"></a>23. ThreadLocal 是什么以及作用是什么？（待补充）</h4><p>ThreadLocal ，即线程本地变量。</p>
 <p>如果创建了一个ThreadLocal变量，那么访问这个变量的每个线程都会有这个变量的一个本地拷贝，多个线程操作这个变量时，实际是操作自己本地拷贝里的变量，从而<strong>起到线程隔离的作用</strong>，避免了线程安全问题；</p>
 <p>应用场景：数据库连接池、会话管理；</p>
-<h5 id="23-1-ThreadLocal的实现原理（待补充）"><a href="#23-1-ThreadLocal的实现原理（待补充）" class="headerlink" title="23.1 ThreadLocal的实现原理（待补充）"></a>23.1 ThreadLocal的实现原理（待补充）</h5><h5 id="23-2-ThreadLocal的内存泄露问题（待补充）"><a href="#23-2-ThreadLocal的内存泄露问题（待补充）" class="headerlink" title="23.2 ThreadLocal的内存泄露问题（待补充）"></a>23.2 ThreadLocal的内存泄露问题（待补充）</h5><h4 id="24-【Linux-环境下如何查找哪个线程使用-CPU-的时间最长】"><a href="#24-【Linux-环境下如何查找哪个线程使用-CPU-的时间最长】" class="headerlink" title="24. 【Linux 环境下如何查找哪个线程使用 CPU 的时间最长】"></a>24. 【Linux 环境下如何查找哪个线程使用 CPU 的时间最长】</h4><ol>
-<li>获取进程的pid：ps -ef | grep java</li>
-<li>top -Hp pid</li>
-</ol>
-<h4 id="25-如果你提交任务时，线程池队列已满，这时会发生什么？"><a href="#25-如果你提交任务时，线程池队列已满，这时会发生什么？" class="headerlink" title="25. 如果你提交任务时，线程池队列已满，这时会发生什么？"></a>25. 如果你提交任务时，线程池队列已满，这时会发生什么？</h4><ol>
+<h5 id="23-1-ThreadLocal的实现原理（待补充）"><a href="#23-1-ThreadLocal的实现原理（待补充）" class="headerlink" title="23.1 ThreadLocal的实现原理（待补充）"></a>23.1 ThreadLocal的实现原理（待补充）</h5><h5 id="23-2-ThreadLocal的内存泄露问题（待补充）"><a href="#23-2-ThreadLocal的内存泄露问题（待补充）" class="headerlink" title="23.2 ThreadLocal的内存泄露问题（待补充）"></a>23.2 ThreadLocal的内存泄露问题（待补充）</h5><h4 id="25-如果你提交任务时，线程池队列已满，这时会发生什么？"><a href="#25-如果你提交任务时，线程池队列已满，这时会发生什么？" class="headerlink" title="25. 如果你提交任务时，线程池队列已满，这时会发生什么？"></a>25. 如果你提交任务时，线程池队列已满，这时会发生什么？</h4><ol>
 <li>如果使用的是无界队列比如不设置大小的LinkedBlockingQueue，会继续添加任务到阻塞队列中等待执行，因为 LinkedBlockingQueue 可以近乎认为是一个无穷大的队列，可以无限存放任务；</li>
 <li>如果使用的是有界队列比如 ArrayBlockingQueue，任务首先会被添加到 ArrayBlockingQueue 中，ArrayBlockingQueue 满了，会根据 maximumPoolSize 的值增加线程数量，如果增加了线程数量还是处理不过来， ArrayBlockingQueue 继续满，那么则会使用拒绝策略 RejectedExecutionHandler 处理满了的任务，默认是AbortPolicy；</li>
 </ol>
-<h4 id="26-为什么不能直接调用run-方法，而要先调用start-再执行run（）？"><a href="#26-为什么不能直接调用run-方法，而要先调用start-再执行run（）？" class="headerlink" title="26. 为什么不能直接调用run()方法，而要先调用start()再执行run（）？"></a>26. 为什么不能直接调用run()方法，而要先调用start()再执行run（）？</h4><p>new Thread()后线程进入了新建状态。调用 <code>start()</code>方法，会启动一个线程并使线程进入了就绪状态，当分配到时间片后就可以开始运行了。 <code>start()</code> 会执行线程的相应准备工作，然后自动执行 <code>run()</code> 方法的内容，这是真正的多线程工作。 但是，直接执行 <code>run()</code> 方法，会把 <code>run()</code> 方法当成一个 main 线程下的普通方法去执行，并不会在某个线程中执行它，所以这并不是多线程工作；</p>
+<h4 id="26-为什么不能直接调用run-方法，而要先调用start-再执行run-？"><a href="#26-为什么不能直接调用run-方法，而要先调用start-再执行run-？" class="headerlink" title="26. 为什么不能直接调用run()方法，而要先调用start()再执行run()？"></a>26. 为什么不能直接调用run()方法，而要先调用start()再执行run()？</h4><p>new Thread()后线程进入了新建状态。调用 <code>start()</code>方法，会启动一个线程并使线程进入了就绪状态，当分配到时间片后就可以开始运行了。 <code>start()</code> 会执行线程的相应准备工作，然后自动执行 <code>run()</code> 方法的内容，这是真正的多线程工作。 但是，直接执行 <code>run()</code> 方法，会把 <code>run()</code> 方法当成一个 main 线程下的普通方法去执行，并不会在某个线程中执行它，所以这并不是多线程工作；</p>
 <h4 id="27-了解Fork-Join框架吗？（待补充）"><a href="#27-了解Fork-Join框架吗？（待补充）" class="headerlink" title="27. 了解Fork/Join框架吗？（待补充）"></a>27. 了解Fork/Join框架吗？（待补充）</h4><ul>
 <li>Fork/Join框架是一个用于并行执行任务的框架，把大任务分割成若干个小任务，最终汇总每个小任务结果后得到大任务结果，体现了分而治之的思想；</li>
 <li><strong>工作窃取算法：</strong>某个线程从其他队列中窃取任务来进行执行的过程，一般是指做得快的线程（盗窃线程）抢慢的线程的任务来做；（为了减少锁竞争，使用双端队列，将快线程和慢线程各放在一端）</li>
@@ -4451,19 +4503,25 @@
 </ul>
 </li>
 <li><strong>自旋锁与自适应自旋锁</strong><ul>
-<li><strong>自旋锁</strong>：当一个线程尝试去获取某一把锁的时候，如果这个锁此时已经被别人获取而无法获取到这把锁，该线程将会执行固定次数的循环，间隔一段时间后会再次尝试获取锁，如果获取失败则再次等待锁的释放，这种采用循环尝试加锁 -&gt; 等待的机制被称为自旋锁；</li>
-<li><strong>自适应自旋锁</strong>：对自旋锁优化方式的进一步优化，其自旋次数不再固定，而是由前一次在同一个锁上的自旋时间及锁的拥有者的状态来决定；</li>
+<li><strong>自旋锁</strong>：当一个线程尝试去获取某一把锁的时候，如果这个锁此时已经被别人获取，该线程将会执行固定次数的循环，间隔一段时间后会再次尝试获取锁，如果获取失败则再次等待锁的释放，这种采用循环尝试加锁 -&gt; 等待的机制被称为自旋锁；</li>
+<li><strong>自适应自旋锁</strong>：对自旋锁进一步优化，其自旋次数不再固定，而是由前一次在同一个锁上的自旋时间及锁拥有者的状态来决定；</li>
 </ul>
 </li>
 </ol>
-<h4 id="29-为什么使用线程池？"><a href="#29-为什么使用线程池？" class="headerlink" title="29. 为什么使用线程池？"></a>29. 为什么使用线程池？</h4><p>使用线程池的好处：</p>
+<h4 id="29-【为什么使用线程池？】"><a href="#29-【为什么使用线程池？】" class="headerlink" title="29. 【为什么使用线程池？】"></a>29. 【为什么使用线程池？】</h4><h5 id="✨29-0-创建线程有哪些方式？"><a href="#✨29-0-创建线程有哪些方式？" class="headerlink" title="✨29.0 创建线程有哪些方式？"></a>✨29.0 创建线程有哪些方式？</h5><ol>
+<li>继承Thread类创建线程；</li>
+<li>实现Runnable接口创建线程；</li>
+<li>使用Callable和Future创建线程；（和Runnable接口不一样，Callable接口提供了一个call()作为线程执行体，call()可以有返回值，并且可以声明抛出异常）</li>
+<li>使用线程池创建线程；</li>
+</ol>
+<p>使用线程池的好处：</p>
 <ul>
 <li><strong>降低资源消耗：</strong>通过重复利用已创建的线程降低线程创建和销毁造成的资源消耗；</li>
 <li><strong>提高响应速度：</strong>当任务到达时，任务可以不需要等待线程创建就能立即执行；</li>
 <li><strong>提高线程可管理性：</strong>使用线程池可以对线程进行统一的分配、调优和监控，避免了线程无限制的创建；</li>
 </ul>
-<h5 id="【29-1-说下线程池实现类ThreadPoolExecutor核心参数配置】"><a href="#【29-1-说下线程池实现类ThreadPoolExecutor核心参数配置】" class="headerlink" title="【29.1 说下线程池实现类ThreadPoolExecutor核心参数配置】"></a>【29.1 说下线程池实现类ThreadPoolExecutor核心参数配置】</h5><ul>
-<li>【corePoolSize】：核心线程大小；定义了<strong>最小可以同时运行的线程数量</strong>，只要线程池一直运行核心线程就不会停止；</li>
+<h5 id="✨29-1-说下线程池实现类ThreadPoolExecutor核心参数配置"><a href="#✨29-1-说下线程池实现类ThreadPoolExecutor核心参数配置" class="headerlink" title="✨29.1 说下线程池实现类ThreadPoolExecutor核心参数配置"></a>✨29.1 说下线程池实现类ThreadPoolExecutor核心参数配置</h5><ul>
+<li>【corePoolSize】：核心线程数量；定义了<strong>最小可以同时运行的线程数量</strong>，只要线程池一直运行核心线程就不会停止；</li>
 <li>【maximumPoolSize】：线程池最大线程数量（等于核心线程数+非核心线程数），<strong>当队列中存放的任务达到队列容量的时候，当前可以同时运行的线程数量变为最大线程数</strong>；</li>
 <li>keepAliveTime：非核心线程的最长存活时间，当线程池中的线程数量大于 <code>corePoolSize</code> 的时候，如果这时没有新的任务提交，核心线程外的线程（即非核心线程）不会立即销毁而是会等待，直到等待的时间超过了 <code>keepAliveTime</code>才会被回收销毁；</li>
 <li>【workQueue】：阻塞队列，用来存放线程任务，<strong>当新任务来的时候会先判断当前运行的线程数量是否达到核心线程数，如果达到的话，新任务就会被存放在队列中</strong>；</li>
@@ -4476,10 +4534,10 @@
 </ul>
 </li>
 </ul>
-<h5 id="29-2-线程池执行任务的流程（实现原理）？"><a href="#29-2-线程池执行任务的流程（实现原理）？" class="headerlink" title="29.2 线程池执行任务的流程（实现原理）？"></a>29.2 线程池执行任务的流程（实现原理）？</h5><ol>
+<h5 id="✨29-2-线程池执行任务的流程（实现原理）？"><a href="#✨29-2-线程池执行任务的流程（实现原理）？" class="headerlink" title="✨29.2 线程池执行任务的流程（实现原理）？"></a>✨29.2 线程池执行任务的流程（实现原理）？</h5><ol>
 <li>线程池执行execute() / submit()向线程池添加任务，当任务数小于核心线程数corePoolSize时，线程池中可以创建新的线程；</li>
 <li>当任务数大于核心线程数corePoolSize时就向阻塞队列中添加任务；</li>
-<li>如果阻塞队列已满，需要通过比较maximumPoolSize后再在线程池创建新的非核心线程，当线程需求数量大于maximumPoolSize，说明当前设置线程池中线程已经无法处理新的任务，就会执行饱和策略。</li>
+<li>如果阻塞队列已满，需要通过比较线程池最大线程数量maximumPoolSize后再在线程池创建新的非核心线程，<strong>当线程需求数量大于maximumPoolSize</strong>，说明当前设置线程池中线程已经无法处理新的任务，就会执行饱和策略。</li>
 </ol>
 <h5 id="29-3-常用的Java线程池类型有哪些？"><a href="#29-3-常用的Java线程池类型有哪些？" class="headerlink" title="29.3 常用的Java线程池类型有哪些？"></a>29.3 常用的Java线程池类型有哪些？</h5><ul>
 <li><p>FixedThreadPool：可重用固定线程数的线程池，<code>corePoolSize</code> 和 <code>maximumPoolSize</code> 都被设置为固定值</p>
@@ -4495,7 +4553,7 @@
 <h5 id="29-4-线程池常用的阻塞队列有哪些？"><a href="#29-4-线程池常用的阻塞队列有哪些？" class="headerlink" title="29.4 线程池常用的阻塞队列有哪些？"></a>29.4 线程池常用的阻塞队列有哪些？</h5><p>详情见19关于阻塞队列的介绍；</p>
 <h5 id="29-5-【如果线上机器突然宕机，线程池的阻塞队列中的请求怎么办？】"><a href="#29-5-【如果线上机器突然宕机，线程池的阻塞队列中的请求怎么办？】" class="headerlink" title="29.5 【如果线上机器突然宕机，线程池的阻塞队列中的请求怎么办？】"></a>29.5 【如果线上机器突然宕机，线程池的阻塞队列中的请求怎么办？】</h5><p>必然会导致线程池中的积压任务都丢失</p>
 <p><strong>解决办法：</strong>在提交一个任务到线程池中之前，可以先在数据库中插入这个任务的信息，更新该任务的状态为未提交，提交成功之后更新其状态为已提交状态；当系统任务宕机重启后，后台线程去扫描数据库中的未提交和已提交状态的任务，可以把任务的信息读取出来重新提交到线程池中去，继续进行执行。</p>
-<h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h2><h4 id="3-说下你平时工作用过的JVM常用基本配置参数有哪些？"><a href="#3-说下你平时工作用过的JVM常用基本配置参数有哪些？" class="headerlink" title="3. 说下你平时工作用过的JVM常用基本配置参数有哪些？"></a>3. 说下你平时工作用过的JVM常用基本配置参数有哪些？</h4><ul>
+<h2 id="✨JVM"><a href="#✨JVM" class="headerlink" title="✨JVM"></a>✨JVM</h2><h4 id="3-说下你平时工作用过的JVM常用基本配置参数有哪些？"><a href="#3-说下你平时工作用过的JVM常用基本配置参数有哪些？" class="headerlink" title="3. 说下你平时工作用过的JVM常用基本配置参数有哪些？"></a>3. 说下你平时工作用过的JVM常用基本配置参数有哪些？</h4><ul>
 <li>-Xms：用于表示堆区的起始内存，等价于-XX：InitialHeapSize</li>
 <li>-Xmx：用于表示堆区的最大内存，等价于-XX：MaxHeapSize，一旦堆区内存大小超过指定的最大内存时，将会抛出OutOfMemory异常（通常会将-Xms和-Xmx两个参数配置相同的值，其目的是<strong>为了能够在Java垃圾回收机制清理完堆区后不需要重新分隔计算堆区的大小从而提高性能</strong>）</li>
 <li>-Xmn：用于表示堆区中新生代的大小</li>
@@ -4551,7 +4609,7 @@
 </ol>
 </li>
 </ol>
-<h4 id="8-【介绍下Java中的垃圾回收算法和垃圾回收器，各自的优缺点是什么？】"><a href="#8-【介绍下Java中的垃圾回收算法和垃圾回收器，各自的优缺点是什么？】" class="headerlink" title="8. 【介绍下Java中的垃圾回收算法和垃圾回收器，各自的优缺点是什么？】"></a>8. 【介绍下Java中的垃圾回收算法和垃圾回收器，各自的优缺点是什么？】</h4><p>定义：<strong>在运行程序中没有任何指针指向的对象</strong>，这个对象就是需要被回收的垃圾；</p>
+<h4 id="✨8-【介绍下Java中的垃圾回收算法和垃圾回收器，各自的优缺点是什么？】"><a href="#✨8-【介绍下Java中的垃圾回收算法和垃圾回收器，各自的优缺点是什么？】" class="headerlink" title="✨8. 【介绍下Java中的垃圾回收算法和垃圾回收器，各自的优缺点是什么？】"></a>✨8. 【介绍下Java中的垃圾回收算法和垃圾回收器，各自的优缺点是什么？】</h4><p>定义：<strong>在运行程序中没有任何指针指向的对象</strong>，这个对象就是需要被回收的垃圾；</p>
 <p><strong>垃圾回收算法：</strong>标记-清除算法、标记-压缩算法、复制算法</p>
 <ul>
 <li><p><strong>标记-清除算法</strong></p>
@@ -4683,12 +4741,12 @@
 <li><strong>jstack 进程ID | grep tid（十六进制线程ID英文小写）-A60</strong>打印该线程相关信息，定位是哪段代码导致CPU占用过高</li>
 </ol>
 <h4 id="10-2-【线上机器的一个进程用kill命令杀不死该怎么办？】"><a href="#10-2-【线上机器的一个进程用kill命令杀不死该怎么办？】" class="headerlink" title="10.2 【线上机器的一个进程用kill命令杀不死该怎么办？】"></a>10.2 【线上机器的一个进程用kill命令杀不死该怎么办？】</h4><ol>
-<li><strong>ps -aux</strong>观察STAT那一栏，如果是Z则确定为僵尸进程</li>
+<li><strong>ps aux</strong>观察STAT那一栏，如果是Z则确定为僵尸进程</li>
 <li><strong>ps -ef | grep 进程id</strong>，找到该僵尸进程的父进程PPID，<strong>kill -9 PPID</strong>强制杀掉父进程即可</li>
 </ol>
 <h4 id="10-3-【排查OOM异常问题的步骤】"><a href="#10-3-【排查OOM异常问题的步骤】" class="headerlink" title="10.3 【排查OOM异常问题的步骤】"></a>10.3 【排查OOM异常问题的步骤】</h4><ol>
 <li>先用**top **指令查询服务器系统状态，实时显示系统中各个进程的资源占用状况</li>
-<li>找出当前Java进程的PID：<strong>ps -aux | grep java</strong></li>
+<li>找出当前Java进程的PID：<strong>ps aux | grep java</strong></li>
 <li>查看当前GC的状况：<strong>jstat -gcutil pid interval</strong></li>
 <li><strong>jmap -histo:live pid</strong>：统计存活对象的分布情况，从高到低查看占据内存最多的对象</li>
 <li><strong>jmap -dump:format=b,file=文件名 [pid]</strong> 生成当前的堆转储快照dump文件</li>
@@ -4748,7 +4806,7 @@
 <li>初始化阶段就是执行类构造器方法<code>&lt;clinit&gt;()</code>的过程，注意<code>&lt;clinit&gt;()</code>不等同于类的构造器，虚拟机必须保证一个类的<code>&lt;clinit&gt;()</code>方法在多线程下被同步加锁</li>
 <li>如果类存在直接父类，在初始化该类时，发现其父类还没有被加载和初始化，那么必须先加载并初始化其父类；</li>
 </ul>
-<h5 id="11-1-什么是类加载器？常用的类加载器有哪些？"><a href="#11-1-什么是类加载器？常用的类加载器有哪些？" class="headerlink" title="11.1 什么是类加载器？常用的类加载器有哪些？"></a>11.1 什么是类加载器？常用的类加载器有哪些？</h5><p>JVM支持两种类型的类加载器，分别为引导类加载器Bootstrap ClassLoader、自定义类加载器User-Defined ClassLoader（注意所有派生于抽象类ClassLoader的类加载器都划分为自定义类加载器）</p>
+<h5 id="✨11-1-什么是类加载器？常用的类加载器有哪些？"><a href="#✨11-1-什么是类加载器？常用的类加载器有哪些？" class="headerlink" title="✨11.1 什么是类加载器？常用的类加载器有哪些？"></a>✨11.1 什么是类加载器？常用的类加载器有哪些？</h5><p>JVM支持两种类型的类加载器，分别为引导类加载器Bootstrap ClassLoader、自定义类加载器User-Defined ClassLoader（注意所有派生于抽象类ClassLoader的类加载器都划分为自定义类加载器）</p>
 <p><strong>常见的3个类加载器：</strong></p>
 <ol>
 <li><strong>启动类加载器</strong>（引导类加载器Bootstrap ClassLoader）<ul>
@@ -4779,7 +4837,7 @@
 <li><p>修改Eden区和Survivor区比例，比如从默认8:1:1改成6:2:2；</p>
 </li>
 </ul>
-<h4 id="13-如何判断一个对象是否存活？（JVM垃圾回收的时候如何确定垃圾？）"><a href="#13-如何判断一个对象是否存活？（JVM垃圾回收的时候如何确定垃圾？）" class="headerlink" title="13. 如何判断一个对象是否存活？（JVM垃圾回收的时候如何确定垃圾？）"></a>13. 如何判断一个对象是否存活？（JVM垃圾回收的时候如何确定垃圾？）</h4><p>判断一个对象是否存活的两种方法（用于垃圾标记阶段）：引用计数法、可达性算法</p>
+<h4 id="✨13-如何判断一个对象是否存活？（JVM垃圾回收的时候如何确定垃圾？）"><a href="#✨13-如何判断一个对象是否存活？（JVM垃圾回收的时候如何确定垃圾？）" class="headerlink" title="✨13. 如何判断一个对象是否存活？（JVM垃圾回收的时候如何确定垃圾？）"></a>✨13. 如何判断一个对象是否存活？（JVM垃圾回收的时候如何确定垃圾？）</h4><p>判断一个对象是否存活的两种方法（用于垃圾标记阶段）：引用计数法、可达性算法</p>
 <ul>
 <li><p><strong>引用计数法（Java没有采用）</strong></p>
 <p>给对象中添加一个引用计数器，每当有一个地方引用它，计数器就加 1；当引用失效，计数器就减 1；任何时候计数器为 0 的对象就是不可能再被使用的。</p>
@@ -4934,7 +4992,7 @@
 </ul>
 </li>
 </ul>
-<h4 id="23-【介绍下JVM的内存区域（运行时数据区）】"><a href="#23-【介绍下JVM的内存区域（运行时数据区）】" class="headerlink" title="23. 【介绍下JVM的内存区域（运行时数据区）】"></a>23. 【介绍下JVM的内存区域（运行时数据区）】</h4><ul>
+<h4 id="✨23-【介绍下JVM的内存区域（运行时数据区）】"><a href="#✨23-【介绍下JVM的内存区域（运行时数据区）】" class="headerlink" title="✨23. 【介绍下JVM的内存区域（运行时数据区）】"></a>✨23. 【介绍下JVM的内存区域（运行时数据区）】</h4><ul>
 <li><p>各线程私有（生命周期与线程生命周期保持一致）：</p>
 <ul>
 <li><p><strong>本地方法栈</strong></p>
@@ -5026,7 +5084,7 @@
 <h5 id="Step3-初始化零值"><a href="#Step3-初始化零值" class="headerlink" title="Step3:初始化零值"></a>Step3:初始化零值</h5><p>内存分配完成后，虚拟机需要将分配到的内存空间都初始化为零值（不包括对象头），这一步操作保证了对象的实例字段在 Java 代码中可以不赋初始值就直接使用，程序能访问到这些字段的数据类型所对应的零值。</p>
 <h5 id="Step4-设置对象头"><a href="#Step4-设置对象头" class="headerlink" title="Step4:设置对象头"></a>Step4:设置对象头</h5><p>初始化零值完成之后，<strong>虚拟机要对对象进行必要的设置</strong>，例如这个对象是哪个类的实例、如何才能找到类的元数据信息、对象的哈希码、对象的 GC 分代年龄等信息。 <strong>这些设置信息存放在对象头中。</strong> 另外，根据虚拟机当前运行状态的不同，如是否启用偏向锁等，对象头会有不同的设置方式。</p>
 <h5 id="Step5-执行-init-方法"><a href="#Step5-执行-init-方法" class="headerlink" title="Step5:执行 init() 方法"></a>Step5:执行 init() 方法</h5><p>在上面工作都完成之后，从虚拟机的视角来看，一个新的对象已经产生了，但从 Java 程序的视角来看，对象创建才刚开始，<code>&lt;init&gt;</code> 方法还没有执行，所有的字段都还为零。所以一般来说，执行 new 指令之后会接着执行 <code>&lt;init&gt;</code> 方法，把对象按照程序员的意愿进行初始化，这样一个真正可用的对象才算完全产生出来。</p>
-<h2 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h2><h4 id="1-【什么是控制反转（IoC）？什么是依赖注入（DI）？】"><a href="#1-【什么是控制反转（IoC）？什么是依赖注入（DI）？】" class="headerlink" title="1. 【什么是控制反转（IoC）？什么是依赖注入（DI）？】"></a>1. 【什么是控制反转（IoC）？什么是依赖注入（DI）？】</h4><p><strong>控制反转（Inversion of Control）</strong>是一种是面向对象编程中的一种设计思想，目的是用来减低计算机代码之间的耦合度。其基本思想是：<strong>借助于“第三方”实现具有依赖关系的对象之间的解耦</strong>。</p>
+<h2 id="✨👏Spring"><a href="#✨👏Spring" class="headerlink" title="✨👏Spring"></a>✨👏Spring</h2><h4 id="✨1-【什么是控制反转（IoC）？什么是依赖注入（DI）？】"><a href="#✨1-【什么是控制反转（IoC）？什么是依赖注入（DI）？】" class="headerlink" title="✨1. 【什么是控制反转（IoC）？什么是依赖注入（DI）？】"></a>✨1. 【什么是控制反转（IoC）？什么是依赖注入（DI）？】</h4><p><strong>控制反转（Inversion of Control）</strong>是一种是面向对象编程中的一种设计思想，目的是用来减低计算机代码之间的耦合度。其基本思想是：<strong>借助于“第三方”实现具有依赖关系的对象之间的解耦</strong>。</p>
 <ul>
 <li>控制体现在<strong>全部对象交给“第三方”IoC容器控制，由IoC容器来控制对象的创建</strong>；</li>
 <li>反转体现在<strong>由容器帮我们查找及注入依赖对象，对象只是被动的接受依赖对象，依赖对象的获取关系被反转了</strong></li>
@@ -5037,14 +5095,21 @@
 <li>BeanFactory和ApplicationContext是IoC容器的两种实现方式，其中<strong>BeanFactory</strong>是Spring内部的使用接口，一般不提供给开发人员进行使用，包含了各种Bean的定义，读取bean配置文档，管理bean的加载、实例化，控制bean的生命周期，维护bean之间的依赖关系。<strong>ApplicationContext</strong>接口是BeanFactory的子接口，除了提供BeanFactory所具有的功能外，还提供了更完整的框架功能，如继承MessageSource支持国际化、统一的资源文件访问方式、提供在监听器中注册bean的事件、同时加载多个配置文件等；</li>
 <li><strong>BeanFactroy</strong>采用的是延迟加载形式来注入Bean，在加载配置文件时不会创建对象，在获取对象时才会创建对象；<strong>ApplicationContext</strong>在容器启动时一次性创建所有的Bean，在加载配置文件时就会把配置文件对象进行创建；</li>
 </ol>
-<h4 id="3-【Spring-框架中都用到了哪些设计模式？】"><a href="#3-【Spring-框架中都用到了哪些设计模式？】" class="headerlink" title="3. 【Spring 框架中都用到了哪些设计模式？】"></a>3. 【Spring 框架中都用到了哪些设计模式？】</h4><p>（1）代理模式：<strong>Spring AOP 就是基于动态代理的</strong></p>
+<h4 id="3-Spring-框架中都用到了哪些设计模式？"><a href="#3-Spring-框架中都用到了哪些设计模式？" class="headerlink" title="3. Spring 框架中都用到了哪些设计模式？"></a>3. Spring 框架中都用到了哪些设计模式？</h4><p>（1）代理模式：<strong>Spring AOP 就是基于动态代理的</strong></p>
 <p>（2）单例模式：Spring 中 bean 的默认作用域就是Singleton的。 </p>
 <p>（3）模板方法模式：Spring 中 jdbcTemplate、hibernateTemplate等<strong>以 Template 结尾的对数据库操作的类</strong>就使用到了模板模式。 </p>
 <p>（4）委派模式：Srping 提供了 DispatcherServlet 来对请求进行分发。</p>
 <p>（5）工厂模式：通过 <strong>BeanFactory</strong> 或 <strong>ApplicationContext</strong> 创建 bean 对象 </p>
 <p>（6）观察者模式: <strong>Spring 事件驱动模型</strong></p>
 <p>（7）适配器模式 : Spring AOP 的增强或通知(Advice)使用到了适配器模式、Spring MVC 中也是用到了适配器模式适配Controller</p>
-<h4 id="4-【-什么是AOP？了解AOP实现动态代理的两种方式吗？】"><a href="#4-【-什么是AOP？了解AOP实现动态代理的两种方式吗？】" class="headerlink" title="4.【 什么是AOP？了解AOP实现动态代理的两种方式吗？】"></a>4.【 什么是AOP？了解AOP实现动态代理的两种方式吗？】</h4><p>AOP（Aspect Oriented Programming）是面向切面编程，基本单元是Aspect(切面)，<strong>通过预编译静态代理和运行期动态代理实现程序功能的统一维护的一种技术</strong>。 简单来说就是<strong>统一处理某一类问题（切面）的编程思想</strong>，比如统一处理日志、异常等</p>
+<h4 id="✨4-【-什么是AOP？了解AOP实现动态代理的两种方式吗？】"><a href="#✨4-【-什么是AOP？了解AOP实现动态代理的两种方式吗？】" class="headerlink" title="✨4.【 什么是AOP？了解AOP实现动态代理的两种方式吗？】"></a>✨4.【 什么是AOP？了解AOP实现动态代理的两种方式吗？】</h4><p>AOP（Aspect Oriented Programming）是面向切面编程，目的是为了<strong>解耦</strong>，基本单元是切面，即将公共的代码逻辑，比如统一处理日志、异常等，抽象出来变成一个切面然后注入到目标对象(具体代码)中去，通过动态代理的方式将需要注入切面的对象进行代理，在进行调用时将公共的逻辑直接添加进去而不需要修改原有业务的逻辑代码，只需要在原来业务逻辑基础上做一些增强功能即可；</p>
+<p><strong>名词解释：</strong></p>
+<ul>
+<li><strong>切面</strong>：关注点模块化，这个关注点可能会横切多个对象，可以使用通用类基于模式的方式或者在普通类中以@Aspect注解方式来实现；</li>
+<li><strong>连接点</strong>：在程序执行过程中某个特定的点，一个连接点总是代表一个方法的执行；</li>
+<li><strong>切点</strong>：匹配连接点的断言，通知和切点表达式相关联，并且在满足这个切点的连接点上运行特定通知</li>
+<li><strong>通知</strong>：在切面的某个特定的连接点上执行的动作，使用before、after注解等实现；</li>
+</ul>
 <p><strong>aop常用注解：</strong></p>
 <ul>
 <li>@Before：前置通知，在目标方法之前执行</li>
@@ -5071,7 +5136,11 @@
 </ol>
 </li>
 </ul>
-<h4 id="5-【Spring是如何管理Bean的？】"><a href="#5-【Spring是如何管理Bean的？】" class="headerlink" title="5. 【Spring是如何管理Bean的？】"></a>5. 【Spring是如何管理Bean的？】</h4><p>Spring通过IoC容器来管理Bean，我们可以通过xml或者注解方式配置，来指导IoC容器对Bean的管理；</p>
+<h5 id="4-1-利用AOP实现Web日志处理"><a href="#4-1-利用AOP实现Web日志处理" class="headerlink" title="4.1 利用AOP实现Web日志处理"></a>4.1 利用AOP实现Web日志处理</h5><ol>
+<li>在pom.xml引入aop相关依赖；</li>
+<li>创建一个WebLogAspect类，在webLog方法上加上@Pointcut注解定义横切点，再配合aop相关注解实现切面逻辑；</li>
+</ol>
+<h4 id="5-1-【Spring是如何管理Bean的？Spring的Bean作用域有哪些？】"><a href="#5-1-【Spring是如何管理Bean的？Spring的Bean作用域有哪些？】" class="headerlink" title="5.1 【Spring是如何管理Bean的？Spring的Bean作用域有哪些？】"></a>5.1 【Spring是如何管理Bean的？Spring的Bean作用域有哪些？】</h4><p>Spring通过IoC容器来管理Bean，我们可以通过xml或者注解方式配置，来指导IoC容器对Bean的管理；</p>
 <p>以下是管理Bean时常用的一些注解：</p>
 <ol>
 <li><p>@ComponentScan用于声明扫描策略，通过它的声明，容器就知道要扫描哪些包下带有声明的类，也可以知道哪些特定的类是被排除在外的。</p>
@@ -5082,7 +5151,7 @@
 </li>
 <li><p>@Scope用于声明Bean的作用域，默认情况下Bean是单例的，即在整个容器中这个类型只有一个实例。可以通过@Scope注解指定prototype值将其声明为多例的，也可以将Bean声明为session级作用域、request级作用域等等，但最常用的还是默认的单例模式。</p>
 <ul>
-<li><p><strong>Spring中的Bean的作用域</strong>：</p>
+<li><p>✨<strong>Spring中的Bean的作用域</strong>：</p>
 <table>
 <thead>
 <tr>
@@ -5091,7 +5160,7 @@
 </tr>
 </thead>
 <tbody><tr>
-<td align="left">singleton<strong>（常用）</strong></td>
+<td align="left">singleton<strong>（默认作用域）</strong></td>
 <td>在Spring容器中仅存在一个实例，即Bean以单例的形式存在。</td>
 </tr>
 <tr>
@@ -5126,29 +5195,30 @@
 <li><p>@PostConstruct、@PreDestroy用于声明Bean的生命周期。其中，被@PostConstruct修饰的方法将在Bean实例化后被调用，@PreDestroy修饰的方法将在容器销毁前被调用。</p>
 </li>
 </ol>
-<h4 id="6-【说一说Bean的生命周期】"><a href="#6-【说一说Bean的生命周期】" class="headerlink" title="6. 【说一说Bean的生命周期】"></a>6. 【说一说Bean的生命周期】</h4><p>Bean的生命周期是由容器来管理的，主要在创建和销毁两个时期</p>
-<p><strong>创建过程：</strong></p>
-<ol>
-<li>首先实例化Bean并设置Bean的属性，根据其实现的Aware接口（主要是BeanFactoryAware和ApplicationContextAware接口）设置依赖信息；</li>
-<li>接下来调用BeanPostProcess的前置初始化方法postProcessBeforeInitialization，在Spring完成实例化后，初始化前，对Spring容器实例化的Bean添加自定义的处理逻辑；</li>
-<li>实现BeanFactoryPostProcessor接口的afterPropertiesSet方法，做一些属性被设定后的自定义内容；</li>
-<li>调用Bean自身定义的init方法去做一些初始化相关的工作；</li>
-<li>然后再调用BeanPostProcess的后置初始化方法postProcessAfterInitialization，去做一些bean初始化之后的自定义工作；</li>
-<li>完成以上创建之后就可以在应用中使用这个Bean了。</li>
+<h4 id="5-2-什么是Bean的自动装配，它有哪些方式？"><a href="#5-2-什么是Bean的自动装配，它有哪些方式？" class="headerlink" title="5.2 什么是Bean的自动装配，它有哪些方式？"></a>5.2 什么是Bean的自动装配，它有哪些方式？</h4><p>bean的自动装配：指的是bean的属性值在进行注入时通过某种特定的规则和方式去容器中查找，并设置到具体的对象属性中，它主要有以下几种方式：</p>
+<ul>
+<li>no：缺省不自动装配，通过ref属性手动设定，在项目中最常见；</li>
+<li>byName：根据属性名称自动装配，如果一个bean的名称和其他bean属性名称一样将会兼容并自动装配</li>
+<li>byType：根据数据类型自动装配，如果一个bean的数据类型和其他bean数据类型一样将会兼容并自动装配</li>
+</ul>
+<h4 id="6-【简述Bean的生命周期】（待补充）"><a href="#6-【简述Bean的生命周期】（待补充）" class="headerlink" title="6. 【简述Bean的生命周期】（待补充）"></a>6. 【简述Bean的生命周期】（待补充）</h4><ol>
+<li>实例化bean对象，通过反射的方式进行对象的创建，此时的创建只是在堆空间中申请空间，属性都是默认值；</li>
+<li>设置对象属性，给对象中的属性进行值的设置工作；</li>
+<li>检查Aware相关接口并设置相关依赖；</li>
+<li>BeanPostProcessor的前置处理，对生成的bean对象进行前置的处理工作；</li>
+<li>检查是否是InitializingBean的子类来决定是否调用afterPropertiesSet方法；</li>
+<li>检查是否配置有自定义的init-method方法，如果当前bean对象定义了初始化方法，那么在此处调用初始化方法；</li>
+<li>BeanPostProcessor后置处理，对生成的bean对象进行后置的处理工作；</li>
+<li>注册必要的Destruction相关回调接口</li>
 </ol>
-<p><strong>销毁过程：</strong></p>
-<ol>
-<li>当Bean不再被用到时就要进行销毁，若实现了DisposableBean接口，则会调用destory方法；</li>
-<li>若配置了destory-method属性，实现了自定义的销毁方法，则会调用其配置的销毁方法。</li>
-</ol>
-<h4 id="7-1-【介绍一下SpringMVC的工作流程】"><a href="#7-1-【介绍一下SpringMVC的工作流程】" class="headerlink" title="7.1 【介绍一下SpringMVC的工作流程】"></a>7.1 【介绍一下SpringMVC的工作流程】</h4><ol>
+<h4 id="✨7-1-【介绍一下SpringMVC的工作流程】"><a href="#✨7-1-【介绍一下SpringMVC的工作流程】" class="headerlink" title="✨7.1 【介绍一下SpringMVC的工作流程】"></a>✨7.1 【介绍一下SpringMVC的工作流程】</h4><ol>
 <li>客户端发送请求至前端控制器DispatcherServlet；</li>
 <li>DispatcherServlet收到请求调用HandlerMapping处理器映射器，解析请求对应的Handler（即Controller）；</li>
 <li>处理器映射器根据注解或xml配置找到具体的Handler，生成处理器对象及拦截器后一并返回给DispatcherServlet；</li>
 <li>DispatcherServlet调用HandlerAdapter处理器适配器，HandlerAdapter经过适配，调用相应Handler的具体处理器方法；</li>
 <li>Handler执行完成返回ModelAndView给HandlerAdapter，HandlerAdapter再将Controller的执行结果ModelAndView返回给DispatcherServlet；</li>
 <li>DispatcherServlet将ModelAndView传给ViewResolver视图解析器，ViewResolver解析后返回具体的View给DispatcherServlet；</li>
-<li>DispatcherServlet根据View进行视图渲染后返回响应请求给用户。</li>
+<li>DispatcherServlet根据View进行视图渲染后返回响应给请求的用户。</li>
 </ol>
 <h4 id="7-2-简单介绍Spring-MVC的核心组件"><a href="#7-2-简单介绍Spring-MVC的核心组件" class="headerlink" title="7.2 简单介绍Spring MVC的核心组件"></a>7.2 简单介绍Spring MVC的核心组件</h4><ul>
 <li>DispatcherServlet：前端控制器，是请求的入口，负责协调各个组件工作；</li>
@@ -5157,13 +5227,16 @@
 <li>ViewResolver：视图解析器，负责获取视图View对象；</li>
 <li>HandlerExceptionResolver：处理器异常解析器，将处理器执行时发生的异常，解析成对应的ModelAndView结果；</li>
 </ul>
-<h4 id="8-Spring是怎么解决循环依赖的？（待补充）"><a href="#8-Spring是怎么解决循环依赖的？（待补充）" class="headerlink" title="8. Spring是怎么解决循环依赖的？（待补充）"></a>8. Spring是怎么解决循环依赖的？（待补充）</h4><p>Spring对循环依赖的处理有三种情况：</p>
+<h4 id="✨8-【Spring循环依赖是怎么产生的？Spring是如何解决的循环依赖】（待补充）"><a href="#✨8-【Spring循环依赖是怎么产生的？Spring是如何解决的循环依赖】（待补充）" class="headerlink" title="✨8. 【Spring循环依赖是怎么产生的？Spring是如何解决的循环依赖】（待补充）"></a>✨8. 【Spring循环依赖是怎么产生的？Spring是如何解决的循环依赖】（待补充）</h4><p>例子：有一个A对象，创建A的时候发现A对象依赖B，然后去创建B对象的时候，又发现B对象依赖A，即就是A依赖B的同时B也依赖了A，这就产生了最简单的循环依赖；</p>
+<p>Spring对循环依赖的处理有三种情况：</p>
 <ol>
 <li>构造器的循环依赖：这种依赖Spring无法处理，直接抛出BeanCurrentlyInCreationException异常；</li>
 <li><strong>单例模式下的setter循环依赖：通过三级缓存处理循环依赖</strong>；</li>
 <li>非单例循环依赖：无法处理</li>
 </ol>
-<h4 id="9-【Spring的事务实现原理是什么？其如何管理事务？】"><a href="#9-【Spring的事务实现原理是什么？其如何管理事务？】" class="headerlink" title="9. 【Spring的事务实现原理是什么？其如何管理事务？】"></a>9. 【Spring的事务实现原理是什么？其如何管理事务？】</h4><p>Spring可以让用户以统一的编程模型进行事务管理，Spring支持两种事务编程模型：</p>
+<h5 id="8-1-Spring是如何解决的循环依赖？"><a href="#8-1-Spring是如何解决的循环依赖？" class="headerlink" title="8.1 Spring是如何解决的循环依赖？"></a>8.1 Spring是如何解决的循环依赖？</h5><p>Spring通过三级缓存解决了循环依赖，其中一级缓存为单例池（<code>singletonObjects</code>）, 二级缓存为早期曝光对象<code>earlySingletonObjects</code>，三级缓存为早期曝光对象工厂（<code>singletonFactories</code>）。当A、B两个类发生循环引用时，在A完成实例化后，就使用实例化后的对象去创建一个对象工厂，并添加到三级缓存中，如果A被AOP代理，那么通过这个工厂获取到的就是A代理后的对象，如果A没有被AOP代理，那么这个工厂获取到的就是A实例化的对象。当A进行属性注入时，会去创建B，同时B又依赖了A，所以创建B的同时又会去调用getBean(a)来获取需要的依赖，此时的getBean(a)会从缓存中获取，第一步，先获取到三级缓存中的工厂；第二步，调用对象工工厂的getObject方法来获取到对应的对象，得到这个对象后将其注入到B中。紧接着B会走完它的生命周期流程，包括初始化、后置处理器等。当B创建完后，会将B再注入到A中，此时A再完成它的整个生命周期。至此，循环依赖结束！</p>
+<h5 id="8-2-为什么要使用三级缓存呢？二级缓存能解决循环依赖吗？"><a href="#8-2-为什么要使用三级缓存呢？二级缓存能解决循环依赖吗？" class="headerlink" title="8.2 为什么要使用三级缓存呢？二级缓存能解决循环依赖吗？"></a>8.2 为什么要使用三级缓存呢？二级缓存能解决循环依赖吗？</h5><p>如果要使用二级缓存解决循环依赖，意味着所有Bean在实例化后就要完成AOP代理，这样违背了Spring设计的原则，Spring在设计之初就是通过<code>AnnotationAwareAspectJAutoProxyCreator</code>这个后置处理器来在Bean生命周期的最后一步来完成AOP代理，而不是在实例化后就立马进行AOP代理。</p>
+<h4 id="9-1-【Spring的事务实现原理是什么？其如何管理事务？常用的事务传播机制和事务隔离级别有哪些？】"><a href="#9-1-【Spring的事务实现原理是什么？其如何管理事务？常用的事务传播机制和事务隔离级别有哪些？】" class="headerlink" title="9.1 【Spring的事务实现原理是什么？其如何管理事务？常用的事务传播机制和事务隔离级别有哪些？】"></a>9.1 【Spring的事务实现原理是什么？其如何管理事务？常用的事务传播机制和事务隔离级别有哪些？】</h4><p>Spring可以让用户以统一的编程模型进行事务管理，Spring支持两种事务编程模型：</p>
 <ol>
 <li><p><strong>编程式事务</strong></p>
 <p>Spring提供了TransactionTemplate模板，利用该模板可以通过编程的方式实现事务管理，而无需关注资源获取、复用、释放、事务同步及异常处理等操作。</p>
@@ -5176,17 +5249,30 @@
 <li>当它标注在类上时，代表这个类所有公共非静态（public）的方法都将启用事务功能。</li>
 <li>当它标注在方法上时，代表这个方法将启用事务功能。</li>
 </ul>
-<p>在@Transactional注解上，我们可以使用isolation属性声明<strong>事务隔离级别</strong>，使用propagation属性声明<strong>事务传播机制</strong>，常用事务传播规则如下：</p>
+<p>在@Transactional注解上，我们可以使用isolation属性声明<strong>事务隔离级别</strong>，使用propagation属性声明<strong>事务传播机制</strong></p>
+<p>✨<strong>常用事务传播机制</strong>如下：<strong>（规定多个事务方法相互调用时，事务如何在这些方法之间进行传播）</strong></p>
 <ul>
-<li>PROPAGATION_REQUIRED：如果当前没有事务就创建一个新事务，如果当前存在事务就加入该事务<strong>（最常用的设置）</strong>；</li>
-<li>PROPAGATION_REQUIRE_NEW：无论当前是否存在事务都创建新事务；</li>
-<li>PROPAGATION_NESTED：如果当前存在事务就在嵌套事务内执行，如果当前没有事务，则按照REQUIRED属性执行；</li>
+<li><strong>REQUIRED</strong>：如果当前存在事务就加入该事务，如果当前不存在事务就新建一个新事务<strong>（默认事务传播机制）</strong>；</li>
+<li>SUPPORTS：如果当前存在事务就加入该事务，如果当前不存在事务则以非事务方式执行；</li>
+<li>MANDATORY：如果当前存在事务就加入该事务，如果当前不存在事务则抛出异常；</li>
+<li><strong>REQUIRE_NEW</strong>：无论当前是否存在事务都创建一个新事务，如果当前存在事务就挂起当前事务；</li>
+<li><strong>NESTED</strong>：如果当前存在事务就创建一个嵌套事务，如果当前不存在事务就按照REQUIRED属性执行；</li>
+<li>NOT_SUPPORTED：以非事务方式执行，如果当前存在事务则挂起该事务；</li>
 </ul>
+<p><strong>常用事务隔离级别</strong>如下：</p>
+<p>Spring的事务隔离级别与数据库的隔离级别一样；（当Spring和数据库的隔离级别不一致时，以Spring的配置为主）</p>
 </li>
 </ul>
 </li>
 </ol>
-<h4 id="10-说一说你知道的Spring-MVC注解"><a href="#10-说一说你知道的Spring-MVC注解" class="headerlink" title="10. 说一说你知道的Spring MVC注解"></a>10. 说一说你知道的Spring MVC注解</h4><p><strong>@RequestMapping：</strong></p>
+<h4 id="9-2-Spring事务什么时候会失效？"><a href="#9-2-Spring事务什么时候会失效？" class="headerlink" title="9.2 Spring事务什么时候会失效？"></a>9.2 Spring事务什么时候会失效？</h4><ol>
+<li>bean对象没有被Spring容器管理；</li>
+<li>方法的访问修饰符不是public；</li>
+<li>数据源没有配置事务管理器；</li>
+<li>数据库不支持事务；</li>
+<li>自身调用问题；</li>
+</ol>
+<h4 id="✨10-【说一说你知道的Spring-MVC注解】"><a href="#✨10-【说一说你知道的Spring-MVC注解】" class="headerlink" title="✨10.【说一说你知道的Spring MVC注解】"></a>✨10.【说一说你知道的Spring MVC注解】</h4><p><strong>@RequestMapping：</strong></p>
 <p>作用：用来处理请求地址映射的，也就是说将具体的处理器方法映射到url路径上。</p>
 <p>属性：</p>
 <ul>
@@ -5205,21 +5291,25 @@
 <li>required是请求参数是否必须提供参数，它的默认是true，意思是表示必须提供。</li>
 </ul>
 <p><strong>@RequestBody：</strong></p>
-<p>作用：如果作用在方法上，就表示该方法的返回结果是直接按写入的Http responsebody中（一般在异步获取数据时使用的注解）。</p>
+<p>作用：作用在形参列表上，用于将前台发送过来固定格式的数据封装为对应的JavaBean对象。</p>
 <p>属性：required，是否必须有请求体。它的默认值是true，在使用该注解时，值得注意的当为true时get的请求方式是报错的，如果你取值为false的话，get的请求是null。</p>
+<p><strong>@ResponseBody：</strong></p>
+<p>作用：作用在方法上，表示该方法的返回结果直接写入HTTP response body中，一般在异步获取数据时使用。</p>
 <p><strong>@PathVariable：</strong></p>
-<p>作用：该注解是用于绑定url中的占位符，用于获取路径参数</p>
-<h4 id="11-说一下你知道的Spring-SpringBoot注解"><a href="#11-说一下你知道的Spring-SpringBoot注解" class="headerlink" title="11. 说一下你知道的Spring / SpringBoot注解"></a>11. 说一下你知道的Spring / SpringBoot注解</h4><p><strong>@SpringBootApplication：</strong></p>
+<p>作用：该注解是用于绑定url中的占位符，用于获取路径参数；</p>
+<h4 id="✨11-说一下你知道的Spring-SpringBoot注解？SpringBoot的自动装配原理？"><a href="#✨11-说一下你知道的Spring-SpringBoot注解？SpringBoot的自动装配原理？" class="headerlink" title="✨11. 说一下你知道的Spring / SpringBoot注解？SpringBoot的自动装配原理？"></a>✨11. 说一下你知道的Spring / SpringBoot注解？SpringBoot的自动装配原理？</h4><p><strong>@SpringBootApplication：</strong></p>
 <ul>
-<li>@SpringBootApplication看作是 @Configuration、@EnableAutoConfiguration、@ComponentScan 注解的集合<ul>
-<li><p><strong>@EnableAutoConfiguration：启用 SpringBoot 的自动配置机制</strong></p>
+<li>@SpringBootApplication看作是 @Configuration、@EnableAutoConfiguration、@ComponentScan注解的集合<ul>
+<li><p><strong>@EnableAutoConfiguration：打开自动装配功能</strong></p>
 <ul>
-<li><strong>SpringBoot的自动配置机制（待补充）</strong></li>
+<li><p>✨<strong>SpringBoot的自动装配原理</strong></p>
+<p>@SpringBootApplication注解中组合了一个@EnableAutoConfiguration注解，作用是打开自动装配，而这个注解中又包含了一个@Import注解，在这个注解中引入了一个实现了ImportSelector接口的类，在对应的selectImports()方法中会读取META-INF目录下的spring.factories文件中需要被自动装配的所有配置类，然后通过META-INF下面的spring-autoconfigure-metadata.properties文件做条件过滤，最后返回的就是需要自动装配的相关的对象；</p>
+</li>
 </ul>
 </li>
-<li><p>@ComponentScan： 扫描被@Component注解的 bean，注解默认会扫描该类所在的包下所有的类。</p>
+<li><p>@ComponentScan： 默认情况下会扫描当前包及其子包下所有被该注解修饰的Java类；</p>
 </li>
-<li><p>@Configuration：允许在 Spring 上下文中注册额外的 bean 或导入其他配置类</p>
+<li><p>@Configuration：标识为一个Java配置类，允许在Spring上下文中注册额外的 bean 或导入其他配置类；</p>
 </li>
 </ul>
 </li>
@@ -5243,11 +5333,14 @@
 <li><strong>@ControllerAdvice</strong> : 注解定义全局异常处理类</li>
 <li><strong>@ExceptionHandler</strong> : 注解声明异常处理方法</li>
 </ol>
-<h2 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h2><h4 id="1-什么是ORM框架？"><a href="#1-什么是ORM框架？" class="headerlink" title="1. 什么是ORM框架？"></a>1. 什么是ORM框架？</h4><p>ORM（Object Relation Mapping）对象关系映射，是把数据库中的关系数据映射成为程序中的对象。</p>
-<h4 id="2-【MyBatis-中-和-的区别是什么？】"><a href="#2-【MyBatis-中-和-的区别是什么？】" class="headerlink" title="2. 【MyBatis 中 #{}和 ${}的区别是什么？】"></a>2. 【MyBatis 中 #{}和 ${}的区别是什么？】</h4><ul>
-<li><code>$&#123;&#125;</code>是 Properties 文件中的变量占位符（字符串替换），它可以用于标签属性值和 sql 内部，属于静态文本替换，比如${driver}会被静态替换为<code>com.mysql.jdbc.Driver</code>，即在处理${}时，就是把${}替换成变量的值。</li>
-<li><code>#&#123;&#125;</code>是 sql 的参数占位符（预编译处理），MyBatis 会将 sql 中的<code>#&#123;&#125;</code>替换为? 号，在 sql 执行前会使用 PreparedStatement 的参数设置方法 set 来赋值，按序给 sql 的? 号占位符设置参数值，比如 ps.setInt(0, parameterValue)，<code>#&#123;item.name&#125;</code> 的取值方式为使用反射从参数对象中获取 item 对象的 name 属性值，相当于 <code>param.getItem().getName()</code>。使用#{}可以有效的防止 SQL 注入，提高系统安全性。 </li>
-</ul>
+<h4 id="12-SpringBoot项目需要单独的web容器吗？"><a href="#12-SpringBoot项目需要单独的web容器吗？" class="headerlink" title="12. SpringBoot项目需要单独的web容器吗？"></a>12. SpringBoot项目需要单独的web容器吗？</h4><p>可以不需要，在SpringBoot项目中添加spring-boot-starter-web依赖，这个依赖中内嵌了Tomcat容器；</p>
+<h4 id="✨13-单例模式的创建方式"><a href="#✨13-单例模式的创建方式" class="headerlink" title="✨13. 单例模式的创建方式"></a>✨13. 单例模式的创建方式</h4><h2 id="👏MyBatis"><a href="#👏MyBatis" class="headerlink" title="👏MyBatis"></a>👏MyBatis</h2><h4 id="1-什么是ORM框架？"><a href="#1-什么是ORM框架？" class="headerlink" title="1. 什么是ORM框架？"></a>1. 什么是ORM框架？</h4><p>ORM（Object Relation Mapping）对象关系映射，是把数据库中的关系数据映射成为程序中的对象。</p>
+<h4 id="✨2-MyBatis-中-和-的区别是什么？"><a href="#✨2-MyBatis-中-和-的区别是什么？" class="headerlink" title="✨2. MyBatis 中 #{}和 ${}的区别是什么？"></a>✨2. MyBatis 中 #{}和 ${}的区别是什么？</h4><ol>
+<li>#{}是预编译处理，${}是字符串替换；</li>
+<li>Mybatis在处理#{}时，会把sql中的#{}替换为？，调用PrepareStatement的set方法来赋值；</li>
+<li>Mybatis在处理${}时，就是把${}替换成变量的值；</li>
+<li>使用#{}可以有效的防止sql注入问题，提高系统安全性；</li>
+</ol>
 <h4 id="3-MyBatis-有几种分页方式？分页方式区别是什么？"><a href="#3-MyBatis-有几种分页方式？分页方式区别是什么？" class="headerlink" title="3. MyBatis 有几种分页方式？分页方式区别是什么？"></a>3. MyBatis 有几种分页方式？分页方式区别是什么？</h4><p><strong>逻辑分页：</strong> 使用 MyBatis 自带的 RowBounds 进行分页，它是一次性查询很多数据，然后在数据中再进行检索。</p>
 <p><strong>物理分页：</strong> 自己手写 SQL 分页或使用分页插件 PageHelper，去数据库查询指定条数的分页数据的形式。</p>
 <p><strong>两种分页方式区别：</strong></p>
@@ -5255,12 +5348,12 @@
 <li><strong>逻辑分页是一次性查询很多数据，然后再在结果中检索分页的数据</strong>。 这样做弊端是需要消耗大量的内存、有内存溢出的风险、对数据库压力较大。</li>
 <li><strong>物理分页是从数据库查询指定条数的数据</strong>，弥补了一次性全部查出所有数据的缺点。</li>
 </ul>
-<h4 id="4-【MyBatis-是否支持延迟加载？延迟加载的原理是什么？】"><a href="#4-【MyBatis-是否支持延迟加载？延迟加载的原理是什么？】" class="headerlink" title="4. 【MyBatis 是否支持延迟加载？延迟加载的原理是什么？】"></a>4. 【MyBatis 是否支持延迟加载？延迟加载的原理是什么？】</h4><p>MyBatis仅支持 association 关联对象和 collection 关联集合对象的延迟加载，association 指的就是一对一查询，collection 指的就是一对多查询，可通过设置 lazyLoadingEnabled=true / false决定是否延迟加载。 </p>
+<h4 id="4-MyBatis-是否支持延迟加载？延迟加载的原理是什么？"><a href="#4-MyBatis-是否支持延迟加载？延迟加载的原理是什么？" class="headerlink" title="4. MyBatis 是否支持延迟加载？延迟加载的原理是什么？"></a>4. MyBatis 是否支持延迟加载？延迟加载的原理是什么？</h4><p>MyBatis仅支持 association 关联对象和 collection 关联集合对象的延迟加载，association 指的就是一对一查询，collection 指的就是一对多查询，可通过设置 lazyLoadingEnabled=true / false决定是否延迟加载。 </p>
 <p><strong>延迟加载的原理</strong>：使用cglib创建目标对象的代理对象，当调用目标方法时，进入拦截器方法，比如调用 a.getB().getName()，拦截器 invoke()方法发现a.getB()是null值时，那么就会单独发送事先保存好的查询关联 B 对象的 sql，把B查询上来，然后再调用 a.setB(b)，于是 a 的对象 b 属性就有值了，接着完成 a.getB().getName()方法的调用。</p>
 <h4 id="5-【说一下-MyBatis-的一级缓存和二级缓存？】"><a href="#5-【说一下-MyBatis-的一级缓存和二级缓存？】" class="headerlink" title="5. 【说一下 MyBatis 的一级缓存和二级缓存？】"></a>5. 【说一下 MyBatis 的一级缓存和二级缓存？】</h4><p><strong>一级缓存：</strong>Mybatis的一级缓存是指Session缓存，默认开启一级缓存，其作用域默认是一个SqlSession，也就是在同一个SqlSession中，执行相同的查询SQL，第一次会去数据库进行查询，并写到缓存中，第二次以后是直接去缓存中取；当 Session flush 或 close 之后，MyBatis会把SqlSession的缓存清空。</p>
 <p><strong>二级缓存：</strong>Mybatis的二级缓存是指mapper映射文件。二级缓存的作用域是同一个namespace下的mapper映射文件内容，由多个SqlSession共享。Mybatis需要手动设置启动二级缓存。</p>
 <h4 id="6-当实体类中的属性名和表中的字段名不一样-，怎么办-？"><a href="#6-当实体类中的属性名和表中的字段名不一样-，怎么办-？" class="headerlink" title="6. 当实体类中的属性名和表中的字段名不一样 ，怎么办 ？"></a>6. 当实体类中的属性名和表中的字段名不一样 ，怎么办 ？</h4><ul>
-<li>方法一：通过在查询的 sql 语句中定义字段名的别名，让字段名的别名和实体类的属性名一致。</li>
+<li>方法一：<strong>通过在查询的 sql 语句中定义字段名的别名，让字段名的别名和实体类的属性名一致</strong>。</li>
 <li>方法二：通过映射字段名和实体类属性名的一一对应的关系。</li>
 </ul>
 <h4 id="8-模糊查询-like-语句该怎么写"><a href="#8-模糊查询-like-语句该怎么写" class="headerlink" title="8. 模糊查询 like 语句该怎么写?"></a>8. 模糊查询 like 语句该怎么写?</h4><ul>
@@ -5272,7 +5365,7 @@
 <li>第二种是使用 sql 列的别名功能，将数据库表中列的别名书写为对象属性名。</li>
 </ul>
 <p>有了列名与属性名的映射关系后，Mybatis 通过反射创建对象，同时使用反射给对象的属性逐一赋值并返回，那些找不到映射关系的属性，是无法完成赋值的。</p>
-<h4 id="10-Mybatis的Xml映射文件中，不同的Xml映射文件，id是否可以重复？"><a href="#10-Mybatis的Xml映射文件中，不同的Xml映射文件，id是否可以重复？" class="headerlink" title="10. Mybatis的Xml映射文件中，不同的Xml映射文件，id是否可以重复？"></a>10. Mybatis的Xml映射文件中，不同的Xml映射文件，id是否可以重复？</h4><p>不同的 Xml 映射文件，如果配置了 namespace，那么 id 可以重复；<strong>如果没有配置 namespace，那么 id 不能重复</strong>； 原因就是 namespace+id 是作为 Map的 key 使用的，如果没有 namespace，就剩下 id，那么id 重复会导致数据互相覆盖。</p>
+<h4 id="10-Mybatis的Xml映射文件中，不同的Xml映射文件，id是否可以重复？"><a href="#10-Mybatis的Xml映射文件中，不同的Xml映射文件，id是否可以重复？" class="headerlink" title="10. Mybatis的Xml映射文件中，不同的Xml映射文件，id是否可以重复？"></a>10. Mybatis的Xml映射文件中，不同的Xml映射文件，id是否可以重复？</h4><p>不同的 Xml 映射文件，如果配置了 namespace，那么 id 可以重复；<strong>如果没有配置 namespace，那么 id 不能重复</strong>； 原因就是 namespace+id 是作为Mapper的 key 使用的，如果没有 namespace，就剩下 id，那么id 重复会导致数据互相覆盖。</p>
 <h4 id="11-什么是-MyBatis-的接口绑定？有哪些实现方式？"><a href="#11-什么是-MyBatis-的接口绑定？有哪些实现方式？" class="headerlink" title="11. 什么是 MyBatis 的接口绑定？有哪些实现方式？"></a>11. 什么是 MyBatis 的接口绑定？有哪些实现方式？</h4><p>接口绑定：就是在 MyBatis 中定义任意接口，然后把接口里面的方法和 SQL 语句绑定, 我们直接调用接口方法就可以了；</p>
 <p>接口绑定有两种实现方式：</p>
 <ul>
@@ -5302,7 +5395,7 @@
 <li>ReuseExecutor：执行 update 或 select，以 sql 作为 key 查找 Statement 对象，存在就使用，不存在就创建，用完后不关闭 Statement 对象， 而是放置于Map。</li>
 <li>BatchExecutor：完成批处理。</li>
 </ol>
-<h2 id="消息队列RabbitMQ"><a href="#消息队列RabbitMQ" class="headerlink" title="消息队列RabbitMQ"></a>消息队列RabbitMQ</h2><h4 id="1-说说Broker服务节点、Queue队列、Exchange交换机"><a href="#1-说说Broker服务节点、Queue队列、Exchange交换机" class="headerlink" title="1. 说说Broker服务节点、Queue队列、Exchange交换机"></a>1. 说说Broker服务节点、Queue队列、Exchange交换机</h4><ul>
+<h2 id="✨消息队列RabbitMQ"><a href="#✨消息队列RabbitMQ" class="headerlink" title="✨消息队列RabbitMQ"></a>✨消息队列RabbitMQ</h2><h4 id="1-说说Broker服务节点、Queue队列、Exchange交换机"><a href="#1-说说Broker服务节点、Queue队列、Exchange交换机" class="headerlink" title="1. 说说Broker服务节点、Queue队列、Exchange交换机"></a>1. 说说Broker服务节点、Queue队列、Exchange交换机</h4><ul>
 <li>Broker：一般情况下一个Broker可以看作一个RabbitMQ的服务器</li>
 <li>Queue：RabbitMQ用于存储消息的内部对象，多个消费者可以订阅同一队列，这时队列中的消息会以轮询方式给多个消费者进行处理；</li>
 <li>Exchange：生产者将消息发送给交换机，由交换机将消息路由到一个或者多个队列中，当路由不到时，返回给生产者或直接丢弃</li>
@@ -5393,7 +5486,7 @@
 <li><p><strong>生产者端数据丢失</strong></p>
 <ul>
 <li>可以选择<strong>使用RabbitMQ提供的事务功能</strong>，就是生产者在发送数据之前开启事务然后发送消息，如果消息没有成功被RabbitMQ接收到，那么生产者会收到异常报错，这时就可以回滚事务，然后尝试重新发送，如果收到了消息那么就可以提交事务。但这种方式有明显的缺点，即当RabbitMQ事务开启后，就会变为同步阻塞操作，生产者会阻塞等待是否发送成功，太耗性能会造成吞吐量的下降。</li>
-<li>可以<strong>开启confirm模式</strong>。在生产者那里设置开启了confirm模式之后，每次写的消息都会分配一个唯一的id，然后写入了RabbitMQ之中，RabbitMQ会给你回传一个ack消息，告诉你这个消息发送OK了。如果RabbitMQ没能处理这个消息，会回调你一个nack接口，告诉你这个消息失败了，你可以进行重试。而且可以结合这个机制知道在内存里维护每个消息的id，如果超过一定时间还没接收到这个消息的回调，那么你可以进行重发。</li>
+<li>可以<strong>开启confirm模式</strong>。在生产者那里设置开启了confirm模式之后，每次写的消息都会分配一个唯一的id，然后写入了RabbitMQ之中，RabbitMQ会给你回传一个ack消息，告诉你这个消息发送OK了。如果RabbitMQ没能处理这个消息，会回调你一个nack消息，告诉你这个消息失败了，你可以进行重试。而且可以结合这个机制知道在内存里维护每个消息的id，如果超过一定时间还没接收到这个消息的回调，那么你可以进行重发。</li>
 </ul>
 <p>事务机制是同步的，你提交了一个事物之后会阻塞住，但是confirm机制是异步的，发送消息之后可以接着发送下一个消息，然后RabbitMQ会回调告知成功与否。 <strong>一般在生产者这块避免丢失，都是用confirm机制</strong>。</p>
 </li>
@@ -5410,7 +5503,7 @@
 </li>
 </ul>
 <h4 id="6-【如何保证消息的有序性？（即如何保证顺序消费）】"><a href="#6-【如何保证消息的有序性？（即如何保证顺序消费）】" class="headerlink" title="6. 【如何保证消息的有序性？（即如何保证顺序消费）】"></a>6. 【如何保证消息的有序性？（即如何保证顺序消费）】</h4><p>RabbitMQ 产生该问题是由于不同的消息都发送到了同一个 queue 中，多个消费者都消费同一个 queue 的消息。为了解决这个问题我们可以<strong>给 RabbitMQ 创建多个 queue，每个消费者固定消费一个 queue 的消息</strong>，生产者发送消息的时候，同一个订单号的消息发送到同一个 queue 中，由于同一个 queue 的消息是一定会保证是有序的，那么同一个订单号的消息就只会被一个消费者顺序消费，从而保证了消息的顺序性。</p>
-<h4 id="7-【-如何解决消息堆积的情况？】"><a href="#7-【-如何解决消息堆积的情况？】" class="headerlink" title="7.【 如何解决消息堆积的情况？】"></a>7.【 如何解决消息堆积的情况？】</h4><ul>
+<h4 id="7-【-如何解决消息积压的情况？】"><a href="#7-【-如何解决消息积压的情况？】" class="headerlink" title="7.【 如何解决消息积压的情况？】"></a>7.【 如何解决消息积压的情况？】</h4><ul>
 <li><strong>临时紧急扩容，快速处理堆积信息</strong>：先修复consumer的问题，确保其恢复消费速度，然后将现有consumer都停掉，写一个临时的分发数据的consumer程序，这个程序部署上去消费积压的数据，消费之后不做耗时的处理，直接均匀轮询写入临时建立好的10倍数量的queue，接着临时征用10倍的机器来部署consumer，每一批consumer消费一个临时queue的数据，<strong>这种做法相当于是临时将queue资源和consumer资源扩大10倍，以正常的10倍速度来消费数据，等快速消费完积压数据之后，就恢复原先部署架构，重新用原先的consumer机器来消费消息</strong>；</li>
 <li><strong>丢弃+批量重导</strong>：如果消息积压在MQ里，并且长时间都没处理掉，导致MQ都快写满了，这种情况肯定是<strong>临时扩容方案执行太慢，这种时候只好采用 “丢弃+批量重导” 的方式来解决了。首先临时写个程序，连接到MQ里面消费数据，消费一个丢弃一个，快速消费掉积压的消息，降低MQ的压力，然后在流量低峰期时去手动查询重导丢失的这部分数据。</strong></li>
 </ul>
@@ -5436,9 +5529,9 @@
 </ol>
 <h4 id="10-RabbitMQ的构造"><a href="#10-RabbitMQ的构造" class="headerlink" title="10. RabbitMQ的构造"></a>10. RabbitMQ的构造</h4><p>（1）<strong>Publisher：生产者</strong>，生产消息，就是投递消息的一方。消息一般包含两个部分：消息体（payload）和标签（Label）<br>（2）<strong>Consumer：消费者</strong>，消费消息，也就是接收消息的一方。消费者连接到RabbitMQ服务器并订阅到队列上。消费消息时只消费消息体，丢弃标签。<br>（3）<strong>Broker：服务节点</strong>，表示消息队列服务器实体。一般情况下一个Broker可以看做一个RabbitMQ服务器。<br>（4）<strong>Queue：消息队列</strong>，用来存放消息。一个消息可投入一个或多个队列，多个消费者可以订阅同一队列，这时队列中的消息会被平摊（轮询）给多个消费者进行处理。<br>（5）<strong>Exchange：交换器</strong>，接收生产者发送的消息，根据路由键将消息路由到绑定的队列上。</p>
 <ul>
-<li>交换机的类型：<ul>
-<li>direct：消息中的路由键（RoutingKey）如果和 Bingding 中的 bindingKey 完全匹配，交换器就将消息发到对应的队列中。是基于完全匹配、单播的模式；</li>
-<li>fanout：把发送到交换器的消息路由到所有绑定该交换器的队列中，是基于广播的模式；</li>
+<li>✨交换机的类型：<ul>
+<li>direct：消息中的路由键（RoutingKey）如果和绑定中的 bindingKey 完全匹配，交换机就将消息发到对应的队列中。是基于完全匹配、单播的模式；</li>
+<li>fanout：把发送到交换机的消息路由到所有绑定该交换机的队列中，是基于广播的模式；</li>
 <li>topic：通过模式匹配的方式对消息进行路由，将路由键和某个路由模式进行匹配，此时队列需要绑定到一个模式上。</li>
 </ul>
 </li>
@@ -5482,35 +5575,31 @@
 <li><strong>数据一致性问题：</strong>数据从主节点复制到从节点必然会有一个延时的时间窗口导致主从节点之间的数据不一致；</li>
 <li><strong>延时问题：</strong>Kafka的主从同步需要经历网络→主节点内存→主节点磁盘→网络→从节点内存→从节点磁盘这几个阶段，需要耗费大量的时间</li>
 </ul>
-<h2 id="MySQL（索引及其优化、事务、SQL调优、SQL语句编写、数据库表设计）"><a href="#MySQL（索引及其优化、事务、SQL调优、SQL语句编写、数据库表设计）" class="headerlink" title="MySQL（索引及其优化、事务、SQL调优、SQL语句编写、数据库表设计）"></a>MySQL（索引及其优化、事务、SQL调优、SQL语句编写、数据库表设计）</h2><h4 id="1-简单描述-MySQL-中的各种索引（主键索引，唯一索引，联合索引）的区别"><a href="#1-简单描述-MySQL-中的各种索引（主键索引，唯一索引，联合索引）的区别" class="headerlink" title="1. 简单描述 MySQL 中的各种索引（主键索引，唯一索引，联合索引）的区别"></a>1. 简单描述 MySQL 中的各种索引（主键索引，唯一索引，联合索引）的区别</h4><p>索引是一种特殊的文件(InnoDB 数据表上的索引是表空间的一个组成部分)，它们包含着对数据表里所有记录的引用指针。</p>
+<h2 id="✨👏MySQL（索引及其优化、事务、SQL调优、SQL语句编写、数据库表设计）"><a href="#✨👏MySQL（索引及其优化、事务、SQL调优、SQL语句编写、数据库表设计）" class="headerlink" title="✨👏MySQL（索引及其优化、事务、SQL调优、SQL语句编写、数据库表设计）"></a>✨👏MySQL（索引及其优化、事务、SQL调优、SQL语句编写、数据库表设计）</h2><h4 id="1-简单描述-MySQL-中的各种索引（主键索引，唯一索引，联合索引）的区别"><a href="#1-简单描述-MySQL-中的各种索引（主键索引，唯一索引，联合索引）的区别" class="headerlink" title="1. 简单描述 MySQL 中的各种索引（主键索引，唯一索引，联合索引）的区别"></a>1. 简单描述 MySQL 中的各种索引（主键索引，唯一索引，联合索引）的区别</h4><p>索引是一种特殊的文件(InnoDB 数据表上的索引是表空间的一个组成部分)，它们包含着对数据表里所有记录的引用指针。</p>
 <ul>
 <li>普通索引(由关键字 KEY 或 INDEX 定义的索引)允许被索引的数据列包含重复的值，不附加任何限制条件，只用于提高查询效率，可以创建在任何数据类型中</li>
 <li>使用unique约束可以设置为唯一索引，限制该索引的值必须是唯一的，但允许有空值；<strong>在一张表中可以有多个唯一性索引；</strong></li>
 <li>主键，是一种特殊的唯一索引，在唯一性索引的基础上增加not null的约束，<strong>在一张表中只能定义一个主键索引</strong>，主键用于唯一标识一条记录，使用关键字PRIMARY KEY来创建。 </li>
 <li>联合索引可以覆盖多个数据列闯进啊一个索引，如像 INDEX(columnA, columnB)索引，索引指向创建时对应的多个字段，<strong>在查询时只有查询条件使用了这些字段中的第一个字段时才会被使用（最左前缀原则）</strong>。 </li>
 </ul>
-<h5 id="1-1-为数据表建立索引的原则有哪些？"><a href="#1-1-为数据表建立索引的原则有哪些？" class="headerlink" title="1.1 为数据表建立索引的原则有哪些？"></a>1.1 为数据表建立索引的原则有哪些？</h5><ul>
-<li><p>最左前缀匹配原则，MySQL会一直向右匹配直到遇到范围查询就停止匹配，=和in可以乱序；</p>
-</li>
-<li><p>在最频繁使用的、用以缩小查询范围，即对作为查询条件的字段上建立索引；</p>
-</li>
-<li><p>索引列不能参与计算，因为这样进行检索时需要把全部元素都应用函数才能比较成本过高；</p>
-</li>
-<li><p>选择区分度高的列作为索引，区分度公式是<code>count(distinct col)/count(*)</code>，表示字段不重复的比例，比例越大表示需要扫描到的记录数越少，唯一键的区分度是1；</p>
-</li>
-<li><p>尽量扩展索引而不是新建索引，比如表中已经有a的索，现在要加(a，b)的联合索引，只需要修改原来的索引即可‘</p>
-</li>
+<h5 id="【1-1-索引的设计原则有哪些？】"><a href="#【1-1-索引的设计原则有哪些？】" class="headerlink" title="【1.1 索引的设计原则有哪些？】"></a>【1.1 索引的设计原则有哪些？】</h5><ul>
+<li>适合索引得列是出现在where子句中的列，或者连接子句中指定的列；</li>
+<li>在选择索引列是越短越好，可以指定某些列的一部分，没必要用全部字段的值；</li>
+<li>不要给表中的每一个字段都创建索引，选择那些区分度较大的列创建；</li>
+<li>定义有外键的数据列一定要创建索引；</li>
+<li>更新频繁的字段不要有索引；</li>
+<li>组合索引的列的个数不建议太多；</li>
+<li>大文本、大对象不要创建索引；</li>
 </ul>
-<h5 id="1-2-什么情况下不走索引（索引失效）？"><a href="#1-2-什么情况下不走索引（索引失效）？" class="headerlink" title="1.2 什么情况下不走索引（索引失效）？"></a>1.2 什么情况下不走索引（索引失效）？</h5><ul>
+<h5 id="✨1-2-数据库索引失效的情况？"><a href="#✨1-2-数据库索引失效的情况？" class="headerlink" title="✨1.2 数据库索引失效的情况？"></a>✨1.2 数据库索引失效的情况？</h5><ul>
 <li>使用!=或者&lt;&gt;导致索引失效</li>
 <li>在索引列使用函数也是不走索引的</li>
 <li>对索引列进行运算（+、-、*、/）也不走索引</li>
-<li>OR前后连接的不是同一个字段索引也会失效</li>
 <li>把%放在匹配字段前产生的模糊搜索是不走索引的，放在后面才会走索引</li>
 <li>NOT IN、NOT EXISTS会导致索引失效</li>
 </ul>
 <h5 id="1-3-使用索引查询一定能提高查询的性能吗？"><a href="#1-3-使用索引查询一定能提高查询的性能吗？" class="headerlink" title="1.3 使用索引查询一定能提高查询的性能吗？"></a>1.3 使用索引查询一定能提高查询的性能吗？</h5><p>不一定，索引本身需要额外的空间来存储，每当记录在表中增减或索引列被修改时，索引本身也会被修改，可能导致部分索引失效，那些不必要的是小索引反而会使查询反应变慢降低查询性能；</p>
-<h4 id="2-【介绍一下数据库中的事务特性和隔离级别-】"><a href="#2-【介绍一下数据库中的事务特性和隔离级别-】" class="headerlink" title="2. 【介绍一下数据库中的事务特性和隔离级别?】"></a>2. 【介绍一下数据库中的事务特性和隔离级别?】</h4><p>事务（transaction）是被绑定在一起作为一个逻辑工作单元的 SQL 语句分组。如果组中的所有操作都成功，则认为事务成功，即使只有一个操作失败，事务也不成功。如果所有操作完成，事务则提交，其修改将作用于所有其他数据库进程。如果一个操作失败，则事务将回滚，该事务所有操作的影响都将取消。</p>
+<h4 id="✨2-【介绍一下数据库中的事务特性和隔离级别-】"><a href="#✨2-【介绍一下数据库中的事务特性和隔离级别-】" class="headerlink" title="✨2. 【介绍一下数据库中的事务特性和隔离级别?】"></a>✨2. 【介绍一下数据库中的事务特性和隔离级别?】</h4><p>事务（transaction）是被绑定在一起作为一个逻辑工作单元的 SQL 语句分组。如果组中的所有操作都成功，则认为事务成功，即使只有一个操作失败，事务也不成功。如果所有操作完成，事务则提交，其修改将作用于所有其他数据库进程。如果一个操作失败，则事务将回滚，该事务所有操作的影响都将取消。</p>
 <p><strong>数据库事务ACID特性：</strong> </p>
 <ol>
 <li>原子性：即不可分割性，事务要么全部被执行，要么就全部不被执行。</li>
@@ -5529,19 +5618,30 @@
 <li><p>脏写：对于两个事务T1和T2，T1修改了另一个未提交事务的T2修改过的数据</p>
 </li>
 </ol>
-<p><strong>数据库事务隔离级别：</strong></p>
+<p>✨<strong>数据库事务隔离级别：</strong></p>
 <ol>
 <li>read uncommitted：读未提交(只可解决脏写)</li>
 <li>read committed：读已提交(可避免脏读)</li>
-<li>repeatable read：可重复读，是MySQl的默认隔离级别(可避免脏读、不可重复读，实际上采用MVCC+临键锁也可以把幻读也避免了)</li>
+<li>repeatable read：可重复读，是<strong>MySQl的默认隔离级别</strong>(可避免脏读、不可重复读但不可避免幻读，实际上采用<strong>MVCC+临键锁</strong>也可以把幻读也避免了)</li>
 <li>serializable：可串行化(可避免脏读、不可重复读、幻读)</li>
 </ol>
-<h5 id="【2-1-事务隔离是如何实现的？】"><a href="#【2-1-事务隔离是如何实现的？】" class="headerlink" title="【2.1 事务隔离是如何实现的？】"></a>【2.1 事务隔离是如何实现的？】</h5><p>使用MVCC（多版本并发控制）来进行实现，在B事务开始修改账户且事务未提交时，当A事务需要读取账户余额时，此时会读取到B事务修改操作之前的账户余额的副本数据，但是如果A事务需要修改账户余额数据就必须要等待B事务提交事务。</p>
-<p><strong>注意：MVCC只在REPEATABLE READ和READ COMMITIED两个隔离级别下工作。其他两个隔离级别都和 MVCC不兼容</strong> ，因为READ UNCOMMITIED总是读取最新的数据行，而不是符合当前事务版本的数据行，而SERIALIZABLE则会对所有读取的行都加锁所以这两个级别不需要考虑事务隔离；</p>
-<ul>
-<li><p>InnoDB的MVCC是通过在每行记录后面保存两个隐藏的列来实现的。一个保存了行的事务ID（DB_TRX_ID），一个保存了行的回滚指针（DB_ROLL_PT）指向上个版本的记录。每开始一个新的事务，都会自动递增产生一个新的事务id，形成一个版本链。事务开始的时刻会把事务id放到当前事务影响的行事务id中，当查询时需要用当前事务id和每行记录的事务id进行比较。</p>
+<h5 id="✨【2-1-数据库并发场景有哪些？事务隔离是如何实现的？】"><a href="#✨【2-1-数据库并发场景有哪些？事务隔离是如何实现的？】" class="headerlink" title="✨【2.1 数据库并发场景有哪些？事务隔离是如何实现的？】"></a>✨【2.1 数据库并发场景有哪些？事务隔离是如何实现的？】</h5><p>数据库并发场景有三种，分别是：</p>
+<ol>
+<li>读读：不存在任何问题，也不需要并发控制；</li>
+<li>读写：有线程安全问题，可能造成事务隔离性问题；</li>
+<li>写写：有线程安全问题，可能存在更新丢失问题；</li>
+</ol>
+<p><strong>MVCC</strong>：多版本并发控制，是一种用来<strong>解决读写冲突的无锁并发控制机制</strong>，即为事务分配单向增长的时间戳，为每个修改保存一个版本，版本与事务时间戳关联，<strong>读操作只读该事务开始前的数据库快照</strong>，MVCC可以解决的问题如下：</p>
+<ol>
+<li><p>在并发读写数据库时，可以做到在读操作时不用阻塞写操作，写操作也不用阻塞读操作，提高了数据库并发读写的性能；</p>
+<p>例如：使用MVCC来进行实现，在B事务开始修改账户且事务未提交时，当A事务需要读取账户余额时，此时会读取到B事务修改操作之前的账户余额的副本数据，但是如果A事务也需要修改账户余额数据就必须要等待B事务提交事务。</p>
 </li>
-<li><p>两种隔离界别下的核心处理逻辑就是判断所有版本中哪个版本是当前事务可见的处理。针对这个问题InnoDB在设计上增加了<strong>ReadView</strong>的设计，ReadView中主要包含当前系统中还有哪些活跃的读写事务，把它们的事务id放到一个列表中，用于判定该事务可见到的数据版本。</p>
+<li><p>解决并发读写造成的脏读、幻读和不可重复读等事务隔离问题，但是不能解决并发写写更新丢失问题；</p>
+</li>
+</ol>
+<p><strong>注意：MVCC只在REPEATABLE READ和READ COMMITIED两个隔离级别下工作。其他两个隔离级别都和 MVCC不兼容</strong> ，因为READ UNCOMMITIED总是读取最新的数据行，而不是符合当前事务版本的数据行，而SERIALIZABLE则会对所有读取的行都加锁所以这两个级别不需要考虑事务隔离；</p>
+<h5 id="2-2-MVCC的实现原理是什么？（待补充）"><a href="#2-2-MVCC的实现原理是什么？（待补充）" class="headerlink" title="2.2 MVCC的实现原理是什么？（待补充）"></a>2.2 MVCC的实现原理是什么？（待补充）</h5><ul>
+<li><p>两种隔离界别下的核心处理逻辑就是<strong>判断所有版本中哪个版本是当前事务可见的处理</strong>。针对这个问题InnoDB在设计上增加了<strong>ReadView</strong>的设计，ReadView中主要包含当前系统中还有哪些活跃的读写事务，把它们的事务id放到一个列表中，用于判定该事务可见到的数据版本。</p>
 <ul>
 <li><p>使用READ COMMITTED隔离级别的事务在每次查询开始时都会生成一个独立的 ReadView，从而做到保证每次提交后的数据是处于当前的可见状态；</p>
 </li>
@@ -5550,20 +5650,25 @@
 </ul>
 </li>
 </ul>
-<h4 id="3-【MyISAM和InnoDB存储引擎的区别有哪些？】"><a href="#3-【MyISAM和InnoDB存储引擎的区别有哪些？】" class="headerlink" title="3. 【MyISAM和InnoDB存储引擎的区别有哪些？】"></a>3. 【MyISAM和InnoDB存储引擎的区别有哪些？】</h4><ol>
+<h4 id="✨3-【MyISAM和InnoDB存储引擎的区别有哪些？】"><a href="#✨3-【MyISAM和InnoDB存储引擎的区别有哪些？】" class="headerlink" title="✨3. 【MyISAM和InnoDB存储引擎的区别有哪些？】"></a>✨3. 【MyISAM和InnoDB存储引擎的区别有哪些？】</h4><ol>
 <li><p><strong>是否支持事务：</strong>InnoDB 支持事务，MyISAM 不支持事务。</p>
 </li>
-<li><p><strong>是否支持外键：</strong>InnoDB 支持外键，而 MyISAM 不支持。对一个包含外键的 InnoDB 表转为 MYISAM 会失败；  </p>
+<li><p><strong>是否支持外键：</strong>InnoDB 支持外键，而 MyISAM 不支持外键。</p>
 </li>
-<li><p><strong>使用索引类型：</strong>InnoDB 是聚簇索引，MyISAM 是非聚簇索引。</p>
-<h5 id="3-1-讲一讲聚簇索引和非聚簇索引？"><a href="#3-1-讲一讲聚簇索引和非聚簇索引？" class="headerlink" title="3.1  讲一讲聚簇索引和非聚簇索引？"></a>3.1  讲一讲聚簇索引和非聚簇索引？</h5><p><strong>聚簇索引（主键索引）</strong>：叶子节点存储了整行数据，即数据节点将数据与索引放到了一块，找到索引也就找到了数据；</p>
-<p><strong>非聚簇索引（非主键索引、二级索引）</strong>：叶子节点只存储了该列对应的主键，包含指向对应数据块的指针，不存储表中的数据；</p>
+<li><p><strong>使用索引类型：</strong>InnoDB 有聚簇索引和非聚簇索引，MyISAM 只有非聚簇索引。（索引是存储在磁盘中的）</p>
+<h5 id="3-1-【讲一讲聚簇索引和非聚簇索引？】"><a href="#3-1-【讲一讲聚簇索引和非聚簇索引？】" class="headerlink" title="3.1  【讲一讲聚簇索引和非聚簇索引？】"></a>3.1  【讲一讲聚簇索引和非聚簇索引？】</h5><p>MySQL的索引类型跟存储引擎是相关的，innodb的数据文件和索引文件全部都放在ibd文件中，而myisam的数据文件放在myd文件中，而索引放在myi文件中，<strong>区分聚簇索引和非聚簇索引只要判断数据和索引是否存储在一起即可</strong>；</p>
+<p><strong>聚簇索引（主键索引）</strong>：叶子节点存储了整行数据，即数据节点将数据与索引放到了一起，找到索引也就找到了数据；</p>
+<p><strong>非聚簇索引（非主键索引、二级索引）</strong>：叶子节点只存储了该行对应的索引，不存储表中的数据；</p>
 <p>在通常情况下聚簇索引查询只会查一次，而非聚簇索引需要回表查询多次，回表操作属于随机IO，需要回表次数越多就越倾向于使用全表扫描；</p>
 <h5 id="3-2-非聚簇索引一定会回表查询吗？"><a href="#3-2-非聚簇索引一定会回表查询吗？" class="headerlink" title="3.2 非聚簇索引一定会回表查询吗？"></a>3.2 非聚簇索引一定会回表查询吗？</h5><p>不一定，这涉及到查询语句所要求的字段是否全部命中了索引，如果全部命中了索引，那么就不必再进行回表查询，查一次即可（一个索引包含所有需要查询字段的值被称为覆盖索引）；</p>
 </li>
-<li><p><strong>是否保存表的行数：</strong>InnoDB 不保存表的具体行数，执行 select count(*) from table 时需要全表扫描。而MyISAM 用一个变量保存了整个表的行数，执行上述语句时只需要读出该变量即可，速度很快；    </p>
+<li><p><strong>读写效率：</strong>InnoDB读的效率低于MyISAM，但是写的效率高于MyISAM，InnoDB不保存表的具体行数，执行 select count(*) from table 时需要全表扫描。而MyISAM 用一个变量保存了整个表的行数，执行上述语句时只需要读出该变量即可，速度很快；    </p>
 </li>
-<li><p><strong>锁的粒度：</strong>InnoDB 最小的锁粒度是行锁，MyISAM 最小的锁粒度是表锁。一个更新语句会锁住整张表，导致其他查询和更新都会被阻塞，因此并发访问受限。这也是 MySQL 将默认存储引擎从 MyISAM 变成 InnoDB 的重要原因之一；</p>
+<li><p><strong>锁的粒度：</strong>InnoDB 最小的锁粒度是行锁，MyISAM 最小的锁粒度是表锁；</p>
+</li>
+<li><p>InnoDB支持自动增加列AUTO_INCREMENT属性，支持MVCC模式的读写，而MyISAM都不支持；</p>
+</li>
+<li><p>清空整个表的时候，InnoDB会一行一行地删除，而MyISAM则会新建表；</p>
 </li>
 </ol>
 <h4 id="4-数据库设计三范式了解吗？"><a href="#4-数据库设计三范式了解吗？" class="headerlink" title="4. 数据库设计三范式了解吗？"></a>4. 数据库设计三范式了解吗？</h4><ul>
@@ -5628,7 +5733,7 @@
 </li>
 </ul>
 <h4 id="6-【-Innodb如何实现mysql的事务】"><a href="#6-【-Innodb如何实现mysql的事务】" class="headerlink" title="6.【 Innodb如何实现mysql的事务】"></a>6.【 Innodb如何实现mysql的事务】</h4><p>事务进⾏过程中，每次sql语句执⾏，都会记录undo log和redo log，然后更新数据形成脏⻚，然后redo log按照时间或者空间等条件进⾏落盘，undo log和脏⻚按照checkpoint进⾏落盘，全部都成功落盘后相应的redo log就可以删除了。此时，事务还未COMMIT，如果发⽣崩溃，则⾸先检查checkpoint记录获取信息，使⽤相应的redo log进⾏数据和undo log的恢复，然后查看undo log的状态发现事务尚未提交，然后就使⽤undo log进⾏事务回滚。事务执⾏COMMIT操作时，会将本事务相关的所有redo log都进⾏落盘，只有所有redo log落盘成功，才算COMMIT成功。然后内存中的数据脏⻚继续按照checkpoint进⾏落盘。如果此时发⽣了崩溃，则只使⽤redo log恢复数据。</p>
-<h4 id="【7-说一说索引的底层原理实现？】"><a href="#【7-说一说索引的底层原理实现？】" class="headerlink" title="【7. 说一说索引的底层原理实现？】"></a>【7. 说一说索引的底层原理实现？】</h4><p>MySQL底层使用B+Tree作为数据结构</p>
+<h4 id="✨7-说一说索引的底层原理实现？"><a href="#✨7-说一说索引的底层原理实现？" class="headerlink" title="✨7. 说一说索引的底层原理实现？"></a>✨7. 说一说索引的底层原理实现？</h4><p>MySQL底层使用B+Tree作为数据结构</p>
 <h5 id="7-1-【为什么索引结构默认使用B-Tree，而不是B-Tree呢？】"><a href="#7-1-【为什么索引结构默认使用B-Tree，而不是B-Tree呢？】" class="headerlink" title="7.1 【为什么索引结构默认使用B+Tree，而不是B-Tree呢？】"></a>7.1 【为什么索引结构默认使用B+Tree，而不是B-Tree呢？】</h5><ul>
 <li><strong>B+树按照节点类型可分为</strong>：<ul>
 <li>叶子节点：B+树最底层的节点，存储行记录；</li>
@@ -5643,13 +5748,13 @@
 </li>
 <li><strong>B+树如何进行记录检索？</strong><br>从B+树的根节点开始，逐层检索直到找到叶子节点，即找到对应的数据页为止，将数据页加载到内存中，页目录中的槽采用<strong>二分查找</strong>的方式先找到一个粗略的记录分组，然后再在分组中通过<strong>链表遍历</strong>的方式查找记录；</li>
 </ul>
-<h4 id="8-【为什么MySQL索引结构默认使用B-树而不是B树、Hash，二叉树，红黑树？】"><a href="#8-【为什么MySQL索引结构默认使用B-树而不是B树、Hash，二叉树，红黑树？】" class="headerlink" title="8. 【为什么MySQL索引结构默认使用B+树而不是B树、Hash，二叉树，红黑树？】"></a>8. 【为什么MySQL索引结构默认使用B+树而不是B树、Hash，二叉树，红黑树？】</h4><p><strong>与B-Tree相比较</strong>：</p>
+<h4 id="8-【为什么MySQL索引结构默认使用B-树而不是B树、Hash，二叉树，红黑树？】"><a href="#8-【为什么MySQL索引结构默认使用B-树而不是B树、Hash，二叉树，红黑树？】" class="headerlink" title="8. 【为什么MySQL索引结构默认使用B+树而不是B树、Hash，二叉树，红黑树？】"></a>8. 【为什么MySQL索引结构默认使用B+树而不是B树、Hash，二叉树，红黑树？】</h4><p>✨<strong>与B-Tree相比较</strong>：</p>
 <ol>
 <li><strong>B+树的磁盘读写代价更低</strong>：B+树的内部节点并没有指向关键字具体信息的指针，而是保存在叶子节点，因此其内部节点相比B树更小，如果把同一内部节点的关键字存放在同一盘块中，那么B+树所能容纳关键字数量更多，一次性能读入内存的关键字就更多，降低IO读写次数；</li>
 <li><strong>由于B+树的数据都存储在叶子节点中适合在区间查询</strong>，分支节点均为索引不存储数据，并且叶子结点之间用链表方式相连，每个叶子节点都指向相邻的叶子节点的地址，因此进行范围查找时只需遍历一遍叶子节点即可，但B树因为其分支节点同样存储着数据，要找到具体数据需要进行一次中序遍历按序去遍历所有节点才行；</li>
 </ol>
-<p><strong>与Hash比较：</strong></p>
-<p>Hash索引基于哈希表实现，只有精确匹配索引所有的查询才有效，对于每一行数据，存储引擎都会对所有的索引列计算一个hashcode，并且Hash索引将所有的hashcode存储在索引中，同时在索引表中保存指向每个数据行的指针；</p>
+<p>✨<strong>与Hash索引（Memory数据库）比较：</strong></p>
+<p>Hash索引基于哈希表实现，只有精确匹配所有的索引查询才有效，对于每一行数据，存储引擎都会对所有的索引列计算一个hashcode，并且Hash索引将所有的hashcode存储在索引表中，同时在索引表中保存指向每个数据行的指针；</p>
 <ol>
 <li>基于Hash表实现，只有Memory存储引擎显式支持哈希索引，其他存储引擎都不支持；</li>
 <li>Hash索引不是按照索引值顺序存储的，不能像B+树索引一样利用索引完成排序；</li>
@@ -5665,12 +5770,12 @@
 <h5 id="9-1【知道MySQL的最左前缀原则吗？】"><a href="#9-1【知道MySQL的最左前缀原则吗？】" class="headerlink" title="9.1【知道MySQL的最左前缀原则吗？】"></a>9.1【知道MySQL的最左前缀原则吗？】</h5><p>最左前缀原则就是<strong>最左优先</strong>，在创建多列索引时，要根据业务需求，where子句中使用最频繁的几列字段放在最左边，一直向右匹配直到遇到范围查询（&gt;、&lt;、between、like）就停止匹配；</p>
 <h5 id="9-2-了解前缀索引吗？（待补充）"><a href="#9-2-了解前缀索引吗？（待补充）" class="headerlink" title="9.2 了解前缀索引吗？（待补充）"></a>9.2 了解前缀索引吗？（待补充）</h5><p>前缀索引是只把长字段前面的公共部分作为一个索引，可以避免索引字段过长占用内存空间和不利于维护，但要注意order by不支持前缀索引；</p>
 <h5 id="9-3-了解索引下推吗？（待补充）"><a href="#9-3-了解索引下推吗？（待补充）" class="headerlink" title="9.3 了解索引下推吗？（待补充）"></a>9.3 了解索引下推吗？（待补充）</h5><p>索引下推是通过把索引过滤条件下推到存储引擎，来减少 MySQL 存储引擎访问基表的次数以及 MySQL 服务层访问存储引擎的次数；</p>
-<h5 id="9-4-【怎么查看MySQL语句有没有用到索引？】"><a href="#9-4-【怎么查看MySQL语句有没有用到索引？】" class="headerlink" title="9.4 【怎么查看MySQL语句有没有用到索引？】"></a>9.4 【怎么查看MySQL语句有没有用到索引？】</h5><p>通过<code>EXPLAIN 具体SQL语句</code>来进行查看</p>
+<h5 id="✨9-4-【怎么通过执行计划查看MySQL语句有没有用到索引？】"><a href="#✨9-4-【怎么通过执行计划查看MySQL语句有没有用到索引？】" class="headerlink" title="✨9.4 【怎么通过执行计划查看MySQL语句有没有用到索引？】"></a>✨9.4 【怎么通过执行计划查看MySQL语句有没有用到索引？】</h5><p>通过<code>EXPLAIN 具体SQL语句</code>来进行查看</p>
 <ul>
 <li><strong>type</strong>：提供了判断查询是否高效的重要依据，可以通过type字段判断此次查询是全表扫描还是索引扫描，如以下几种情况：const（主键索引或唯一二级索引进行等值匹配的情况），ref（普通二级索引列与常量进行等值匹配），index（扫描全表索引的覆盖索引），一般要求必须为ref以上，最好为const，不能为all</li>
 <li><strong>possible_keys</strong>：显示在查询时可选用的各个索引</li>
 <li><strong>key</strong>：显示MySQL在当前查询时真正使用到的索引</li>
-<li><strong>rows</strong>：MySQL查询优化器根据统计信息，估算SQL要查找到结果需要扫描读取的数据行数，直观显示SQL语句的效率好坏</li>
+<li><strong>rows</strong>：MySQL查询优化器根据统计信息，SQL要查找到结果需要扫描读取的数据行数的预估值，直观显示SQL语句的效率好坏</li>
 </ul>
 <h5 id="9-5-为什么建议使用自增长主键作为索引？"><a href="#9-5-为什么建议使用自增长主键作为索引？" class="headerlink" title="9.5 为什么建议使用自增长主键作为索引？"></a>9.5 为什么建议使用自增长主键作为索引？</h5><p>因为自增主键是连续的，在插入过程中尽量减少页分裂并且能减少数据的移动，每次插入都是插入到最后，即能减少分裂和移动的频率；</p>
 <h4 id="10-【-了解MySQL数据库锁的实现原理吗？】"><a href="#10-【-了解MySQL数据库锁的实现原理吗？】" class="headerlink" title="10.【 了解MySQL数据库锁的实现原理吗？】"></a>10.【 了解MySQL数据库锁的实现原理吗？】</h4><ul>
@@ -5687,7 +5792,7 @@
 </li>
 <li><p>行锁（只针对当前操作的行进行加锁，锁定粒度最小，锁冲突概率低，但是锁的开销大，加锁慢，容易出现<strong>死锁</strong>情况，InnoDB引擎支持）</p>
 <p><strong>记录锁</strong>：为某行记录加锁，封住该行的索引记录而不是真正的数据记录；</p>
-<p><strong>间隙锁（gap key）</strong>：不允许别的事务在指定记录前面的间隙插入新纪录，<strong>不是针对某一记录加锁而是锁定一个范围</strong>，gap锁可以用于防止幻读；</p>
+<p><strong>间隙锁（gap key）</strong>：不允许别的事务在指定记录前面的间隙插入新记录，<strong>不是针对某一记录加锁而是锁定一个范围</strong>，gap锁可以用于防止幻读；</p>
 <p><strong>插入意向锁</strong>：事务在等待时在内存中生成的锁结构，表明有事务想在某个间隙中插入新记录但是现在在等待，本质上是一种gap锁，只在insert操作时产生；</p>
 <p><strong>临键锁（Next-key log）</strong>：在锁住某条记录的同时，又阻止其他事务在该记录前边的间隙插入新纪录；<strong>（本质上说是记录锁和间隙锁的结合）</strong></p>
 </li>
@@ -5695,10 +5800,23 @@
 </li>
 </ul>
 </li>
-<li><p>从对待锁的态度划分：</p>
+<li><p>✨从对待锁的态度划分：</p>
 <ul>
-<li><strong>悲观锁</strong>：假定会发生并发冲突，在获取数据时会先加锁确保数据不会被别的线程修改，共享资源每次只给一个线程使用，其他线程阻塞，直到用完事务提交后才把资源转让给其他线程，适用于多写的使用场景；<strong>（使用数据库锁机制实现）</strong></li>
-<li><strong>乐观锁</strong>：假定不会发生并发冲突，只有在对数据进行更新操作时才会对数据加锁判断之前数据是否有被修改，不采用数据库自身的锁机制，而是通过程序来实现，适用于多读的应用类型提高吞吐量；<strong>（使用版本号或者时间戳机制，或CAS算法实现）</strong></li>
+<li><p><strong>悲观锁</strong>：假定会发生并发冲突，在获取数据时会先加锁确保数据不会被别的线程修改，共享资源每次只给一个线程使用，其他线程阻塞，直到事务提交后才把资源转让给其他线程，适用于多写的使用场景；<strong>（使用数据库锁机制实现）</strong></p>
+</li>
+<li><p><strong>乐观锁</strong>：假定不会发生并发冲突，只有在对数据进行更新操作时，才会对数据加锁判断之前数据是否有被修改，不采用数据库自身的锁机制，而是通过程序来实现，适用于多读的应用类型提高吞吐量；<strong>（使用版本号或者时间戳机制，或CAS算法实现）</strong></p>
+<ul>
+<li><p><strong>数据版本号（Version）机制</strong></p>
+<p>通过为数据库表增加一个<strong>数字类型的 “version” 字段</strong>来实现。当读取数据时，将version字段的值一同读出，<strong>数据每更新一次，version值加1</strong>。当我们提交更新的时候，将数据库表对应记录的当前版本信息与更新前取出来的version值进行比对，如果数据库表当前版本号与更新前取出来的version值相等，则予以更新，否则认为是版本冲突。</p>
+</li>
+<li><p><strong>时间戳机制</strong></p>
+<p>同样是在数据库表中增加一个字段，<strong>字段类型使用时间戳（timestamp）</strong>, 和上面的version类似，也是在更新提交的时候检查当前数据库中数据的时间戳和自己更新前取到的时间戳进行对比，如果一致则予以更新，否则就是版本冲突。</p>
+</li>
+<li><p><strong>CAS算法</strong></p>
+<p>CAS 操作中包含三个操作数 —— 需要读写的内存位置（V）、进行比较的预期原值（A）和拟写入的新值(B)。如果内存位置V的值与预期原值A相匹配，那么处理器会自动将该位置值更新为新值B，否则处理器不会做任何操作。这处理思想和乐观锁的冲突检查+数据更新的原理是一样的。</p>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -5746,10 +5864,15 @@
 <p>其核心思想是：使用41bit作为时间戳位，10bit作为工作进程位置（5个bit是数据中心，5个bit的机器ID），12bit作为毫秒内的流水号（意味着每个节点在每毫秒可以产生 4096 个 ID），最后还有一个预留符号恒为0。</p>
 </li>
 </ul>
-<h4 id="12-【统计过慢查询吗？对慢查询都怎么优化过？】"><a href="#12-【统计过慢查询吗？对慢查询都怎么优化过？】" class="headerlink" title="12.【统计过慢查询吗？对慢查询都怎么优化过？】"></a>12.【统计过慢查询吗？对慢查询都怎么优化过？】</h4><ol>
-<li>首先分析语句，观察是否加载了额外的数据，可能是加载了很多结果中并不需要的列，对语句进行分析以及重写；</li>
-<li>使用explain命令获取语句的执行计划，查看其使用索引的情况，之后修改语句或者修改索引，使得语句可以尽可能地命中索引；</li>
-<li>如果对语句的优化已经无法进行，可以考虑表中的数据量是否太大，如果是的话可以进行水平或垂直分表；</li>
+<h4 id="✨12-【如何处理MySQL的慢查询？】"><a href="#✨12-【如何处理MySQL的慢查询？】" class="headerlink" title="✨12. 【如何处理MySQL的慢查询？】"></a>✨12. 【如何处理MySQL的慢查询？】</h4><ol>
+<li><p>开启慢查询日志，准确定位到具体是哪个sql语句出现了问题；</p>
+</li>
+<li><p>分析sql语句，观察是否加载了额外的数据，可能是查询了多余的行并且抛弃掉了，可能是加载了很多结果中并不需要的列，对语句进行分析以及重写；</p>
+</li>
+<li><p>分析语句的执行计划，查看其使用索引的情况，之后修改语句或者修改索引，使得语句可以尽可能地命中索引；</p>
+</li>
+<li><p>如果对语句的优化已经无法进行，可以考虑表中的数据量是否太大，如果是的话可以进行水平分表或垂直分表；</p>
+</li>
 </ol>
 <h4 id="13-【什么是读写分离？】"><a href="#13-【什么是读写分离？】" class="headerlink" title="13. 【什么是读写分离？】"></a>13. 【什么是读写分离？】</h4><p>读写分离主要是为了将对数据库的读写操作分散到不同的数据库节点上，一般情况下，我们都会选择一主多从的架构，也就是<strong>一台主数据库负责写，其他的从数据库负责读</strong>。主库和从库之间会进行数据同步以保证从库中数据的准确性。</p>
 <h5 id="13-1-读写分离会带来什么问题？如何解决主从同步的延时问题？"><a href="#13-1-读写分离会带来什么问题？如何解决主从同步的延时问题？" class="headerlink" title="13.1 读写分离会带来什么问题？如何解决主从同步的延时问题？"></a>13.1 读写分离会带来什么问题？如何解决主从同步的延时问题？</h5><p>主库和从库的数据存在延迟，比如你写完主库之后，主库的数据同步到从库是需要时间的，这个时间差就导致了主库和从库的数据不一致性问题。这也就是我们经常说的 <strong>主从同步延迟</strong> 。</p>
@@ -5773,7 +5896,7 @@
 <p>可以通过引入第三方组件<strong>Sharding-JDBC</strong>来帮助我们实现读写请求</p>
 </li>
 </ol>
-<h5 id="13-3-【了解主从复制原理吗？】"><a href="#13-3-【了解主从复制原理吗？】" class="headerlink" title="13.3 【了解主从复制原理吗？】"></a>13.3 【了解主从复制原理吗？】</h5><p><strong>MySQL binlog( 即二进制日志文件)</strong> 主要记录了 MySQL 数据库中数据的所有变化（数据库执行的所有 DDL 和 DML 语句），其主要目的在于复制和恢复。因此，我们根据主库的 MySQL binlog 日志就能够将主库的数据同步到从库中。</p>
+<h5 id="✨13-3-【了解MySQL主从复制原理吗？】"><a href="#✨13-3-【了解MySQL主从复制原理吗？】" class="headerlink" title="✨13.3 【了解MySQL主从复制原理吗？】"></a>✨13.3 【了解MySQL主从复制原理吗？】</h5><p><strong>MySQL binlog( 即二进制日志文件)</strong> 主要记录了 MySQL 数据库中数据的所有变化（数据库执行的所有 DDL 和 DML 语句），其主要目的在于复制和恢复。因此，我们<strong>根据主库的 MySQL binlog 日志就能够将主库的数据同步到从库中</strong>。</p>
 <p>具体的过程如下：</p>
 <ol>
 <li>主库将数据库中数据的变化写入到 binlog</li>
@@ -5843,7 +5966,12 @@
 <li><p>如果每个sql消耗资源都不多，是突然间有大量session连进来导致CPU飙升，则需要分析连接数激增的原因再做相应调整，如限制连接数等；</p>
 </li>
 </ol>
-<h2 id="缓存Redis"><a href="#缓存Redis" class="headerlink" title="缓存Redis"></a>缓存Redis</h2><h4 id="1-【Redis-的持久化机制有哪些？各自的优缺点？】（怎么保证redis挂掉之后再重启数据可以进行恢复？）"><a href="#1-【Redis-的持久化机制有哪些？各自的优缺点？】（怎么保证redis挂掉之后再重启数据可以进行恢复？）" class="headerlink" title="1. 【Redis 的持久化机制有哪些？各自的优缺点？】（怎么保证redis挂掉之后再重启数据可以进行恢复？）"></a>1. 【Redis 的持久化机制有哪些？各自的优缺点？】（怎么保证redis挂掉之后再重启数据可以进行恢复？）</h4><ol>
+<h4 id="18-MySQL为什么需要主从同步？"><a href="#18-MySQL为什么需要主从同步？" class="headerlink" title="18. MySQL为什么需要主从同步？"></a>18. MySQL为什么需要主从同步？</h4><ol>
+<li>使用主从复制让主库负责写，从库负责读，这样即使主库出现了锁表的情景，通过读从库也可以保证业务的正常运作；（主从读写分离）</li>
+<li>做数据的热备；（主备）</li>
+<li>架构的扩展，随着业务量增大IO访问频率过高，单机无法满足，此时做多库的存储，降低磁盘IO访问的频率，能提高单个机器的IO性能；</li>
+</ol>
+<h2 id="✨👏缓存Redis"><a href="#✨👏缓存Redis" class="headerlink" title="✨👏缓存Redis"></a>✨👏缓存Redis</h2><h4 id="1-【Redis-的持久化机制有哪些？各自的优缺点？】（怎么保证redis挂掉之后再重启数据可以进行恢复？）"><a href="#1-【Redis-的持久化机制有哪些？各自的优缺点？】（怎么保证redis挂掉之后再重启数据可以进行恢复？）" class="headerlink" title="1. 【Redis 的持久化机制有哪些？各自的优缺点？】（怎么保证redis挂掉之后再重启数据可以进行恢复？）"></a>1. 【Redis 的持久化机制有哪些？各自的优缺点？】（怎么保证redis挂掉之后再重启数据可以进行恢复？）</h4><ol>
 <li><strong>RDB（Redis DataBase）</strong>：用数据集快照的方式（半持久化存储）<strong>在指定的时间间隔内将内存中的数据集快照写入一个临时文件（全量备份）</strong>，持久化结束后，用这个临时文件替换磁盘中上次持久化的文件，达到数据恢复。</li>
 </ol>
 <ul>
@@ -6084,11 +6212,11 @@
 <ul>
 <li>所谓定期删除，指的是redis默认是每隔100ms就随机抽取一些设置了过期时间的key，检查其是否过期，如果过期就删除。但是<strong>定期删除可能会导致很多过期key到了时间并没有被删除掉，所以结合惰性删除</strong>，并不是到时间就删除key，而是在你获取某个key的时候，redis会检查一下 ，这个key如果设置了过期时间且过期了此时就会删除；</li>
 </ul>
-<h4 id="14-缓存穿透、缓存击穿、缓存雪崩？"><a href="#14-缓存穿透、缓存击穿、缓存雪崩？" class="headerlink" title="14. 缓存穿透、缓存击穿、缓存雪崩？"></a>14. 缓存穿透、缓存击穿、缓存雪崩？</h4><ul>
+<h4 id="✨14-缓存穿透、缓存击穿、缓存雪崩？"><a href="#✨14-缓存穿透、缓存击穿、缓存雪崩？" class="headerlink" title="✨14. 缓存穿透、缓存击穿、缓存雪崩？"></a>✨14. 缓存穿透、缓存击穿、缓存雪崩？</h4><ul>
 <li><strong>缓存穿透</strong>：大量请求的 key 根本不存在于缓存中，导致请求直接到了数据库上，根本没有经过缓存这一层。<ul>
 <li>解决办法：<ul>
 <li><strong>缓存无效key并设置较短的过期时间，value统一设置成null值</strong></li>
-<li><strong>使用布隆过滤器</strong>，在缓存之前再加一个布隆过滤器，将redis中的所有key都存储在布隆过滤器中，在查询redis前先去布隆过滤器查询key是否存在，如果不存在就直接返回不让其访问数据库</li>
+<li>✨<strong>使用布隆过滤器</strong>，在缓存之前再加一个布隆过滤器，将redis中的所有key都存储在布隆过滤器中，在查询redis前先去布隆过滤器查询key是否存在，如果不存在就直接返回不让其访问数据库</li>
 </ul>
 </li>
 </ul>
@@ -6104,9 +6232,9 @@
 </li>
 <li><strong>缓存雪崩</strong>：缓存在同一时间大面积失效，后面的请求都直接落到了数据库上，造成数据库短时间内承受大量请求。<ul>
 <li>解决办法：<ul>
-<li><p>由于过期时间集中导致：<strong>设置不同的过期时间</strong>，比如为每个key的过期时间再加个随机值。</p>
+<li><p>由于过期时间集中导致：<strong>设置不同的过期时间，比如为每个key的过期时间再加个随机值</strong>。</p>
 </li>
-<li><p>由于缓存宕机导致：</p>
+<li><p>由于缓存宕机导致：（严格来说不属于缓存雪崩）</p>
 <p>事前：<strong>保证redis高可用</strong>（主从+哨兵，redis cluster）避免全盘崩溃</p>
 <p>事中：<strong>设置多级失效时间不同的缓存</strong>（本地ehcache缓存） + <strong>使用熔断机制，限流降级</strong></p>
 <p>事后：<strong>开启redis持久化</strong>，快速恢复缓存数据</p>
@@ -6270,7 +6398,7 @@
 <li><p>Write Behind Pattern 和 Read/Write Through Pattern 很相似，两者都是由 cache 服务来负责 cache 和 DB 的读写。但是，两者又有很大不同：Read/Write Through 是同步更新 cache 和 DB，而 Write Behind Caching 则是只更新缓存，不直接更新 DB，而是改为异步批量的方式来更新 DB。</p>
 </li>
 </ul>
-<h4 id="18-【Redis都有哪些数据类型？分别在哪些场景下使用比较合适？-在项目中用到哪些Redis的数据结构？-】"><a href="#18-【Redis都有哪些数据类型？分别在哪些场景下使用比较合适？-在项目中用到哪些Redis的数据结构？-】" class="headerlink" title="18. 【Redis都有哪些数据类型？分别在哪些场景下使用比较合适？(在项目中用到哪些Redis的数据结构？)】"></a>18. 【Redis都有哪些数据类型？分别在哪些场景下使用比较合适？(在项目中用到哪些Redis的数据结构？)】</h4><ol>
+<h4 id="✨18-【Redis都有哪些数据类型？分别在哪些场景下使用比较合适？-在项目中用到哪些Redis的数据结构？-】"><a href="#✨18-【Redis都有哪些数据类型？分别在哪些场景下使用比较合适？-在项目中用到哪些Redis的数据结构？-】" class="headerlink" title="✨18. 【Redis都有哪些数据类型？分别在哪些场景下使用比较合适？(在项目中用到哪些Redis的数据结构？)】"></a>✨18. 【Redis都有哪些数据类型？分别在哪些场景下使用比较合适？(在项目中用到哪些Redis的数据结构？)】</h4><ol>
 <li><strong>string</strong><ul>
 <li>最常用、简单的key-value类型，普通的key/ value 存储都可以归为此类。</li>
 <li><strong>使用场景：</strong>常规key-value缓存应用。</li>
@@ -6278,7 +6406,7 @@
 </ul>
 </li>
 <li><strong>hash</strong><ul>
-<li>是一个键值(key =&gt; value)对集合。Redishash是一个 string 类型的 field 和 value 的映射表，hash 特别适合用于存储对象，并且可以像数据库中update一个属性一样只修改某一项属性值。</li>
+<li>是一个键值(key =&gt; value)对集合。<strong>hash是一个 string 类型的 field 和 value 的映射表，hash 特别适合用于存储对象</strong>，并且可以像数据库中update一个属性一样只修改某一项属性值。</li>
 <li><strong>使用场景：</strong>存放结构化数据，比如用户信息。比如Key是用户ID, Value是一个Map，这个Map的field是成员的属性名，value是属性值，这样对数据的修改和存取都可以直接通过其内部Map的Key（Redis里称内部Map的key为field）， 也就是通过key(用户ID) + field(属性标签) 就可以操作对应属性数据了，既不需要重复存储数据，也不会带来序列化和并发修改控制的问题。</li>
 <li><strong>实现方式：</strong>Hash对应Value内部实际就是一个HashMap，当这个Hash的成员比较少时Redis为了节省内存会采用类似一维数组的方式来紧凑存储而不会采用真正的HashMap结构（zipmap），当成员数量增大到一定值时会自动转成真正的HashMap。</li>
 </ul>
@@ -6318,18 +6446,28 @@
 <li><strong>Hyperloglog</strong>：用于统计基数，在输入元素的数量或体积即使很大时计算基数所需的空间总是固定的并且很小，适用场景有：统计网页的不重复访客，一个人访问网站多次但还是只计算为1次；</li>
 <li><strong>Geospatial</strong>：主要用于存储地理位置信息，并对存储的信息进行操作，适用场景如朋友的定位、附近的人、打车距离计算等；</li>
 </ol>
+<h5 id="✨18-1-String和Hash类型的区别？"><a href="#✨18-1-String和Hash类型的区别？" class="headerlink" title="✨18.1 String和Hash类型的区别？"></a>✨18.1 String和Hash类型的区别？</h5><p><strong>适合用 String 存储的情况：</strong></p>
+<ul>
+<li>存储对象信息时，可以用String存储也可以用Hash存储，每次需要访问该对象大量的字段时使用String<strong>（大多数存储对象的情况）</strong></li>
+<li>存储的结构具有多层嵌套的对象的时候，占用的空间比Hash小</li>
+</ul>
+<p><strong>适合用 Hash 存储的情况：</strong></p>
+<ul>
+<li>当我们需要存储一个特别大的对象时，而且在大多数情况中只需要访问该对象中少量的字段时，可以考虑使用Hash</li>
+</ul>
 <h4 id="19-Redis并发竞争问题如何解决？"><a href="#19-Redis并发竞争问题如何解决？" class="headerlink" title="19. Redis并发竞争问题如何解决？"></a>19. Redis并发竞争问题如何解决？</h4><p>使用Redis分布式锁，确保在同一时间只能有一个系统实例在操作某个key，其他实例不允许读和写；每次要写之前，先判断当前这个value的时间戳是否比缓存中的value的时间戳更新，如果更新那么可以写，如果更旧则不能用旧的数据覆盖新的数据；</p>
 <h4 id="20-【如何利用Redis实现分布式Session？】"><a href="#20-【如何利用Redis实现分布式Session？】" class="headerlink" title="20. 【如何利用Redis实现分布式Session？】"></a>20. 【如何利用Redis实现分布式Session？】</h4><p><strong>Spring Session+Redis</strong></p>
 <p>给spring session配置基于redis来存储session数据，然后配置一个spring session的过滤器，session相关操作都会交给spring session来管理，直接基于spring sesion从redis中获取数据了。</p>
-<h4 id="21-【如何利用Redis实现分布式锁？】"><a href="#21-【如何利用Redis实现分布式锁？】" class="headerlink" title="21. 【如何利用Redis实现分布式锁？】"></a>21. 【如何利用Redis实现分布式锁？】</h4><p>使用setnx、del和expire实现的分布式锁会存在以下问题：</p>
+<h4 id="✨21-1-如何利用Redis实现分布式锁？"><a href="#✨21-1-如何利用Redis实现分布式锁？" class="headerlink" title="✨21.1 如何利用Redis实现分布式锁？"></a>✨21.1 如何利用Redis实现分布式锁？</h4><p><strong>使用setnx、del和expire实现分布式锁</strong>会存在以下问题：</p>
 <ol>
 <li><p>setnx和expire非原子性</p>
 <p>先拿 <code>setnx key value</code>来争抢锁，抢到之后，再用 <code>expire key 过期时间</code>给锁加一个超时过期时间防止锁忘记释放。但这两个单独命令如果在 setnx 之后执行 expire 之前进程意外挂掉，此时这把锁就没有设置过期时间，别的线程就再也无法获得该锁了；</p>
-<p><strong>上锁同时设置过期时间实现原子操作：set key value nx ex 过期时间</strong></p>
+<p><strong>加锁同时设置过期时间实现原子操作：set key value nx ex 过期时间</strong>（防止死锁）</p>
+<p><strong>释放锁：delete key</strong></p>
 </li>
 <li><p>锁误解除</p>
 <p>如果线程A成功获取到了锁并设置了过期时间30s，但线程A的执行时间超过了30s，锁过期自动释放，此时线程B获取到了锁；随后A执行完成并释放锁，但此时线程B加锁还没有执行完成，线程A实际释放的是线程B加的锁；</p>
-<p><strong>在加锁的时候生成一个uuid作为value唯一标识，在解锁之前先验证key对应的value是不是该线程的uuid；或者使用Lua脚本做验证标识和解锁操作</strong></p>
+<p><strong>在加锁的时候生成一个uuid作为value，充当唯一标识，在解锁之前先验证key对应的value是不是该线程的uuid；或者使用Lua脚本做验证标识和解锁操作</strong></p>
 </li>
 <li><p>超时解锁导致并发</p>
 <p>如果线程A成功获取到了锁并设置了过期时间30s，但线程A的执行时间超过了30s，锁过期自动释放，此时线程B获取到了锁，相当于线程A和线程B在并发执行；</p>
@@ -6338,6 +6476,10 @@
 <li><p>不可重入</p>
 <p><strong>Redis可通过对锁进行重入计数，加锁时加1，解锁时减1，当计数归0时释放锁</strong></p>
 </li>
+</ol>
+<h4 id="21-2-Redis做分布式锁死锁的情况，如何解决？"><a href="#21-2-Redis做分布式锁死锁的情况，如何解决？" class="headerlink" title="21.2 Redis做分布式锁死锁的情况，如何解决？"></a>21.2 Redis做分布式锁死锁的情况，如何解决？</h4><ol>
+<li>加锁没有释放锁，此时需要加释放锁的操作比如delete key</li>
+<li>加锁后程序还没有执行释放锁就挂了，此时需要用到key的过期机制</li>
 </ol>
 <h4 id="22-Redis-是如何判断数据是否过期的呢？"><a href="#22-Redis-是如何判断数据是否过期的呢？" class="headerlink" title="22. Redis 是如何判断数据是否过期的呢？"></a>22. Redis 是如何判断数据是否过期的呢？</h4><p>Redis 通过一个叫做过期字典的hash表来保存数据过期的时间。过期字典的键指向 Redis 数据库中的某个 key，过期字典的值是一个 long 类型的整数，这个整数保存了 key 所指向的数据库键的过期时间；</p>
 <h4 id="23-【RedLock算法的原理】（待补充）"><a href="#23-【RedLock算法的原理】（待补充）" class="headerlink" title="23. 【RedLock算法的原理】（待补充）"></a>23. 【RedLock算法的原理】（待补充）</h4><p>Redisson完成了对RedLock算法的封装</p>
@@ -6455,11 +6597,10 @@
 <p>最终一致性强调的是系统中所有的数据副本，在经过一段时间的同步后，最终能够达到一个一致的状态，本质是<strong>需要系统保证最终数据能够达到一致，而不需要实时保证系统数据的强一致性</strong>。</p>
 </li>
 </ul>
-<h4 id="7-【如何保证分布式系统中接口的幂等性？】"><a href="#7-【如何保证分布式系统中接口的幂等性？】" class="headerlink" title="7. 【如何保证分布式系统中接口的幂等性？】"></a>7. 【如何保证分布式系统中接口的幂等性？】</h4><p>保证幂等性主要是三点：</p>
-<p>（1）<strong>每个请求必须有一个唯一的标识</strong>，比如订单支付请求肯定得包含订单id，一个订单id最多支付一次</p>
+<h4 id="7-1-如何保证分布式系统中的接口幂等性？"><a href="#7-1-如何保证分布式系统中的接口幂等性？" class="headerlink" title="7.1 如何保证分布式系统中的接口幂等性？"></a>7.1 如何保证分布式系统中的接口幂等性？</h4><p>（1）<strong>每个请求必须有一个全局请求唯一id</strong>，比如订单支付请求肯定得包含订单id，一个订单id最多支付一次</p>
 <p>（2）<strong>每次处理完请求之后，必须有一个记录标识已经处理过这个请求</strong>，比如说常见的方案是在mysql中记录状态</p>
-<p>（3）<strong>每次接收请求需要进行判断之前是否处理过该逻辑</strong>，比如说如果有一个订单已经支付了，就已经有了一条支付流水，那么如果重复发送这个请求，则此时要先插入支付流水，而订单Id已经存在了，唯一键约束生效，报错插入不进去的使整个事务回滚。</p>
-<h4 id="8-【谈谈你对分布式事务的理解？如何实现最终一致性分布式事务？】"><a href="#8-【谈谈你对分布式事务的理解？如何实现最终一致性分布式事务？】" class="headerlink" title="8. 【谈谈你对分布式事务的理解？如何实现最终一致性分布式事务？】"></a>8. 【谈谈你对分布式事务的理解？如何实现最终一致性分布式事务？】</h4><p><strong>分布式概念</strong>：一个系统分拆多个子系统并部署在不同的服务器上， 然后通过一定的通信协议能够让这些子系统之间相互通信。（核心问题在于解决如何拆分和如何连接这两个问题）</p>
+<p>（3）<strong>利用主键唯一索引，且每次接收请求需要进行判断之前是否处理过该逻辑</strong>，比如说如果有一个订单已经支付了，就已经有了一条支付流水，那么如果重复发送这个请求，则此时要先插入支付流水，而订单Id已经存在了，唯一约束生效，报错无法插入使整个事务回滚。</p>
+<h4 id="7-2-幂等有哪些技术解决方案？（待补充）"><a href="#7-2-幂等有哪些技术解决方案？（待补充）" class="headerlink" title="7.2 幂等有哪些技术解决方案？（待补充）"></a>7.2 幂等有哪些技术解决方案？（待补充）</h4><h4 id="✨8-【谈谈你对分布式事务的理解？如何实现最终一致性分布式事务？】"><a href="#✨8-【谈谈你对分布式事务的理解？如何实现最终一致性分布式事务？】" class="headerlink" title="✨8. 【谈谈你对分布式事务的理解？如何实现最终一致性分布式事务？】"></a>✨8. 【谈谈你对分布式事务的理解？如何实现最终一致性分布式事务？】</h4><p><strong>分布式概念</strong>：一个系统分拆多个子系统并部署在不同的服务器上， 然后通过一定的通信协议能够让这些子系统之间相互通信。（核心问题在于解决如何拆分和如何连接这两个问题）</p>
 <ul>
 <li>优点：提高可用性、可扩展性；</li>
 <li>缺点：数据一致性、网络延迟问题；</li>
@@ -6476,10 +6617,15 @@
 </ul>
 <p>缺点：</p>
 <ul>
-<li><strong>单点问题</strong>：事务管理器在整个流程中扮演的角色很关键，如果其宕机，比如在第一阶段已经完成，在第二阶段正准备提交的时候事务管理器宕机，资源管理器就会一直阻塞，导致数据库无法使用；</li>
-<li><strong>同步阻塞</strong>：在准备就绪之后，资源管理器中的资源一直处于阻塞状态，直到提交完成，释放资源，不支持高并发操作；</li>
-<li><strong>数据不一致</strong>：两阶段提交协议虽然为分布式数据强一致性所设计，但仍然存在数据不一致性的可能，比如在第二阶段中，假设协调者发出了事务commit的通知，但是因为网络问题该通知仅被一部分参与者所收到并执行了commit操作，其余的参与者则因为没有收到通知一直处于阻塞状态，这时候就产生了数据的不一致性。</li>
+<li><strong>单点问题</strong>：事务管理器在整个流程中扮演的角色很关键，比如在第一阶段已经完成，在第二阶段正准备提交的时候事务管理器宕机，资源管理器就会一直阻塞，导致数据库无法使用；</li>
+<li><strong>同步阻塞</strong>：在准备就绪之后，资源管理器中的资源一直处于阻塞状态，直到提交完成才释放资源，不支持高并发操作；</li>
+<li><strong>数据不一致</strong>：两阶段提交协议虽然为分布式数据强一致性所设计，但仍然存在数据不一致性的可能，比如在第二阶段中，假设协调者发出了事务commit的通知，但是因为网络问题该通知仅被一部分参与者所收到并执行了commit操作，其余的参与者则因为没有收到通知一直处于阻塞状态，这时候就产生了数据的不一致。</li>
 </ul>
+<p><strong>2PC和3PC提交方案的区别：</strong></p>
+<ol>
+<li>3PC比2PC在pre commit阶段前多了一个can commit阶段，因为2PC在第一阶段会占用资源，而3PC在这阶段不占用资源，只是校验一下sql，如果不能执行就直接返回，减少了资源占用；</li>
+<li>2PC只有协调者有超时机制，超时后发送回滚指令，而3PC的协调者和参与者中都引入超时机制，协调者超时，即can commit和pre commit中如果收不到参与者的反馈，则协调者向参与者发送中断指令；参与者超时，即pre commit阶段参与者进行中断，do commit阶段，参与者进行提交；</li>
+</ol>
 </li>
 </ul>
 <p>实现最终一致性分布式事务方案：</p>
@@ -6504,35 +6650,23 @@
 </li>
 </ul>
 <p>TCC方案中锁定资源的粒度小，有利于提高系统性能；Confirm和Cancel阶段的幂等保证分布式事务执行完成后数据的一致性。由主业务方发起事务，无论是主业务还是分支业务都能集群部署，解决了XA方案的单点问题。但是它的代码需要耦合到业务中，参与分布式事务的每个业务方法都需要try，confirm，cancel阶段，增加开发成本。</p>
+<p><strong>TCC空回滚是解决什么问题的？</strong>（待补充）</p>
+<p><strong>如何解决TCC幂等问题？</strong>（待补充）</p>
+<p><strong>如何解决TCC中悬挂问题？</strong>（待补充）</p>
 </li>
 </ul>
 <ul>
-<li><p>【<strong>可靠消息最终一致性方案</strong>（基于MQ或本地消息表来实现事务） - RocketMQ】</p>
-<p><strong>可靠消息最终一致性事务适用于执行周期长且实时性要求不高的场景，即服务间是异步调用的情况；</strong></p>
-<p>业务处理服务在业务事务提交之前，向实时消息服务请求发送消息，实时消息服务只记录消息数据，而不是真正的发送。业务处理服务在业务事务提交之后，向实时消息服务确认发送。只有在得到确认发送指令后，实时消息服务才会真正发送（异步确保）；</p>
+<li><p>✨<strong>可靠消息最终一致性方案</strong>（基于MQ或本地消息表来实现事务） - RocketMQ】</p>
+<p>可靠消息最终一致性方案：当事务的发起方（消息生产者）执行完本地事务后，同时发出一条消息，事务参与方（消息消费者）一定能够接收消息并可以成功处理自己的事务；</p>
 <p><strong>可靠消息方案简易流程：</strong></p>
-<p>（生产者即上游服务生产消息、消息确认服务器确认消息状态、MQ传递消息、消费者及下游服务接收消费消息）</p>
 <ol>
-<li>生产者发送待确认消息给消息确认服务器，消息确认服务器存储消息，并且把消息状态改为“待确认”；</li>
-<li>生产者发送消息后操作本地数据库，如果执行成功则向消息确认服务器发送确认消息，消息确认服务器就把数据库里的消息状态更新为“已发送”，同时将消息发送给MQ；</li>
-<li>如果执行失败则向消息确认服务器发送删除消息，消息确认服务器将所存储的消息删除，投递MQ失败报错则会抛异常让本地数据库事务回滚；</li>
-<li>消费者从MQ中消费消息，如果消费到了消息就操作本地数据库；</li>
-<li>消费者操作成功后，反过来发送确认消息通知消息确认服务器，消息确认服务器就会把消息的状态设置为“已完成”。</li>
+<li>当有请求进来时，事务发起方向MQ发送一个half message，此时这个消息事务参与方还无法消费；</li>
+<li>当事务发起方收到MQ返回的发送成功指令后，开始执行本地事务，如果本地事务执行成功则向MQ发送提交half message请求，如果本地事务执行失败则向MQ发送回滚half message请求；</li>
+<li>当消息被确认提交后，这条消息就可以被事务参与者消费，当消息被回滚后，消息删除不进行投递，事务参与者就无法消费到这条消息；</li>
+<li>当MQ长时间没有收到事务发起方的提交或者回滚请求时，会向事务发起方回查事务状态，事务发起方检查完本地事务的状态后，根据事务状态选择提交或者回滚half message的操作；</li>
 </ol>
-<ul>
-<li><p><strong>如何保证生产者服务对消息的可靠投递？</strong></p>
-<p>要保证生产者消息的可靠投递，生产者需要将消息存入自己的数据库中，根据据自己的执行结果，调用可靠消息服务的接口。<strong>如果本地数据库操作执行成功了，那么就找消息确认服务器确认那条消息。如果本地数据库操作失败了，那么就找消息确认服务器删除那条消息。同时在消息确认服务器里开发一个后台定时运行的线程，不停的轮询检查各个消息的状态</strong>。</p>
-<p>如果生产者操作完本地数据库之后，通知可靠消息服务确认消息或者删除消息的时候出现了问题。这种情况下消息服务器中的消息一直是“待确认”状态，就认为这个消息出了点什么问题，可以回调生产者提供的一个接口去确认生产者数据库操作状态。</p>
-<p>如果生产者执行成功，那么可靠消息服务将消息状态修改为“已发送”，同时投递消息到MQ。</p>
-<p>如果生产者执行失败，那么可靠消息服务将数据库中的消息删除即可。</p>
 </li>
-<li><p><strong>如何保证消费者服务对消息的可靠接收？</strong></p>
-<p>要保证消费者消息的可靠接受，也需要<strong>在消息确认服务器里开发一个后台定时运行的线程，通过这个线程，不停的轮询检查各个消息的状态</strong>。</p>
-<p>如果消息状态一直是“已发送”的状态，始终没有变成“已完成”，那么就说明消费者服务始终没有处理成功，这个时候消息确认服务器就可以再次尝试重新投递消息到MQ，让消费者服务再次处理。</p>
-</li>
-</ul>
-</li>
-<li><p><strong>最大努力通知型方案</strong>（待补充）</p>
+<li><p><strong>最大努力通知型方案</strong></p>
 <p><strong>最大努力通知型方案适用于一些最终一致性时间敏感度低的业务，且被动方处理结果不影响主动方的处理结果的情况</strong>；</p>
 <p>特点如下：</p>
 <ul>
@@ -6548,14 +6682,15 @@
 <p><strong>Ribbon：</strong>服务间发起请求的时候，基于Ribbon做负载均衡，从有该服务的多台机器中选择⼀台<strong>（服务负载均衡）</strong></p>
 <p><strong>Feign：</strong>基于Feign的动态代理机制，根据注解和选择的机器，拼接请求URL地址发起请求<strong>（远程服务调用）</strong></p>
 <p><strong>Hystrix：</strong>发起请求是通过Hystrix的线程池来⾛的，不同的服务⾛不同的线程池，实现了不同服务调⽤的隔离，避免了服务雪崩的问题<strong>（服务隔离、降级与熔断）</strong></p>
-<p><strong>Zuul：</strong>如果前端、移动端要调⽤后端系统，统⼀从Zuul⽹关进⼊，由Zuul⽹关转发请求给对应的服务<strong>（服务网关）</strong></p>
+<p><strong>Zuul：</strong>如果前端要调⽤后端系统，统⼀从Zuul⽹关进⼊，由Zuul⽹关转发请求给对应的服务<strong>（服务网关）</strong></p>
 <h4 id="10-说一说Spring-Cloud服务发现原理（Eureka是如何进行服务注册发现的？）"><a href="#10-说一说Spring-Cloud服务发现原理（Eureka是如何进行服务注册发现的？）" class="headerlink" title="10. 说一说Spring Cloud服务发现原理（Eureka是如何进行服务注册发现的？）"></a>10. 说一说Spring Cloud服务发现原理（Eureka是如何进行服务注册发现的？）</h4><ol>
 <li>每30s发送⼼跳检测重新进⾏租约，如果客户端不能多次更新租约，它将在90s内从服务器注册中⼼移除。</li>
 <li>注册信息和更新会被复制到其他Eureka 节点，来⾃任何区域的客户端可以查找到注册中⼼信息，每30s发⽣⼀次复制来定位他们的服务，并进⾏远程调⽤。 </li>
 <li>客户端还可以缓存⼀些服务实例信息，所以即使Eureka Server全挂掉，客户端也是可以定位到服务地址的。</li>
 </ol>
-<h4 id="11-Hystrix如何实现熔断？"><a href="#11-Hystrix如何实现熔断？" class="headerlink" title="11 Hystrix如何实现熔断？"></a>11 Hystrix如何实现熔断？</h4><p>Hystrix在运⾏过程中会向每个commandKey对应的熔断器报告成功、失败、超时和拒绝的状态，熔断器维护计算统计的数据，根据这些统计的信息来确定熔断器是否打开。如果打开，后续的请求都会被截断。然后会隔⼀段时间（默认是5s）尝试半开，放⼊⼀部分流量请求进来，相当于对依赖服务进⾏⼀次健康检查，如果恢复则熔断器关闭，随后完全恢复调⽤。</p>
-<h4 id="12-RPC和HTTP的区别，使⽤场景？"><a href="#12-RPC和HTTP的区别，使⽤场景？" class="headerlink" title="12. RPC和HTTP的区别，使⽤场景？"></a>12. RPC和HTTP的区别，使⽤场景？</h4><p><strong>两者区别如下：</strong> </p>
+<h4 id="✨11-Hystrix如何实现熔断？（待补充）"><a href="#✨11-Hystrix如何实现熔断？（待补充）" class="headerlink" title="✨11 Hystrix如何实现熔断？（待补充）"></a>✨11 Hystrix如何实现熔断？（待补充）</h4><p>Hystrix在运⾏过程中会向每个commandKey对应的熔断器报告成功、失败、超时和拒绝的状态，熔断器维护计算统计的数据，根据这些统计的信息来确定熔断器是否打开。如果打开，后续的请求都会被截断。然后会隔⼀段时间（默认是5s）尝试半开，放⼊⼀部分流量请求进来，相当于对依赖服务进⾏⼀次健康检查，如果恢复则熔断器关闭，随后完全恢复调⽤。</p>
+<h4 id="12-RPC和HTTP的区别，使⽤场景？-（待补充）"><a href="#12-RPC和HTTP的区别，使⽤场景？-（待补充）" class="headerlink" title="12. RPC和HTTP的区别，使⽤场景？ （待补充）"></a>12. RPC和HTTP的区别，使⽤场景？ （待补充）</h4><p>**RPC(Remote Procedure Call)**：远程过程调用，它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议。</p>
+<p><strong>两者区别如下：</strong> </p>
 <ul>
 <li><p>传输协议 </p>
 <ul>
@@ -6592,10 +6727,29 @@
 <li><p>HTTP，需要事先通知，修改Nginx/HAProxy配置</p>
 </li>
 </ul>
-<p><strong>总结：</strong>RPC主要⽤于公司内部的服务调⽤，性能消耗低，传输效率⾼，服务治理⽅便。HTTP主要⽤于对外的异构环境，浏览 器接⼝调⽤，APP接⼝调⽤，第三⽅接⼝调⽤等。</p>
+<p><strong>总结：</strong>RPC主要⽤于公司内部的服务调⽤，性能消耗低，传输效率⾼，服务治理⽅便。HTTP主要⽤于对外的异构环境，浏览器接⼝调⽤，APP接⼝调⽤，第三⽅接⼝调⽤等。</p>
 </li>
 </ul>
-<h2 id="搜索引擎（待补充）"><a href="#搜索引擎（待补充）" class="headerlink" title="搜索引擎（待补充）"></a>搜索引擎（待补充）</h2><h4 id="1-es的分布式架构原理能说一下么（es是如何实现分布式的）"><a href="#1-es的分布式架构原理能说一下么（es是如何实现分布式的）" class="headerlink" title="1. es的分布式架构原理能说一下么（es是如何实现分布式的）"></a>1. es的分布式架构原理能说一下么（es是如何实现分布式的）</h4><p>elasticsearch设计的理念就是分布式搜索引擎，底层其实还是基于lucene的。核心思想就是在多台机器上启动多个es进程实例，组成了一个es集群。</p>
+<h4 id="13-分布式id的生成方案有哪些？"><a href="#13-分布式id的生成方案有哪些？" class="headerlink" title="13. 分布式id的生成方案有哪些？"></a>13. 分布式id的生成方案有哪些？</h4><ol>
+<li>UUID：通用唯一标识码，让分布式系统中的所有元素都有唯一的便是信息，而不需要通过中央控制器来指定唯一标识；缺点在于占用16个字符，且不是递增有序的数字；</li>
+<li>数据库自增主键：MySQL数据库设置主键且主键自动增长，缺点在于自增在分库分表时需要改造较为复杂，数据和数据量容易泄露；</li>
+<li>Redis自增，通过Redis计数器原子性自增</li>
+<li>雪花算法<ul>
+<li>雪花算法生成id的组成部分：1位符号位，41位时间戳，10位机器码以及12位序列码；</li>
+</ul>
+</li>
+</ol>
+<h4 id="14-微服务相关内容补充"><a href="#14-微服务相关内容补充" class="headerlink" title="14. 微服务相关内容补充"></a>14. 微服务相关内容补充</h4><h5 id="14-1-微服务架构原理是什么？"><a href="#14-1-微服务架构原理是什么？" class="headerlink" title="14.1 微服务架构原理是什么？"></a>14.1 微服务架构原理是什么？</h5><p>主要是面向服务理念，更小粒度地拆分服务，将功能分解到各个服务当中，从而降低系统的耦合性，并提供更加灵活的服务支持；</p>
+<h5 id="14-2-注册中心的原理是什么？"><a href="#14-2-注册中心的原理是什么？" class="headerlink" title="14.2 注册中心的原理是什么？"></a>14.2 注册中心的原理是什么？</h5><p>以Eureka为例，服务启动后向Eureka注册，Eureka Server会将注册信息向其他Eureka Server进行同步，当服务消费者要调用服务提供者时，则向服务注册中心获取服务提供者地址然后会将服务提供者地址缓存在本地，下次再调用时则直接从本地缓存中获取服务列表来完成服务调用；</p>
+<h5 id="14-3-配置中心的原理是什么？"><a href="#14-3-配置中心的原理是什么？" class="headerlink" title="14.3 配置中心的原理是什么？"></a>14.3 配置中心的原理是什么？</h5><p>在服务运行之前，将所需的配置信息从配置仓库拉取到本地服务，达到统一化配置管理的目的；</p>
+<h5 id="14-4-配置中心是如何实现自动刷新的？"><a href="#14-4-配置中心是如何实现自动刷新的？" class="headerlink" title="14.4 配置中心是如何实现自动刷新的？"></a>14.4 配置中心是如何实现自动刷新的？</h5><p>以Config为例：</p>
+<ol>
+<li>配置中心Server端承担起配置刷新的职责，提交配置触发post请求给Server端的bus/refresh接口，Server端接收到请求并发送给Spring Cloud Bus总线；</li>
+<li>Spring Cloud Bus接收到消息并通知给其他连接到总线的客户端，其它客户端接收到通知，请求Server端获取到最新配置；</li>
+</ol>
+<h5 id="14-5-Ribbon负载均衡原理是什么？"><a href="#14-5-Ribbon负载均衡原理是什么？" class="headerlink" title="14.5 Ribbon负载均衡原理是什么？"></a>14.5 Ribbon负载均衡原理是什么？</h5><p>Ribbon通过ILoadBalancer接口对外提供统一的选择服务器Server的功能，ILoadBalancer通过调用IRule的choose()返回合适的Server给使用者；</p>
+<h5 id="14-6-注册中心和服务挂了应该如何处理？"><a href="#14-6-注册中心和服务挂了应该如何处理？" class="headerlink" title="14.6 注册中心和服务挂了应该如何处理？"></a>14.6 注册中心和服务挂了应该如何处理？</h5><p>当注册中心挂了可以读取本地持久化里的配置，当服务挂了配有的服务监控中心会感知到服务下线，之后通过配置好的通知机制通知相关人员排查问题；</p>
+<h2 id="搜索引擎（待补充）"><a href="#搜索引擎（待补充）" class="headerlink" title="搜索引擎（待补充）"></a>搜索引擎（待补充）</h2><h4 id="1-es的分布式架构原理能说一下么（es是如何实现分布式的）"><a href="#1-es的分布式架构原理能说一下么（es是如何实现分布式的）" class="headerlink" title="1. es的分布式架构原理能说一下么（es是如何实现分布式的）"></a>1. es的分布式架构原理能说一下么（es是如何实现分布式的）</h4><p>elasticsearch设计的理念就是<strong>分布式搜索引擎</strong>，底层其实还是基于lucene的。核心思想就是在多台机器上启动多个es进程实例，组成了一个es集群。</p>
 <p>es中存储数据的基本单位是索引，比如说你现在要在es中存储一些订单数据，你就应该在es中创建一个索引order_idx，所有的订单数据就都写到这个索引里面去，一个索引差不多就是相当于是mysql里的一张表。index -&gt; type -&gt; mapping -&gt; document -&gt; field</p>
 <ul>
 <li><p><strong>index：相当于mysql里的一张表</strong></p>
@@ -6681,13 +6835,20 @@
 <li>URI：统一资源标识符，主要作用是唯一标识一个资源。</li>
 <li>URL：统一资源定位符，主要作用是提供资源的路径。</li>
 </ul>
-<h4 id="4-【ARP地址解析协议工作原理】"><a href="#4-【ARP地址解析协议工作原理】" class="headerlink" title="4. 【ARP地址解析协议工作原理】"></a>4. 【ARP地址解析协议工作原理】</h4><p>ARP地址解析协议：<strong>用于实现IP地址到MAC地址的映射</strong>；（广播发送ARP请求，单播发送ARP响应）<br>1：首先，每个主机都会在自己的ARP缓冲区中建立一个ARP列表，以表示IP地址和MAC地址之间的对应关系。 </p>
-<p>2：当源主机要发送数据时，首先检查ARP列表中是否有对应IP地址的目的主机的MAC地址，如果有，则直接发送数据，如果没有，就向本网段的所有主机发送ARP数据报，该数据报包括的内容有：<strong>源主机</strong> <strong>IP地址，源主机MAC地址，目的主机的IP 地址</strong>。 </p>
-<p>3：当本网络的所有主机收到该ARP数据报时，首先检查数据报中的IP地址是否是自己的IP地址，如果不是，则忽略该数据报，如果是，则首先从数据报中取出源主机的IP和MAC地址写入到自己的ARP列表中，如果已经存在则覆盖，然后将自己的MAC地址写入ARP响应报中，告诉源主机自己是它想要找的MAC地址。 </p>
-<p>4：源主机收到ARP响应报后。将目的主机的IP和MAC地址写入ARP列表，并利用此信息发送数据。如果源主机一直没有收到ARP响应数据报，表示ARP查询失败。</p>
+<h4 id="4-【ARP地址解析协议工作原理】"><a href="#4-【ARP地址解析协议工作原理】" class="headerlink" title="4. 【ARP地址解析协议工作原理】"></a>4. 【ARP地址解析协议工作原理】</h4><p>ARP地址解析协议：<strong>用于实现IP地址到MAC地址的映射</strong>；（广播发送ARP请求，单播发送ARP响应）</p>
+<ol>
+<li><p>首先，每个主机都会在自己的ARP缓冲区中建立一个ARP列表，以表示IP地址和MAC地址之间的对应关系。 </p>
+</li>
+<li><p>当源主机要发送数据时，首先检查ARP列表中是否有对应IP地址的目的主机的MAC地址，如果有，则直接发送数据，如果没有，就向本网段的所有主机发送ARP数据报，该数据报包括的内容有：<strong>源主机</strong> <strong>IP地址，源主机MAC地址，目的主机的IP 地址</strong>。 </p>
+</li>
+<li><p>当本网络的所有主机收到该ARP数据报时，首先检查数据报中的IP地址是否是自己的IP地址，如果不是，则忽略该数据报，如果是，则首先从数据报中取出源主机的IP和MAC地址写入到自己的ARP列表中，如果已经存在则覆盖，然后将自己的MAC地址写入ARP响应报中，告诉源主机自己是它想要找的MAC地址。 </p>
+</li>
+<li><p>源主机收到ARP响应报后。将目的主机的IP和MAC地址写入ARP列表，并利用此信息发送数据。如果源主机一直没有收到ARP响应数据报，表示ARP查询失败。</p>
+</li>
+</ol>
 <h5 id="4-1-有了IP地址为什么还要用MAC地址？"><a href="#4-1-有了IP地址为什么还要用MAC地址？" class="headerlink" title="4.1 有了IP地址为什么还要用MAC地址？"></a>4.1 有了IP地址为什么还要用MAC地址？</h5><ul>
 <li>计算机的IP地址可由用户自行更改，管理起来就相对困难，而MAC地址不可更改，所以一般会把IP地址和MAC地址组合起来使用；</li>
-<li>为什么要用IP地址呢？是因为IP地址是和地域相关的，对于同一个子网上的设备，IP地址的前缀都是一样的，这样路由器通过IP地址的前缀就知道设备在在哪个子网上了，而只用MAC地址的话，路由器则需要记住每个MAC地址在哪个子网，这需要路由器有极大的存储空间是无法实现的；</li>
+<li>为什么要用IP地址呢？是因为IP地址是和地域相关的，对于同一个子网上的设备，IP地址的前缀都是一样的，这样路由器通过IP地址的前缀就知道设备在在哪个子网上了，而只用MAC地址的话，路由器则需要记住每个MAC地址分别在哪个子网，这需要路由器有极大的存储空间是无法实现的；</li>
 </ul>
 <h4 id="5-TCP和UDP相关问题"><a href="#5-TCP和UDP相关问题" class="headerlink" title="5. TCP和UDP相关问题"></a>5. TCP和UDP相关问题</h4><h5 id="5-1-请简述TCP与UDP的区别"><a href="#5-1-请简述TCP与UDP的区别" class="headerlink" title="5.1 请简述TCP与UDP的区别"></a>5.1 请简述TCP与UDP的区别</h5><ol>
 <li>TCP面向连接，UDP不面向连接即发送数据前不需要建立连接</li>
@@ -6696,7 +6857,7 @@
 <li>TCP只能是点到点的，UDP支持一对一和多对多的交互通信</li>
 <li>TCP注重数据安全性，UDP数据传输快，因为不需要连接等待，少了许多操作，但是其安全性却一般</li>
 </ol>
-<h5 id="5-2-TCP的粘包和拆包问题"><a href="#5-2-TCP的粘包和拆包问题" class="headerlink" title="5.2 TCP的粘包和拆包问题"></a>5.2 TCP的粘包和拆包问题</h5><p>TCP的粘包和拆包：指的是一个完整的包可能会被TCP拆分成多个包进行发送，也有可能把多个小的包封装成一个大的数据包发送；<br><strong>产生粘包和拆包的原因：</strong></p>
+<h5 id="5-2-TCP的粘包和拆包问题"><a href="#5-2-TCP的粘包和拆包问题" class="headerlink" title="5.2 TCP的粘包和拆包问题"></a>5.2 TCP的粘包和拆包问题</h5><p>TCP的粘包和拆包：指的是<strong>一个完整的包可能会被TCP拆分成多个包进行发送，也有可能把多个小的包封装成一个大的数据包发送</strong>；<br><strong>产生粘包和拆包的原因：</strong></p>
 <p>粘包：①要发送的数据小于TCP发送缓冲区的大小，TCP将多次写入缓冲区的数据一次发送出去；<br>            ②接收数据端的应用层没有及时读取接收缓冲区中的数据；</p>
 <p>拆包：①要发送的数据大于TCP发送缓冲区剩余空间大小；<br>            ②待发送数据大于MSS（最大报文长度）；<br><strong>解决方案：</strong></p>
 <p>①发送端将每个数据包封装为固定长度；<br>②在数据尾部增加特殊字符进行分割；<br>③将数据分为两部分，一部分是头部，一部分是内容体；其中头部结构大小固定，且有一个字段声明内容体的大小；</p>
@@ -6719,7 +6880,7 @@
 </li>
 </ul>
 <h4 id="6-【介绍一下TCP三次握手建立连接的过程】"><a href="#6-【介绍一下TCP三次握手建立连接的过程】" class="headerlink" title="6. 【介绍一下TCP三次握手建立连接的过程】"></a>6. 【介绍一下TCP三次握手建立连接的过程】</h4><ol>
-<li><strong>客户端发送连接请求报文段并进入SYN_SEND状态</strong>，等待服务器确认，无应用层数据；</li>
+<li><strong>客户端发送连接请求报文段并进入SYN_SEND状态</strong>，等待服务器端确认，无应用层数据；</li>
 <li><strong>服务器端</strong>收到客户端的连接请求报文段后，为该TCP连接分配缓存和变量，<strong>向客户端返回确认报文段ack允许连接并进入SYN_RCV状态</strong>，无应用层数据；</li>
 <li><strong>客户端</strong>为该TCP连接分配缓存和变量，并<strong>向服务器端返回确认的确认数据报ack，客户端进入ESTABLISHED状态，当服务器端接收到这个确认包时，也进入ESTABLISHED状态</strong>，可以携带数据；</li>
 </ol>
@@ -6733,19 +6894,19 @@
 </ul>
 <h4 id="7-【介绍一下TCP四次挥手释放连接的过程】"><a href="#7-【介绍一下TCP四次挥手释放连接的过程】" class="headerlink" title="7. 【介绍一下TCP四次挥手释放连接的过程】"></a>7. 【介绍一下TCP四次挥手释放连接的过程】</h4><ol>
 <li><strong>客户端发送连接释放报文段FIN</strong>，停止发送数据，主动关闭TCP连接，客户端进入<strong>FIN_WAIT_1</strong>状态；</li>
-<li><strong>服务器端回送一个确认报文段ACK</strong>，客户到服务器这个方向的连接就被释放了，但服务器端仍处于关闭等待（<strong>Close_Wait</strong>）状态，客户端仍可以接收数据，在接收到这个确认报文段之后，进入<strong>FIN_WAIT_2</strong>状态；</li>
+<li><strong>服务器端收到后回送一个确认报文段ACK</strong>，客户端到服务器端这个方向的连接就被释放了，但服务器端仍处于关闭等待（<strong>Close_Wait</strong>）状态，客户端仍可以接收数据，在接收到这个确认报文段之后，进入<strong>FIN_WAIT_2</strong>状态；</li>
 <li><strong>服务器端发完数据就发出连接释放报文段FIN</strong>，主动关闭TCP连接，服务器端进入<strong>LAST_ACK</strong>状态，等待来自客户端的最后一个ACK；</li>
-<li><strong>客户端回送一个确认报文段ACK</strong>，并进入时间等待（Time_Wait）状态，在等待两个最大段生命周期2MSL后，连接彻底关闭；</li>
+<li><strong>客户端回送一个确认报文段ACK</strong>，并进入时间等待（Time_Wait）状态，在等待两个最大生命周期2MSL后，连接彻底关闭；</li>
 </ol>
-<h5 id="7-1-为什么需要四次挥手？"><a href="#7-1-为什么需要四次挥手？" class="headerlink" title="7.1 为什么需要四次挥手？"></a>7.1 为什么需要四次挥手？</h5><p>TCP是<strong>全双工模式</strong>，这就意味着，当客户端发出FIN报文段时，只是表示客户端已经没有数据要发送了，客户端告诉服务器，它的数据已经全部发送完毕了；但是，这个时候客户端还是可以接受来自服务端的数据；当服务端返回ACK报文段时，表示它已经知道客户端没有数据发送了，但是服务端还是可以发送数据到客户端的；当服务端也发送了FIN报文段时，这个时候就表示服务端也没有数据要发送了，就会告诉客户端，我也没有数据要发送了，之后就会中断这次TCP连接。<strong>简单地说，前两次挥手用于关闭一个方向的数据通道，后两次挥手用于关闭另外一个方向的数据通道</strong>。</p>
+<h5 id="7-1-为什么需要四次挥手？"><a href="#7-1-为什么需要四次挥手？" class="headerlink" title="7.1 为什么需要四次挥手？"></a>7.1 为什么需要四次挥手？</h5><p>TCP是<strong>全双工模式</strong>，这就意味着，当客户端发出FIN报文段时，只是表示客户端告诉服务器，它的数据已经全部发送完毕了，但是这个时候客户端还是可以接收来自服务端的数据；当服务端返回ACK报文段时，表示它已经知道客户端没有数据发送了，但是服务端还是可以发送数据到客户端；当服务端也发送了FIN报文段时，这个时候就表示服务端也没有数据要发送了，就会告诉客户端，我也没有数据要发送了，之后就会中断这次TCP连接。<strong>简单地说，前两次挥手用于关闭一个方向的数据通道，后两次挥手用于关闭另外一个方向的数据通道</strong>。</p>
 <h5 id="7-2-如果服务器出现大量CLOSE-WAIT状态如何解决？"><a href="#7-2-如果服务器出现大量CLOSE-WAIT状态如何解决？" class="headerlink" title="7.2 如果服务器出现大量CLOSE_WAIT状态如何解决？"></a>7.2 如果服务器出现大量CLOSE_WAIT状态如何解决？</h5><p>服务器端收到客户端发送的连接释放报文FIN后，TCP协议栈就会自动发送ACK，接着进入<strong>CLOSE_WAIT</strong>状态。但是如果服务器端不执行socket的close()操作，那么就没法进入LAST_ACK，导致大量连接处于<strong>CLOSE_WAIT</strong>状态，所以如果服务器出现了大量<strong>CLOSE_WAIT</strong>状态，一般是程序Bug，或者关闭socket不及时，需要去排查程序或者手动执行socket的close()操作；</p>
 <h5 id="7-3-TCP四次挥手过程中，为什么需要等待2MSL-才进入CLOSED关闭状态"><a href="#7-3-TCP四次挥手过程中，为什么需要等待2MSL-才进入CLOSED关闭状态" class="headerlink" title="7.3 TCP四次挥手过程中，为什么需要等待2MSL,才进入CLOSED关闭状态"></a>7.3 TCP四次挥手过程中，为什么需要等待2MSL,才进入CLOSED关闭状态</h5><ol>
 <li><strong>为了保证客户端发送的最后一个ACK报文段能够到达服务端。</strong> 这个ACK报文段有可能丢失，因而使处在<strong>LAST-ACK</strong>状态的服务端就收不到对已发送的<strong>FIN + ACK</strong>报文段的确认。服务端会超时重传这个FIN+ACK 报文段，而客户端就能在 2MSL 时间内（<strong>超时 + 1MSL 传输</strong>）收到这个重传的 FIN+ACK 报文段。接着客户端重传一次确认，重新启动2MSL计时器。最后，客户端和服务器都正常进入到<strong>CLOSED</strong>状态。</li>
 <li><strong>防止已失效的连接请求报文段出现在本连接中</strong>。客户端在发送完最后一个ACK报文段后，再经过时间2MSL，就可以使本连接持续的时间内所产生的所有报文段都从网络中消失。这样就可以使下一个连接中不会出现这种旧的连接请求报文段。</li>
 </ol>
 <h4 id="8-【DNS域名解析原理】"><a href="#8-【DNS域名解析原理】" class="headerlink" title="8. 【DNS域名解析原理】"></a>8. 【DNS域名解析原理】</h4><p>DNS：域名解析系统，是Internet上作为域名和IP相互映射的一个分布式数据库；</p>
-<p><strong>DNS解析查找过程：</strong><br>1.首先会查找浏览器的缓存,看看是否能找到域名对应的IP地址，找到就直接返回，否则进行下一步；</p>
-<p>2.将请求发往给本地DNS服务器，如果查找到也直接返回，否则继续进行下一步；</p>
+<p><strong>DNS解析查找过程：</strong><br>1.首先会查找浏览器的缓存，看是否能找到域名对应的IP地址，找到就直接返回，否则进行下一步；</p>
+<p>2.将请求发给本地DNS服务器，如果查找到也直接返回，否则继续进行下一步；</p>
 <p>3.①本地DNS服务器向根域名服务器发送请求，根域名服务器返回负责.com的顶级域名服务器的IP地址的列表；<br>   ②本地DNS服务器再向其中一个负责.com的顶级域名服务器发送一个请求，返回负责xxx的权威域名服务器的IP地址列表；<br>   ③本地DNS服务器再向其中一个权威域名服务器发送一个请求，返回完整域名所对应的IP地址。</p>
 <h4 id="9-【HTTP和HTTPS协议的区别】"><a href="#9-【HTTP和HTTPS协议的区别】" class="headerlink" title="9. 【HTTP和HTTPS协议的区别】"></a>9. 【HTTP和HTTPS协议的区别】</h4><p>HTTPS：超文本传输安全协议，经由 HTTP 进行通信，但利用 SSL/TLS 来加密数据包</p>
 <p><strong>HTTP与HTTPS的区别</strong>：</p>
@@ -6797,7 +6958,7 @@
 <p>（3）是否共享数据：重定向两次请求不共享数据，转发一次请求共享数据（在request级别使用信息共享，使用重定向必然出错）；</p>
 <p>（4）跳转限制：重定向可以跳转到任意URL，转发只能跳转本站点资源；</p>
 <p>（5）发生行为不同：重定向是客户端行为，转发是服务器端行为。</p>
-<h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><h4 id="1-Linux里如何查看一个想知道的进程？"><a href="#1-Linux里如何查看一个想知道的进程？" class="headerlink" title="1. Linux里如何查看一个想知道的进程？"></a>1. Linux里如何查看一个想知道的进程？</h4><p><strong>查看进程运行状态的指令</strong>：<strong>ps</strong>命令。**”ps -aux | grep PID”**，用来查看某PID进程状态</p>
+<h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><h4 id="1-Linux里如何查看一个想知道的进程？"><a href="#1-Linux里如何查看一个想知道的进程？" class="headerlink" title="1. Linux里如何查看一个想知道的进程？"></a>1. Linux里如何查看一个想知道的进程？</h4><p><strong>查看进程运行状态的指令</strong>：<strong>ps</strong>命令。**”ps aux | grep PID”**，用来查看某PID进程状态</p>
 <h4 id="2-Linux里如何查看带有关键字的日志文件？"><a href="#2-Linux里如何查看带有关键字的日志文件？" class="headerlink" title="2. Linux里如何查看带有关键字的日志文件？"></a>2. Linux里如何查看带有关键字的日志文件？</h4><p><strong>“cat 路径/文件名 | grep 关键词”<strong>或者</strong>“grep -i 关键词 路径/文件名”</strong> </p>
 <h4 id="3-Linux修改主机名的命令是什么？"><a href="#3-Linux修改主机名的命令是什么？" class="headerlink" title="3. Linux修改主机名的命令是什么？"></a>3. Linux修改主机名的命令是什么？</h4><ol>
 <li><p>如果只需要临时更改主机名，可以使用hostname命令。</p>
@@ -6852,10 +7013,7 @@
 <p>9、调试让系统能够正常访问不报错。</p>
 <p>10、完成。</p>
 <h4 id="6-进程与线程的区别？"><a href="#6-进程与线程的区别？" class="headerlink" title="6. 进程与线程的区别？"></a>6. 进程与线程的区别？</h4><p><strong>调度</strong>：进程是资源管理的基本单位，一个进程可以有多个线程，线程是程序执行的基本单位。<br><strong>切换</strong>：线程上下文切换比进程上下文切换要快得多。<br><strong>拥有资源</strong>： 进程是拥有资源的一个独立单位，线程不拥有系统资源，但是可以访问隶属于进程的资源。<br><strong>系统开销</strong>： 创建或撤销进程时，系统都要为之分配或回收系统资源，如内存空间，I/O设备等，OS所付出的开销显著大于在创建或撤销线程时的开销，进程切换的开销也远大于线程切换的开销。</p>
-<h4 id="7-协程与线程的区别"><a href="#7-协程与线程的区别" class="headerlink" title="7. 协程与线程的区别"></a>7. 协程与线程的区别</h4><p>（1）协程执行效率极高。协程直接操作栈基本没有内核切换的开销，所以上下文的切换非常快，切换开销比线程更小。</p>
-<p>（2）协程不需要多线程的锁机制，可以不加锁的访问全局变量，多个协程从属于一个线程，不存在同时写变量冲突，效率比线程高。</p>
-<p>（3）一个线程可以有多个协程。</p>
-<h5 id="7-1-什么是协程？"><a href="#7-1-什么是协程？" class="headerlink" title="7.1 什么是协程？"></a>7.1 什么是协程？</h5><p>协程是微线程，在子程序内部执行，可在子程序内部中断，转而执行别的子程序，在适当的时候再返回来接着执行。</p>
+<h4 id="7-协程与线程的区别"><a href="#7-协程与线程的区别" class="headerlink" title="7. 协程与线程的区别"></a>7. 协程与线程的区别</h4><h5 id="7-1-什么是协程？"><a href="#7-1-什么是协程？" class="headerlink" title="7.1 什么是协程？"></a>7.1 什么是协程？</h5><p>协程是微线程，在子程序内部执行，可在子程序内部中断，转而执行别的子程序，在适当的时候再返回来接着执行。</p>
 <h5 id="7-2-为什么协程比线程切换的开销小？"><a href="#7-2-为什么协程比线程切换的开销小？" class="headerlink" title="7.2 为什么协程比线程切换的开销小？"></a>7.2 为什么协程比线程切换的开销小？</h5><p>（1）协程执行效率极高。协程直接操作栈基本没有内核切换的开销，所以上下文的<strong>切换非常快</strong>，切换开销比线程更小。</p>
 <p>（2）协程不需要多线程的锁机制，因为多个协程从属于一个线程，不存在同时写变量冲突，效率比线程高。<strong>避免了加锁解锁的开销。</strong></p>
 <h4 id="8-并行和并发的区别"><a href="#8-并行和并发的区别" class="headerlink" title="8. 并行和并发的区别"></a>8. 并行和并发的区别</h4><p><strong>并发</strong>就是在一段时间内，多个任务都会被处理；但在某一时刻，只有一个任务在执行。单核处理器可以做到并发。比如有两个进程A和B，A运行一个时间片之后，切换到B，B运行一个时间片之后又切换到A。因为切换速度足够快，所以宏观上表现为在一段时间内能同时运行多个程序。</p>
@@ -6980,8 +7138,8 @@
 </ul>
 <p><strong>自旋锁存在的问题</strong></p>
 <ul>
-<li>如果某个线程持有锁的时间过长，就会导致其它等待获取锁的线程进入循环等待，消耗CPU。使用不当会造成CPU使用率极高。</li>
-<li>无法满足等待时间最长的线程优先获取锁。不公平的锁就会存在线程饥饿问题。</li>
+<li>如果某个线程持有锁的时间过长，就会导致其它等待获取锁的线程一直处于循环等待消耗CPU。</li>
+<li>无法满足等待时间最长的线程优先获取锁，这种非公平锁就会存在线程饥饿问题。</li>
 </ul>
 <p><strong>自旋锁的优点</strong></p>
 <ul>
@@ -6992,7 +7150,7 @@
 <ul>
 <li>自旋锁与互斥锁都是为了实现保护资源共享的机制。</li>
 <li>无论是自旋锁还是互斥锁，在任意时刻，都最多只能有一个保持者。</li>
-<li>获取互斥锁的线程，如果锁已经被占用，则该线程将进入睡眠状态；获取自旋锁的线程则不会睡眠，而是一直循环等待锁释放。</li>
+<li><strong>获取互斥锁的线程，如果锁已经被占用，则该线程将进入睡眠状态；获取自旋锁的线程则不会睡眠，而是一直循环等待锁释放</strong>。</li>
 </ul>
 ]]></content>
       <categories>
