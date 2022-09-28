@@ -3887,7 +3887,7 @@
       </tags>
   </entry>
   <entry>
-    <title>Java面试知识点总结</title>
+    <title>Java各模块知识点总结</title>
     <url>/2022/01/07/Java%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一些关于Java各个知识点的个人总结，例如Java基础、集合、并发编程、JVM、Redis、MySQL、RabbitMQ等模块内容；</p>
 <span id="more"></span>
@@ -7157,7 +7157,56 @@
         <category>Java</category>
       </categories>
       <tags>
-        <tag>面试题总结</tag>
+        <tag>知识点总结</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2021/10/05/Error%20creating%20bean%20with%20name%20%E2%80%98httpPutFormContentFilter%E2%80%98%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/</url>
+    <content><![CDATA[<p>记录一次上传代码到服务器后出现Error creating bean with name ‘httpPutFormContentFilter‘问题的错误解决方案</p>
+<span id="more"></span>
+
+<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>前几天在处理一个新的业务时复用了以前一个老项目的代码框架进行修改，但是在上传代码到测试环境运行时报了以下错误：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. </span><br><span class="line">Message: Error creating bean with name <span class="string">&#x27;httpPutFormContentFilter&#x27;</span> defined in <span class="keyword">class</span> <span class="title class_">path</span> resource</span><br></pre></td></tr></table></figure>
+
+<p>我一看是Tomcat相关的问题，就去检查了代码中是否接口访问路径有冲突，当时找到了有两个Controller的访问url重复了，以为是这个问题，但是重新部署后问题也没有解决；</p>
+<h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h3><p>通过去Stack Overflow查找发现可能是以下两个原因导致的：</p>
+<ol>
+<li>启动类未加@SpringBootApplication；</li>
+<li>引入依赖出错，或者重复引入依赖；</li>
+</ol>
+<p>最后我发现我的项目是在引入了spring-boot-starter-web的同时，又引入了spring-web重复依赖导致的，注释掉spring-web依赖后问题顺利解决；</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--        &lt;dependency&gt;--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--            &lt;groupId&gt;org.springframework&lt;/groupId&gt;--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--            &lt;artifactId&gt;spring-web&lt;/artifactId&gt;--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--        &lt;/dependency&gt;--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>问题记录</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>git merge 合并分支时遇上refusing to merge unrelated histories问题解决</title>
+    <url>/2022/09/28/git%20merge%20%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF%E6%97%B6%E9%81%87%E4%B8%8Arefusing%20to%20merge%20unrelated%20histories%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/</url>
+    <content><![CDATA[<p>记录一次分支合并时遇上refusing to merge unrelated histories的解决方案</p>
+<span id="more"></span>
+
+<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>最近在开发一个项目时，想拉取master分支的代码先合并到本地的dev开发分支上，但是在合并分支时提示一个“refusing to merge unrelated histories”的错误，这是由于两个分支拥有不相关的提交历史所以被拒绝合并；</p>
+<h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h3><p>如果需要合并出现这种问题的分支，则可以在执行merge命令时指定一个–allow-unrelated-histories 参数，去允许合并具有不相关提交历史的开发分支；</p>
+<p>例如：合并master分支到dev分支：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git merge master --allow-unrelated-histories</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>问题记录</tag>
       </tags>
   </entry>
 </search>
